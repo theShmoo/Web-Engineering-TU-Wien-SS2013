@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-     <title>Formel 0 - Registrieren</title>
+     <title>Formel 0 - Spielfeld</title>
      <link rel="stylesheet" type="text/css" href="./styles/screen.css" />
      <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
      <meta name="description" content="Ein Formular zum Registrieren auf der Formel 0 Seite" />
@@ -17,7 +17,7 @@
             <div class="right"></div>
         </div>
         
-   <div id="navbar">
+   		<div id="navbar">
             	<ul>
                 	<li>
                     	<a href="register.html">| Neues Spiel </a>
@@ -26,31 +26,40 @@
                     	<a href="ausloggen.html">| Ausloggen</a> 
           
                 </ul>
-		 </div>
- 	</div> 
- 	<!-- header -->
-    <div id="main">
+		</div> <!-- navbar -->
+ 	</div> <!-- header -->
+ <div id="main">
         
       <div id="gameboard">
         
         	<div id="information">
-        	<span class="heading">Spielinformationen</span>
-            <p>F&uuml;hrender <br />
-            Runde<br />
-            Zeit<br />
-            </p>
+                <span class="heading">Spielinformationen</span>
+                <div class="row">F&uuml;hrender </div>
+                <div class="row">Runde</div>
+                <div class="row">Zeit</div>
+                
+                
+                <span class="heading">Spieler</span>        	
+                <div class="row">Spieler 1</div>
+                <div class="row">Spieler 2</div>
+                
+            </div> <!-- information -->
             
-            <span class="heading">Spieler</span>        	
-            <p>Spieler 1<br />
-            Spieler 2</p>
-            
-            </div>
-            
-        <br /> <br />
-      </div> <!-- gameboard -->
+       
         
-     
-    </div> <!-- main -->
+        
+        <div id="racetrack">
+        	<div class="top"></div>
+            <div class="track"></div>
+            <div class="bottom"></div>
+        
+        </div> <!-- racetrack -->
+        
+        
+   </div> <!-- gameboard -->
+   <p>&nbsp;</p>
+    </div> 
+    <!-- main -->
  <div id="footer">
     	<p>&copy; 2013 Formel 0</p>
     	<!-- footer --> </div>
