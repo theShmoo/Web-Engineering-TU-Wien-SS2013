@@ -22,7 +22,6 @@ body
 	background-color:#FFFFFF;
 	border-style:solid;
 	border-width:1px;
-	padding-left:20px;
 	padding-bottom:30px;
 }
 
@@ -106,6 +105,33 @@ form input,select
 form input[type=text]
 {
 	width:180px;
+}
+
+/* Gameboard */
+
+#gameboard
+{
+	background-image:url(../img/field_background.png);
+	background-repeat:repeat;	
+}
+
+#information
+{
+	padding-top:10px;
+	width:140px;	
+	background-color:#404448;
+}
+
+#information .heading
+{
+	color:#EF9300;
+	font-size:15px;
+}
+
+#information p
+{
+	color:#FFFFFF;
+	font-size:10px;
 }
 
 /* Overwriting standard templates  */
