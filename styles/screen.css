@@ -116,6 +116,7 @@ form input[type=text],input[type=password]
 
 #gameboard
 {
+	height:600px;
 	background-image:url(../img/field_background.png);
 	background-repeat:repeat;
 	padding-bottom:30px;	
@@ -123,12 +124,12 @@ form input[type=text],input[type=password]
 
 #information
 {
+	width:200px;
+	height:150px;
+	float:left;
 	padding-top:10px;
 	padding-left:15px;
-	width:200px;
-	height:150px;	
 	background-color:#404448;
-	float:left;
 }
 
 #information .row
@@ -154,8 +155,12 @@ form input[type=text],input[type=password]
 
 #racetrack
 {
+	float:left;
+	display:block;
+	width:123px;
+	height:500px;
 	padding-top:30px;
-	padding-left:300px;
+	padding-left:70px;
 }
 
 #racetrack .top
@@ -178,6 +183,46 @@ form input[type=text],input[type=password]
 	background-image:url(../img/finish_road.png);
 	background-repeat:no-repeat
 }
+
+/* Cube */
+
+#cube
+{
+		width:130px;
+		height:130px;
+		float:left;
+		background-color:#404448;
+		
+		margin-top:10px;
+		margin-left:70px;
+		
+		/* Border */
+			border-width:4px;
+			border-style:solid;
+			text-align:justify;
+			border-color:#FFCC00;
+}
+
+#cube .text
+{
+		width:inherit;
+		height:35px;
+		padding-top:5px;
+		text-align:center;
+		color:#FFFFFF;
+		font-size:20px;			
+}
+
+#cube .image
+{
+		height:85px;
+		width:85px;
+		display:block;
+		margin-left: auto;
+    	margin-right: auto;
+		
+}
+
 
 /* Overwriting standard templates  */
 h1
