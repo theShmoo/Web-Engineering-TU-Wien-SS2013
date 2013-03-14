@@ -22,7 +22,7 @@ body
 	background-color:#FFFFFF;
 	border-style:solid;
 	border-width:1px;
-	padding-bottom:30px;
+	margin-bottom:30px;
 }
 
 #footer
@@ -80,6 +80,7 @@ body
 }
 
 /* Formular elements */
+
 form .row
 {
 	clear: both;
@@ -112,26 +113,66 @@ form input[type=text]
 #gameboard
 {
 	background-image:url(../img/field_background.png);
-	background-repeat:repeat;	
+	background-repeat:repeat;
+	padding-bottom:30px;	
 }
 
 #information
 {
 	padding-top:10px;
-	width:140px;	
+	padding-left:15px;
+	width:200px;
+	height:150px;	
 	background-color:#404448;
+	float:left;
+}
+
+#information .row
+{
+	color:#EF9300;
+	font-size:10px;	
 }
 
 #information .heading
 {
 	color:#EF9300;
 	font-size:15px;
+	padding-bottom:300px;	
 }
 
 #information p
 {
 	color:#FFFFFF;
 	font-size:10px;
+}
+
+/* Race-Track */
+
+#racetrack
+{
+	padding-top:30px;
+	padding-left:300px;
+}
+
+#racetrack .top
+{
+	height:97px;
+	background-image:url(../img/start_road.png);
+	background-repeat:no-repeat;
+}
+
+#racetrack .track
+{
+	height:300px;
+	background-image:url(../img/empty_road.png);
+	background-repeat:repeat-y;	
+}
+
+#racetrack .bottom
+{
+	height:97px;
+	background-image:url(../img/finish_road.png);
+	background-repeat:no-repeat
 }
 
 /* Overwriting standard templates  */
