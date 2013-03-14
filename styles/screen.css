@@ -22,7 +22,12 @@ body
 	background-color:#FFFFFF;
 	border-style:solid;
 	border-width:1px;
-	margin-bottom:30px;
+}
+
+#register
+{
+	padding-left:20px;	
+	padding-bottom:30px;
 }
 
 #footer
@@ -42,7 +47,7 @@ body
 {
 	float:left;
 	height:70px;
-	width:160px;
+	width:159px;
 	background-image:url(../img/header_left.png);
 }
 #banner .right
@@ -86,7 +91,6 @@ form .row
 	clear: both;
 	margin: 10px 0px;	
 	padding: 5px 0px;
-	padding-bottom:20px;
 }
 
 form label
@@ -97,13 +101,13 @@ form label
 	padding-left: 30px;
 }
 
-form input,select
+form input,select,password
 {
 	float: left;
 	text-align: left;
 }
 
-form input[type=text]
+form input[type=text],input[type=password]
 {
 	width:180px;
 }
