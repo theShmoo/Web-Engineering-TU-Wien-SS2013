@@ -36,26 +36,26 @@ body
 	background-image:url(../img/header_right.png);
 }
 
-#breadcrumps
-{
-	color:#FFFFFF;
-}
-
 #navbar
 {
-	text-align:right
+	text-align:right;
+	display:block;
 }
 
 #navbar li
 {
-display:inline;
+	display:inline;
+	list-style: none;
+	text-decoration:none;
+	color:#FFFFFF;
+	width:60px;
+	padding-right:10px;
 }
 
 #navbar a
 {
 	text-decoration:none;
 	color:#FFFFFF;
-	display:block;
 	width:60px;
 }
 
