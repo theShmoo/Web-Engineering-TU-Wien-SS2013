@@ -125,9 +125,8 @@ form input[type=text],input[type=password]
 #information
 {
 	width:200px;
-	height:150px;
+	height:180px;
 	float:left;
-	padding-top:10px;
 	padding-left:15px;
 	background-color:#404448;
 }
@@ -142,6 +141,8 @@ form input[type=text],input[type=password]
 {
 	color:#EF9300;
 	font-size:17px;	
+	padding-top:10px;
+	padding-bottom:10px;
 }
 
 #information .wert
