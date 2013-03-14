@@ -141,8 +141,14 @@ form input[type=text],input[type=password]
 #information .heading
 {
 	color:#EF9300;
-	font-size:15px;
-	padding-bottom:300px;	
+	font-size:17px;	
+}
+
+#information .wert
+{
+	color:#FFFFFF;
+	float:right;
+	margin-right:15px;	
 }
 
 #information p
