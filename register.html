@@ -28,6 +28,7 @@
         
     </div> <!-- header -->
     <div id="main">
+     <div id="register">
         <h1>Registrieren</h1>
         <p>Bitte füllen Sie das unten stehende Formular aus!</p>
         <form action="register" method="post">
@@ -38,8 +39,10 @@
                 <input type="text" id="forename" name="forename" />
             </div>
             <div class="row">
-                <label for="lastname">Nachname</label>
-                <input type="text" id="lastname" name="lastname" />
+                <p>
+                  <label for="lastname">Nachname</label>
+                  <input type="text" id="lastname" name="lastname" />
+                </p>
             </div>
             <div class="row">
                 <label for="dob">Geburtsdatum</label>
@@ -65,12 +68,11 @@
             </div>
             
             <div class="row">
-          	<br />
             <input type="submit" id="sub" disabled="disabled" value="Registrieren"/>  
             </div>
        		
         </form>
-     
+     </div> <!-- register -->
     </div> <!-- main -->
     <div id="footer">
     	<p>&copy; 2013 Formel 0</p>
