@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="de" lang="de">
+ <head>
+     <title>Formel 0 - Registrieren</title>
+     <link rel="stylesheet" type="text/css" href="style.css" />
+     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+     <meta name="description" content="Ein Formular zum Registrieren auf der Formel 0 Seite" />
+     <meta name="keywords" content="Formel 0" />
+     <meta name="language" content="de-AT" />
+ </head>
+ <body>
+ 	<div id="header">
+    	<div id="banner">
+            <span class="left"></span>
+            <span class="right"></span>
+        </div>
+        <div id="breadcrumbs">
+        	<div id="navbar">
+            	<ul>
+                	<li><a href="register.html">Einloggen</a></li>
+                </ul>
+			</div> <!-- navbar -->
+        </div> <!-- breadcrump -->
+    </div> <!-- header -->
+    <div id="main">
+        <h1>Registrieren</h1>
+        <p>Bitte füllen Sie das unten stehende Formular aus!</p>
+        <form action="register" method="post">
+            <h2>Persönliche Daten</h2>
+            <p>
+            <div class="row">
+                <label for="forename">Vorname</label>
+                <input type="text" id="forename" name="forename" />
+            </div>
+            <div class="row">
+                <label for="lastname">Nachname</label>
+                <input type="text" id="lastname" name="lastname" />
+            </div>
+            <div class="row">
+                <label for="dob">Geburtsdatum</label>
+                <input type="text" id="dob" name="dob" />
+            </div>
+            <div class="row">
+                <label for="sex">Gechlecht</label>
+                <select name="sex" id="sex">
+                    <option selected="selected">weiblich</option>
+                    <option>männlich</option>
+                </select>
+            </div>
+            </p> 
+			<h2>Login Daten</h2>
+            <p>
+            <div class="row">
+                <label for="user">Benutzer</label>
+                <input type="text" id="user" name="user" />
+            </div>
+            <div class="row">
+                <label for="pass">Passwort</label>
+                <input type="password" id="pass" name="pass" /> 
+            </div> 
+            </p>
+            <p>
+            <input type="submit" id="sub" disabled="disabled" value="Registrieren"/>
+            </p>
+        </form>
+    </div> <!-- main -->
+    <div id="footer">
+    	<p>&copy; 2013 Formel 0</p>
+    </div>
+    <!-- footer -->
+ </body>
+</html>
