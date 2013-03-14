@@ -3,8 +3,11 @@ body
 {
 	background-color:#AAAAAA;
 	font-family:"Arial", Helvetica, sans-serif;
-	padding:20px;
+	padding-top: 20px;
+	padding-left:50px; 
+	padding-right: 50px;
 }
+
 
 #header
 {
@@ -14,10 +17,25 @@ body
 	clear:both;
 }
 
+#main
+{
+	background-color:#FFFFFF;
+	border-style:solid;
+	border-width:1px;
+	padding-left:20px;
+	padding-bottom:30px;
+}
+
+#footer
+{
+	text-align:right;
+}
+
+/* Banner */
 #banner
 {
 	background-image:url(../img/header_fill.png);
-	background-repeat:repeat;
+	background-repeat:repeat-x;
 	height:70px;	
 }
 
@@ -25,7 +43,7 @@ body
 {
 	float:left;
 	height:70px;
-	width:159px;
+	width:160px;
 	background-image:url(../img/header_left.png);
 }
 #banner .right
@@ -36,10 +54,13 @@ body
 	background-image:url(../img/header_right.png);
 }
 
+/* Navigation Bar (Menue) */
 #navbar
 {
 	text-align:right;
 	display:block;
+	margin-top:-10px;
+	margin-bottom:-10px;
 }
 
 #navbar li
@@ -48,7 +69,6 @@ body
 	list-style: none;
 	text-decoration:none;
 	color:#FFFFFF;
-	width:60px;
 	padding-right:10px;
 }
 
@@ -56,35 +76,16 @@ body
 {
 	text-decoration:none;
 	color:#FFFFFF;
-	width:60px;
+	
 }
 
-#main
-{
-	background-color:#FFFFFF;
-	border-style:solid;
-	border-width:1px;
-	padding:10px;
-}
-
-h1
-{
-	color:#EF9300;
-}
-
-h2
-{
-}
-
-p
-{
-}
-
+/* Formular elements */
 form .row
 {
 	clear: both;
 	margin: 10px 0px;	
 	padding: 5px 0px;
+	padding-bottom:20px;
 }
 
 form label
@@ -101,17 +102,13 @@ form input,select
 	text-align: left;
 }
 
-form input
+form input[type=text]
 {
 	width:180px;
 }
 
-form #sub
+/* Overwriting standard templates  */
+h1
 {
-	margin-left:20px;
-}
-
-#footer
-{
-	text-align:right;
+	color:#EF9300;
 }
