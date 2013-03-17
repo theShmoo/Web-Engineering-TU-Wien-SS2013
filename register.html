@@ -84,39 +84,65 @@
     </div>
     <!-- footer -->
 
-    <script>
-        var dob = $("#registrationform :input[name='dob']");
-        var user = $("#registrationform :input[name='user']");
-        var pass = $("#registrationform :input[name='pass']");
-        $(document).ready(function(){
-          user.keyup(function() {
-            var value = user.val();
-            var length = value.length;
-            if(length>=4 && length<=8) {
-              $("#uservalidation").text(' Gueltiger Username').css("color","green");
-            } else {
-              $("#uservalidation").text(' Der Name muss zwischen 4 und 8 Buchstaben enthalten').css("color","red");
-            }
-          });
-          pass.keyup(function() {
-            var value = pass.val();
-            var length = value.length;
-            if(length>=4 && length<=8) {
-              $("#passvalidation").text(' Gueltiges Passwort').css("color","green");
-            } else {
-              $("#passvalidation").text(' Das Passwort muss zwischen 4 und 8 Buchstaben enthalten').css("color","red");
-            }
-          });
-          dob.keyup(function() {
-            var value = dob.val();
-            var length = value.length;
-            if(value.match(/^\d\d?\.\d\d?\.\d\d\d\d$/) || length == 0) {
-              $("#dobvalidation").text(' Gueltiges Geburtsdatum').css("color","green");
-            } else {
-              $("#dobvalidation").text(' Das Geburtsdatum muss in der Form DD.MM.YYYY vorliegen').css("color","red");
-            }
-          });
+    <script type="text/javascript">
+      //<![CDATA[
+      var dob = $("#registrationform :input[name='dob']");
+      var user = $("#registrationform :input[name='user']");
+      var pass = $("#registrationform :input[name='pass']");
+      var doberror = false;
+      var usererror = true;
+      var passerror = true;
+      var submitbutton = $("#registrationform :input[type='submit']");
+
+      var checkInput = function() {
+        if(!doberror && !usererror && !passerror) {
+          submitbutton.removeAttr('disabled');
+        } else {
+          submitbutton.attr('disabled','disabled');
+        }
+      }
+
+      $(document).ready(function(){
+        
+        //input validation
+        dob.keyup(function() {
+          var value = dob.val();
+          var length = value.length;
+          if(value.match(/^\d\d?\.\d\d?\.\d\d\d\d$/) || length == 0) {
+            $("#dobvalidation").text(' Gueltiges Geburtsdatum').css("color","green");
+            doberror = false;
+          } else {
+            $("#dobvalidation").text(' Das Geburtsdatum muss in der Form DD.MM.YYYY vorliegen').css("color","red");
+            doberror = true;
+          }
+          checkInput();
         });
-     </script>
+        user.keyup(function() {
+          var value = user.val();
+          var length = value.length;
+          if(length>=4 && length<=8) {
+            $("#uservalidation").text(' Gueltiger Username').css("color","green");
+            usererror = false;
+          } else {
+            $("#uservalidation").text(' Der Name muss zwischen 4 und 8 Buchstaben enthalten').css("color","red");
+            usererror = true;
+          }
+          checkInput();
+        });
+        pass.keyup(function() {
+          var value = pass.val();
+          var length = value.length;
+          if(length>=4 && length<=8) {
+            $("#passvalidation").text(' Gueltiges Passwort').css("color","green");
+            passerror = false;
+          } else {
+            $("#passvalidation").text(' Das Passwort muss zwischen 4 und 8 Buchstaben enthalten').css("color","red");
+            passerror = true;
+          }
+          checkInput();
+        });
+      });
+      //]]>
+    </script>
  </body>
 </html>
