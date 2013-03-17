@@ -10,11 +10,6 @@
      <meta name="language" content="de-AT" />
      <!-- JQuery -->
      <script type="text/javascript" src="./js/jquery.js"></script>
-     <script>
-        $(document).ready(function(){
-          // Some crazy code
-        });
-     </script>
  </head>
  <body>
  	<div id="header">
@@ -38,7 +33,7 @@
      <div id="register">
         <h1>Registrieren</h1>
         <p>Bitte füllen Sie das unten stehende Formular aus!</p>
-        <form action="register" method="post">
+        <form action="register" method="post" id="registrationform">
             <h2>Persönliche Daten</h2>
             
             <div class="row">
@@ -85,5 +80,19 @@
     	<p>&copy; 2013 Formel 0</p>
     </div>
     <!-- footer -->
+
+    <script>
+        var forename = $("#registrationform :input[name='forename']");
+        var lastname = $("#registrationform :input[name='lastname']");
+        var dob = $("#registrationform :input[name='dob']");
+        var user = $("#registrationform :input[name='user']");
+        var pass = $("#registrationform :input[name='pass']");
+        $(document).ready(function(){
+          // Some crazy code
+          forename.blur(function() {
+            alert('Handler for .blur() called.');
+            });
+          });
+     </script>
  </body>
 </html>
