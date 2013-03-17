@@ -49,6 +49,7 @@
             <div class="row">
                 <label for="dob">Geburtsdatum</label>
                 <input type="text" id="dob" name="dob" />
+                <span id="dobvalidation"></span>
             </div>
             <div class="row">
                 <label for="sex">Geschlecht</label>
@@ -63,10 +64,12 @@
             <div class="row">
                 <label for="user">Benutzer</label>
                 <input type="text" id="user" name="user" />
+                <span id="uservalidation"></span>
             </div>
             <div class="row">
                 <label for="pass">Passwort</label>
                 <input type="password" id="pass" name="pass" /> 
+                <span id="passvalidation"></span>
             </div>
             
             <div class="row">
@@ -82,17 +85,38 @@
     <!-- footer -->
 
     <script>
-        var forename = $("#registrationform :input[name='forename']");
-        var lastname = $("#registrationform :input[name='lastname']");
         var dob = $("#registrationform :input[name='dob']");
         var user = $("#registrationform :input[name='user']");
         var pass = $("#registrationform :input[name='pass']");
         $(document).ready(function(){
-          // Some crazy code
-          forename.blur(function() {
-            alert('Handler for .blur() called.');
-            });
+          user.keyup(function() {
+            var value = user.val();
+            var length = value.length;
+            if(length>=4 && length<=8) {
+              $("#uservalidation").text(' Gueltiger Username').css("color","green");
+            } else {
+              $("#uservalidation").text(' Der Name muss zwischen 4 und 8 Buchstaben enthalten').css("color","red");
+            }
           });
+          pass.keyup(function() {
+            var value = pass.val();
+            var length = value.length;
+            if(length>=4 && length<=8) {
+              $("#passvalidation").text(' Gueltiges Passwort').css("color","green");
+            } else {
+              $("#passvalidation").text(' Das Passwort muss zwischen 4 und 8 Buchstaben enthalten').css("color","red");
+            }
+          });
+          dob.keyup(function() {
+            var value = dob.val();
+            var length = value.length;
+            if(value.match(/^\d\d?\.\d\d?\.\d\d\d\d$/) || length == 0) {
+              $("#dobvalidation").text(' Gueltiges Geburtsdatum').css("color","green");
+            } else {
+              $("#dobvalidation").text(' Das Geburtsdatum muss in der Form DD.MM.YYYY vorliegen').css("color","red");
+            }
+          });
+        });
      </script>
  </body>
 </html>
