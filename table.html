@@ -95,12 +95,57 @@
 
  <script type="text/javascript">
       //<![CDATA[
-      var car1 = $("#racetrack :input[name='dob']");
-      var doberror = false;
+      var cube = $("#cube");
+      var width = 123;
+      var height = 500;
+      var positionCar2 = Math.ceil(width/2)+8;
+      function Car(x,y,divId) {
+        this.x = x;
+        this.y = y;
+        this.xStart = x;
+        this.yStart = y;
+        this.divId = divId;
+        width = 35;
+        height = 70;
+        stepsize = 30;
+        this.drive =
+            function(steps) {
+                this.y += steps*stepsize;
+                this.refresh();
+            }
+        this.getId =
+            function() {
+                return divId;
+            }
+        this.refresh =
+            function() {
+                divId.css('left', this.x);
+                divId.css('top', this.y);
+            }
 
+        this.restart =
+            function() {
+                this.divId.fadeOut("slow","linear").delay(800).fadeIn("slow");
+                this.x = this.xStart;
+                this.y = this.yStart;
+                this.refresh();
+            }
+        this.refresh();
+
+      }
+      
       $(document).ready(function(){
-        
+        //Positon cars
+        var car1 = new Car(17,12,$("#racetrack #car1"));
+        var car2 = new Car(positionCar2,12,$("#racetrack #car2"));
+        car1.drive(5);
+        car2.drive(10);
+        cube.click(function(){
+            
+            car2.restart();
+        });
       });
       //]]>
+ </script>
  </body>
 </html>
