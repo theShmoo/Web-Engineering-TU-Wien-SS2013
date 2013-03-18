@@ -166,8 +166,27 @@ form input[type=text],input[type=password]
 	display:block;
 	width:123px;
 	height:500px;
-	padding-top:30px;
-	padding-left:70px;
+	margin-top:30px;
+	margin-left:70px;
+	position: relative;
+}
+
+#racetrack .car {
+	height:70px;
+	width: 35px;
+	position: absolute;
+	left:17px;
+	top: 12px;
+	background-repeat:no-repeat;
+	z-index: 10;
+}
+
+#racetrack #car1 {
+	background-image: url(../img/car1.png);
+}
+
+#racetrack #car2 {
+	background-image: url(../img/car2.png);
 }
 
 #racetrack .top
