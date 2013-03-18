@@ -113,8 +113,7 @@
         this.drive =
             function(steps) {
                 this.y += steps*stepsize;
-                this.divId.animate({'left' : this.x, 'top' : this.y},carspeed*steps,'linear');
-                //this.refresh();
+                this.divId.animate({'left' : this.x, 'top' : this.y},carspeed*Math.sqrt(steps),'linear');
             }
         this.getId =
             function() {
@@ -122,8 +121,7 @@
             }
         this.refresh =
             function() {
-                divId.css('left', this.x);
-                divId.css('top', this.y);
+                divId.css({'left' : this.x, 'top' : this.y});
             }
 
         this.restart =
@@ -143,7 +141,6 @@
         car1.drive(5);
         car2.drive(10);
         cube.click(function(){
-            car1.drive(1);
             car2.restart();
         });
       });
