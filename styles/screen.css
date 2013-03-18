@@ -77,6 +77,10 @@ body
 	padding-right:2px;
 }
 
+#navbar li:before {
+ content: '|';   
+}
+
 #navbar a
 {
 	text-decoration:none;
