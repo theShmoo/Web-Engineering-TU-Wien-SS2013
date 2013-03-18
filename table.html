@@ -105,6 +105,7 @@
         this.xStart = x;
         this.yStart = y;
         this.divId = divId;
+        var self = this;
         width = 35;
         height = 70;
         stepsize = 30;
@@ -125,10 +126,9 @@
 
         this.restart =
             function() {
-                this.divId.fadeOut("slow","linear").delay(800).fadeIn("slow");
-                this.x = this.xStart;
-                this.y = this.yStart;
-                this.refresh();
+                this.divId.fadeOut("slow","linear", function() {
+                  self.divId.delay(800).css({'left' : self.xStart, 'top' : self.yStart}).fadeIn("slow");
+                });
             }
         this.refresh();
 
@@ -141,7 +141,6 @@
         car1.drive(5);
         car2.drive(10);
         cube.click(function(){
-            
             car2.restart();
         });
       });
