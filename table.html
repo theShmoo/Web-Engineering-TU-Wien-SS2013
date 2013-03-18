@@ -97,8 +97,9 @@
       //<![CDATA[
       var cube = $("#cube");
       var width = 123;
-      var height = 500;
+      var height = 400;
       var positionCar2 = Math.ceil(width/2)+8;
+      var carspeed = 600;
       function Car(x,y,divId) {
         this.x = x;
         this.y = y;
@@ -112,7 +113,8 @@
         this.drive =
             function(steps) {
                 this.y += steps*stepsize;
-                this.refresh();
+                this.divId.animate({'left' : this.x, 'top' : this.y},carspeed*steps,'linear');
+                //this.refresh();
             }
         this.getId =
             function() {
@@ -141,6 +143,7 @@
         car1.drive(5);
         car2.drive(10);
         cube.click(function(){
+            car1.drive(1);
             car2.restart();
         });
       });
