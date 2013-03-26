@@ -89,31 +89,48 @@ body
 }
 
 /* Formular elements */
-
+form .block
+{
+	margin: 1.0em 0.0em;	
+	padding-left: 30px;
+	padding-right: 30px;
+}
 form .row
 {
-	clear: both;
-	margin: 1.0em 0.0em;	
-	padding: 0.5em 0.0em;
+	padding: 0.1em 0.0em;
 }
 
 form label
 {
-	float: left;
+	float:left;
 	text-align: left;
 	width:200px;
-	padding-left: 30px;
+
 }
 
 form input,select,password
 {
-	float: left;
 	text-align: left;
 }
 
 form input[type=text],input[type=password]
 {
 	width:18.0em;
+}
+
+.inputError{
+	color:#f00;	
+}
+
+input.inputError
+{
+	color:#000;
+	background-color: #F00
+}
+
+.inputCorrect
+{
+	color:#0C0;
 }
 
 /* Gameboard */
@@ -258,4 +275,10 @@ form input[type=text],input[type=password]
 h1
 {
 	color:#EF9300;
+}
+
+/* accessibility */
+.accessibility 
+{
+	display:none;
 }

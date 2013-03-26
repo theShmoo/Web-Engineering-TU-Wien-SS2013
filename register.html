@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
 <head>
@@ -12,69 +13,81 @@
      <script type="text/javascript" src="./js/jquery.js"></script>
  </head>
  <body>
+ 
+ <!-- Accessibility -->
+ 	<h1 class="accessibility">Formel 0</h1>
+    <h2 class="accessibility">Seitennavigation</h2>
+        <ul class="accessibility">
+			<li><a href="#navigation" title="Skip to navigation" accesskey="n">Springe zu Navigation</a></li>
+			<li><a href="#main" title="Skip to content" accesskey="s">Springe zu Inhalt</a></li>
+		</ul>
+   	<hr class="accessibility" />
+   <!-- END Accessibility -->
+   
  	<div id="header">
-    	
         <div id="banner">
             <div class="left"></div>
             <div class="right"></div>
         </div>
-        
         	<div id="navbar">
+            <h2 class="accessibility" id="navigation">Navigation</h2>
             	<ul>
                 	<li>
-                    	<a href="register.html">Einloggen </a>
+                    	<a href="register.html">Einloggen</a>
                     </li>                    
-          
                 </ul>
 			</div> <!-- navbar -->
-        
     </div> <!-- header -->
+    
+    <hr class="accessibility" />
+    
     <div id="main">
+    <h2 class="accessibility">Inhalt</h2>
+    
      <div id="register">
         <h1>Registrieren</h1>
         <p>Bitte füllen Sie das unten stehende Formular aus!</p>
         <form action="register" method="post" id="registrationform">
-            <h2>Persönliche Daten</h2>
-            
-            <div class="row">
-                <label for="forename">Vorname</label>
-                <input type="text" id="forename" name="forename" />
-            </div>
-            <div class="row">
-                <p>
-                  <label for="lastname">Nachname</label>
-                  <input type="text" id="lastname" name="lastname" />
-                </p>
-            </div>
-            <div class="row">
-                <label for="dob">Geburtsdatum</label>
-                <input type="text" id="dob" name="dob" />
-                <span id="dobvalidation"></span>
-            </div>
-            <div class="row">
-                <label for="sex">Geschlecht</label>
-                <select name="sex" id="sex">
-                    <option selected="selected">weiblich</option>
-                    <option>männlich</option>
-                </select>
-            </div>
-            <br />
+            <h2>Pers&ouml;nliche Daten</h2>
+            <div class="block">
+                <div class="row">
+                    <label for="forename">Vorname</label>
+                    <input type="text" id="forename" name="forename" />
+                </div>
+                <div class="row">
+                      <label for="lastname">Nachname</label>
+                      <input type="text" id="lastname" name="lastname" />
+                </div>
+                <div class="row">
+                    <label for="dob">Geburtstag</label>
+                    <input type="text" id="dob" name="dob" />
+                    <span id="dobvalidation" role="alert"></span>
+                </div>
+                <div class="row">
+                    <label for="sex">Geschlecht</label>
+                    <select name="sex" id="sex">
+                        <option selected="selected">weiblich</option>
+                        <option>männlich</option>
+                    </select>
+                </div>
+             </div>
 			<h2>Login Daten</h2>
-            
-            <div class="row">
-                <label for="user">Benutzer</label>
-                <input type="text" id="user" name="user" />
-                <span id="uservalidation"></span>
+            <div class="block">
+                <div class="row">
+                    <label for="user">Benutzername</label>
+                    <input type="text" id="user" name="user" />
+                    <span id="uservalidation" role="alert"></span>
+                </div>
+                <div class="row">
+                    <label for="pass">Passwort</label>
+                    <input type="password" id="pass" name="pass" /> 
+                    <span id="passvalidation" role="alert"></span>
+                </div>
             </div>
-            <div class="row">
-                <label for="pass">Passwort</label>
-                <input type="password" id="pass" name="pass" /> 
-                <span id="passvalidation"></span>
-            </div>
-            
             <div class="row">
             <input type="submit" id="sub" disabled="disabled" value="Registrieren"/>  
             </div>
+
        		
         </form>
      </div> <!-- register -->
@@ -109,12 +122,13 @@
           var value = dob.val();
           var length = value.length;
           if(value.match(/^\d\d?\.\d\d?\.\d\d\d\d$/) || length == 0) {
-            dob.css("background-color","white");
+			dob.removeClass('inputError');
+			$("#dobvalidation").removeClass('inputError');
             $("#dobvalidation").text('');
             doberror = false;
           } else {
-            dob.css("background-color","red");
-            $("#dobvalidation").text(' Das Geburtsdatum muss in der Form DD.MM.YYYY vorliegen').css("color","red");
+			dob.addClass('inputError');
+            $("#dobvalidation").text('Das Geburtsdatum muss in der Form DD.MM.YYYY vorliegen').addClass('inputError');
             doberror = true;
           }
           checkInput();
@@ -123,12 +137,13 @@
           var value = user.val();
           var length = value.length;
           if(length>=4 && length<=8) {
-            user.css("background-color","white");
-            $("#uservalidation").text(' Gueltiger Username').css("color","green");
+			user.removeClass('inputError');
+			$("#uservalidation").removeClass('inputError');
+            $("#uservalidation").text('');
             usererror = false;
           } else {
-            user.css("background-color","red");
-            $("#uservalidation").text(' Der Name muss zwischen 4 und 8 Buchstaben enthalten').css("color","red");
+			user.addClass('inputError');	
+            $("#uservalidation").text('Der Name muss zwischen 4 und 8 Buchstaben enthalten').addClass('inputError');
             usererror = true;
           }
           checkInput();
@@ -137,12 +152,13 @@
           var value = pass.val();
           var length = value.length;
           if(length>=4 && length<=8) {
-            pass.css("background-color","white");
-            $("#passvalidation").text(' Gueltiges Passwort').css("color","green");
+			pass.removeClass('inputError');
+			$("#passvalidation").removeClass('inputError');
+            $("#passvalidation").text('');
             passerror = false;
           } else {
-            pass.css("background-color","red");
-            $("#passvalidation").text(' Das Passwort muss zwischen 4 und 8 Buchstaben enthalten').css("color","red");
+			pass.addClass('inputError');	
+            $("#passvalidation").text('Das Passwort muss zwischen 4 und 8 Buchstaben enthalten').addClass('inputError');
             passerror = true;
           }
           checkInput();
