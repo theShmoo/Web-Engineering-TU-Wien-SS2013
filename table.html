@@ -12,6 +12,17 @@
      <script type="text/javascript" src="./js/jquery.js"></script>
  </head>
  <body>
+ 
+ <!-- Accessibility -->
+ 	<h1 class="accessibility">Formel 0</h1>
+    <h2 class="accessibility">Seitennavigation</h2>
+        <ul class="accessibility">
+			<li><a href="#navigation" title="Skip to navigation" accesskey="n">Springe zu Navigation</a></li>
+			<li><a href="#informationen" title="Skip to content" accesskey="s">Springe zu Spielstandinformationen</a></li>
+		</ul>
+   	<hr class="accessibility" />
+   <!-- END Accessibility -->
+ 
  <div id="header">
     	
         <div id="banner">
@@ -20,6 +31,7 @@
         </div>
         
    		<div id="navbar" role="menu">
+        <h2 class="accessibility" id="navigation">Navigation</h2>
             	<ul>
                 	<li>
                     	<a href="register.html" role="menuitem">Neues Spiel </a>
@@ -35,6 +47,7 @@
       <div id="gameboard">
         
         	<div id="information">
+            <h2 class="accessibility" id="informationen">Spielstandinformationen</h2>
                 <div class="heading">Spielinformationen</div>
                 
                 <div class="row">F&uuml;hrender
@@ -75,10 +88,8 @@
             <div id="car2" class="car"></div>
         	<div class="top"></div>
             <div class="track"></div>
-            <div class="bottom"></div>
-        
-        </div> <!-- racetrack -->
-        
+            <div class="bottom">&amp;nbsp;<!-- racetrack -->        </div>
+        </div>
         <div id="cube">
          		
                 <div class="text">Super Mario</div>
