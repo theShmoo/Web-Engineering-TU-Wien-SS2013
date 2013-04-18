@@ -19,7 +19,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(urlPatterns = {"/ControllerServlet"})
 public class ControllerServlet extends HttpServlet {
 
-    
+    /**
+     * Creates a new race und resets all RacingData
+     */
     protected void newRace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     HttpSession session = request.getSession(true);
     session.setAttribute("raceData",new RacingData());
@@ -44,14 +46,12 @@ public class ControllerServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         RacingData bohne = null;
                 
-        if(session.getAttribute("raceData")==null){
+        if(session.getAttribute("raceData") == null){
             newRace(request,response);
         }
         if(session.getAttribute("raceData") != null){
             bohne = (RacingData) session.getAttribute("raceData");
         }
-        
-        
         
         
         // JSP File wird erstmalig aufgerufen
@@ -81,11 +81,13 @@ public class ControllerServlet extends HttpServlet {
         String action = (String) request.getParameter("action");
         
         if(action != null && action.equals("new")){
-            //TODO neues Bean erstellen
+           newRace(request,response);
         }
         
+        processRequest(request,response);
+        
           // JSP File wird erstmalig aufgerufen
-        newRace(request,response);
+        
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
         dispatcher.forward(request,response);
     }

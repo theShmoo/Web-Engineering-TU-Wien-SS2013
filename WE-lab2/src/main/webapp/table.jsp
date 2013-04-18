@@ -1,5 +1,5 @@
 <%-- 
-    Document   : table
+    Document   : table jsp-File 
     Created on : 18.04.2013, 09:10:11
     Author     : Lukas Kraenkl
 --%>
@@ -81,7 +81,7 @@
                         <h2 class="accessibility">W&uuml;rfelbereich</h2>
                         <span class="accessibility">An der Reihe ist</span><div id="currentPlayerName">Super Mario</div>
                         <a id="dice" href="#" tabindex="4">
-                            <img id="diceImage" src="img/wuerfel1.png" alt="W&uuml;rfel mit einer Eins" />	
+                            <img id="diceImage" src="img/wuerfel<%= rd.getDice() %>.png" alt="W&uuml;rfel mit einer Eins" />	
                         </a>
                     </div>
                 </div>

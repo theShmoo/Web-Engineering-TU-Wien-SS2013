@@ -16,7 +16,7 @@ public class RacingData {
     private Date time;
     
     public RacingData(){
-        //TODO Namen richtig anpassen, nur zum Debug Zweck
+        //TODO Namen richtig anpassen, nur zum Debug Zweck mit XXX versehen
         humanPlayer = "Super Mario XXX";
         computerPlayer = "Super C";
         leadingPlayer = "mehrere";
