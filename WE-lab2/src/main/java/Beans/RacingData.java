@@ -1,3 +1,5 @@
+package Beans;
+
 /**
  * This class represents the racing data
  * @author Johannes Deml, Lukas Kraenkl

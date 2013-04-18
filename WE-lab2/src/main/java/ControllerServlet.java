@@ -1,8 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * This class represents the Controller of the Servlet
+ * @author Lukas Kraenkl
  */
 
+import Beans.RacingData;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -11,14 +12,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Operator
- */
+
+
 @WebServlet(urlPatterns = {"/ControllerServlet"})
 public class ControllerServlet extends HttpServlet {
 
+    
+    protected void newRace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    HttpSession session = request.getSession(true);
+    session.setAttribute("raceData",new RacingData());
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
+    dispatcher.forward(request,response);
+    }
+  
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -31,26 +40,26 @@ public class ControllerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        /*PrintWriter out = response.getWriter();
-        try {
-            // TODO output your page here. You may use following sample code. 
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Cooler Lukas ControllerServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Controller Cooler Lukas Servlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
-        }*/
+        // Session requesten // Leere Bean erstellen
+        HttpSession session = request.getSession(true);
+        RacingData bohne = null;
+                
+        if(session.getAttribute("raceData")==null){
+            newRace(request,response);
+        }
+        if(session.getAttribute("raceData") != null){
+            bohne = (RacingData) session.getAttribute("raceData");
+        }
+        
+        
+        
         
         // JSP File wird erstmalig aufgerufen
-        RequestDispatcher dispatcher = 
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
+        dispatcher.forward(request,response);
     }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -68,8 +77,16 @@ public class ControllerServlet extends HttpServlet {
         //unterscheiden zwischen new game und würfeln
         
         //TODO request.get auf null überprüfen
+        
         String action = (String) request.getParameter("action");
-        processRequest(request, response);
+        
+        if(action != null && action.equals("new")){
+            //TODO neues Bean erstellen
+        }
+        
+          // JSP File wird erstmalig aufgerufen
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/../webapp/table.jsp");
+        dispatcher.forward(request,response);
     }
 
     /**
