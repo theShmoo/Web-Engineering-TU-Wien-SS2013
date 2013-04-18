@@ -85,7 +85,8 @@ public class ControllerServlet extends HttpServlet {
         }
         
           // JSP File wird erstmalig aufgerufen
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/../webapp/table.jsp");
+        newRace(request,response);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
         dispatcher.forward(request,response);
     }
 

@@ -1,5 +1,7 @@
 package Beans;
 
+import java.util.Date;
+
 /**
  * This class represents the racing data
  * @author Johannes Deml, Lukas Kraenkl
@@ -10,6 +12,18 @@ public class RacingData {
     private String computerPlayer;
     private String leadingPlayer;
     private int round;
+    private int dice; 
+    private Date time;
+    
+    public RacingData(){
+        //TODO Namen richtig anpassen, nur zum Debug Zweck
+        humanPlayer = "Super Mario XXX";
+        computerPlayer = "Super C";
+        leadingPlayer = "mehrere";
+        dice = 0;
+        round = 1;
+        time = new Date();
+    }
     
     /**
      * Gets the Human Player
@@ -44,6 +58,22 @@ public class RacingData {
     }
     
     /**
+     * Return the dice
+     * @return if(dice==0) -> there wasn't diced yet
+     */
+    public int getDice(){
+        return dice;
+    }
+    
+    /**
+     * Returns the duration of the game since starting
+     * @return Date of the game
+     */
+    public Date getTime(){
+        return time;
+    }
+    
+    /**
      * Sets the HumanPlayer
      * @param humanPlayer, not null, != "" 
      */
@@ -74,4 +104,13 @@ public class RacingData {
     public void setRound(int round){
         this.round = round;
     }
+    
+    /**
+     * Sets the dice
+     * @param dice, 0 < dice < 7 
+     */
+    public void setDice(int dice){
+        this.dice = dice;
+    }
+    
 }

@@ -4,6 +4,7 @@
     Author     : Lukas Kraenkl
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <jsp:useBean id="rd" scope="session" class="Beans.RacingData"/>
 
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -33,10 +34,10 @@
                     <div class="info">
                         <h2>Spielinformationen</h2>
                         <table summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
-                            <tr><th id="leaderLabel" class="label">F&uuml;hrender</th><td id="leader" class="data">Super C</td></tr>
+                            <tr><th id="leaderLabel" class="label">F&uuml;hrender</th><td id="leader" class="data"><%= rd.getLeadingPlayer() %></td></tr>
                             <tr><th id="roundLabel" class="label">Runde</th><td id="round" class="data"><%= rd.getRound() %></td></tr>
-                            <tr><th id="timeLabel" class="label">Zeit</th><td id="time" class="data">02:30</td></tr>
-                            <tr><th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em>Super C</em></th><td id="computerScore" class="data">3</td></tr>
+                            <tr><th id="timeLabel" class="label">Zeit</th><td id="time" class="data"><%= new SimpleDateFormat("mm:ss").format(rd.getTime().getTime()) %></td></tr>
+                            <tr><th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em>Super C</em></th><td id="computerScore" class="data"><%= rd.getDice() %></td></tr>
                         </table>  
                         <h2>Spieler</h2>
                         <table summary="Diese Tabelle listet die Namen der Spieler auf">
