@@ -1,11 +1,11 @@
 /**
  * This class represents the Controller of the Servlet
- * @author Lukas Kraenkl
+ * @author Lukas Kraenkl, Johannes Deml
  */
 
 import Beans.RacingData;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import java.util.Random;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 public class ControllerServlet extends HttpServlet {
 
     /**
-     * Creates a new race und resets all RacingData
+     * Creates a new race and resets all RacingData
      */
     protected void newRace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     HttpSession session = request.getSession(true);
@@ -52,23 +52,48 @@ public class ControllerServlet extends HttpServlet {
     }
     
     protected void rollDice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Generate Random number and 
-        int random = new Random().nextInt(3)+1;
+        int randomPlayer = createRandomRoll();
         HttpSession session = request.getSession(true);
         RacingData bohne = (RacingData) session.getAttribute("raceData");
-        bohne.setDice(random);
+        bohne.setDice(randomPlayer);
         
-        // TODO 
-        // Der Spieler fährt weiter.
-        // Es muss überprüft werden, ob das "neue" Feld ein Ölfleck ist, wenn ja dann retour an Start
-        // Es muss der Computer würfeln
-        // Es muss überprüft werden, ob das "neue" Feld ein Ölfleck ist, wenn ja dann retour an Start
-        // Es muss der Führende ermittelt und in der Bean aktualisiert werden
+        int randomComputer = createRandomRoll();
+        bohne.setDiceComputer(randomComputer);
         
+        //calculating new positions
+        int playerNewPosition = bohne.getPositionPlayerHuman() + randomPlayer;
+        int computerNewPosition = bohne.getPositionPlayerComputer() + randomComputer;
+        
+        //Getting OilSpills
+        List<Integer> oilSpillsList = bohne.getOilSpills();
+        
+        Integer[] oilSpills = new Integer[oilSpillsList.size()];
+        oilSpillsList.toArray(oilSpills);
+        
+        //Checking for collisions with oil Spills
+        for(int i = 0; i<oilSpills.length; i++) {
+            if(oilSpills[i] == playerNewPosition) {
+                playerNewPosition = 0;
+            }
+            if(oilSpills[i] == computerNewPosition) {
+                computerNewPosition = 0;
+            }
+        }
+        
+        bohne.setFieldPlayerHuman(playerNewPosition);
+        bohne.setFieldPlayerComputer(computerNewPosition);
+        
+        bohne.setLeadingPlayer();        
         bohne.setRound(bohne.getRound()+1);
 
     }
-
+    /**
+     * Creates a random dice roll
+     * @return An Integer between 1 and 3
+     */
+    private int createRandomRoll() {
+        return new Random().nextInt(3)+1;
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
@@ -118,6 +143,6 @@ public class ControllerServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "A Servlet for the Racing Logic";
     }// </editor-fold>
 }
