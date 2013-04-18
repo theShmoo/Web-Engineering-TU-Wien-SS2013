@@ -35,7 +35,7 @@
                             <tr><th id="leaderLabel" class="label">F&uuml;hrender</th><td id="leader" class="data"><%= raceData.getLeadingPlayer() %></td></tr>
                             <tr><th id="roundLabel" class="label">Runde</th><td id="round" class="data"><%= raceData.getRound() %></td></tr>
                             <tr><th id="timeLabel" class="label">Zeit</th><td id="time" class="data"><%= new SimpleDateFormat("mm:ss").format(raceData.getTime().getTime())%></td></tr>
-                            <tr><th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em>Super C</em></th><td id="computerScore" class="data"><%= raceData.getDice() %></td></tr>
+                            <tr><th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em><%= raceData.getComputerPlayer() %></em></th><td id="computerScore" class="data"><%= raceData.getDiceComputer()%></td></tr>
                         </table>  
                         <h2>Spieler</h2>
                         <table summary="Diese Tabelle listet die Namen der Spieler auf">
@@ -48,24 +48,24 @@
                         <ol id="road">
                             <li id="start_road">
                                 <span class="accessibility">Startfeld</span>
+                                <span id="player1">
+                                    <span class="accessibility"><em>Spieler 1</em></span>
+                                </span>
+                                <span id="player2">
+                                    <span class="accessibility"><em>Spieler 2</em></span>
+                                </span>
                             </li>
                             <li class="empty_road" id="road_1">
                                 <span class="accessibility">Feld 2</span>
                             </li>
                             <li class="oil_road" id="road_2">
                                 <span class="accessibility">Feld 3</span>
-                                <span id="player1">
-                                    <span class="accessibility"><em>Spieler 1</em></span>
-                                </span>
                             </li>
                             <li class="empty_road" id="road_3">
                                 <span class="accessibility">Feld 4</span>
                             </li>
                             <li class="empty_road" id="road_4">
                                 <span class="accessibility">Feld 5</span>
-                                <span id="player2">
-                                    <span class="accessibility"><em>Spieler 2</em></span>
-                                </span>
                             </li>
                             <li class="oil_road" id="road_5">
                                 <span class="accessibility">Feld 6</span>
@@ -93,8 +93,19 @@
         <script type="text/javascript">
             //<![CDATA[
             
+            getDivId = function(num) {
+                if(num === 0) {
+                    return "#start_road";
+                }
+                if(num >= 6) {
+                    return "#finish_road";
+                }
+                return "#road_"+num;
+            };
             // call this function once before starting the animations
             function prepareAnimation() {
+                $("#player1").appendTo(getDivId("<%= raceData.getLastPositionPlayerHuman() %>"));
+                $("#player2").appendTo(getDivId("<%= raceData.getLastPositionPlayerComputer()%>"));
                 $("#animationDone").remove();
             }
             
@@ -106,14 +117,38 @@
                 $("body").append(div);
             }
             
-            //$("#dice").click(function() {
-              //  prepareAnimation();
-               // $("#player1").fadeOut(700, function() {
-                //    $("#player1").appendTo("#start_road");
-                //    $("#player1").fadeIn(700,completeAnimation);                    
-               // });
-               // return false;
-           // });
+            $(document).ready(function() {
+                prepareAnimation();
+                
+                var humanExpectedPosition = getDivId("<%= raceData.getExpectedPositionPlayerHuman() %>");
+                var humanPosition = getDivId("<%= raceData.getPositionPlayerHuman() %>");
+                $("#player1").fadeOut(700, function() {
+                    $("#player1").appendTo(humanExpectedPosition);
+                    $("#player1").fadeIn(700,completeAnimation);                    
+                });
+                // if oil Spill -> reset
+                if(humanExpectedPosition.toString() !== humanPosition.toString()) {
+                    $("#player1").fadeOut(700, function() {
+                        $("#player1").appendTo(humanPosition);
+                        $("#player1").fadeIn(700,completeAnimation);                    
+                    });
+                }
+                
+                var computerExpectedPosition = getDivId("<%= raceData.getExpectedPositionPlayerComputer()%>");
+                var computerPosition = getDivId("<%= raceData.getPositionPlayerComputer()%>");
+                $("#player2").fadeOut(700, function() {
+                    $("#player2").appendTo(computerExpectedPosition);
+                    $("#player2").fadeIn(700,completeAnimation);                    
+                });
+                // if oil Spill -> reset
+                if(humanExpectedPosition.toString() !== computerPosition.toString()) {
+                    $("#player2").fadeOut(700, function() {
+                        $("#player2").appendTo(computerPosition);
+                        $("#player2").fadeIn(700,completeAnimation);                    
+                    });
+                }
+            });
+            
             //]]>
         </script>
 

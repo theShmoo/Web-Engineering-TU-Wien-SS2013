@@ -64,6 +64,9 @@ public class ControllerServlet extends HttpServlet {
         int playerNewPosition = bohne.getPositionPlayerHuman() + randomPlayer;
         int computerNewPosition = bohne.getPositionPlayerComputer() + randomComputer;
         
+        bohne.setExpectedFieldHuman(playerNewPosition);
+        bohne.setExpectedFieldComputer(computerNewPosition);
+        
         //Getting OilSpills
         List<Integer> oilSpillsList = bohne.getOilSpills();
         
@@ -94,6 +97,8 @@ public class ControllerServlet extends HttpServlet {
     private int createRandomRoll() {
         return new Random().nextInt(3)+1;
     }
+    
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP

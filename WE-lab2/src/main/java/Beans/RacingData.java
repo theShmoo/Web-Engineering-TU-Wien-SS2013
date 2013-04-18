@@ -15,7 +15,9 @@ public class RacingData {
     private String leadingPlayer;
 
     private int posPlayerHuman;
-    private int posPlayerComputer;    
+    private int posPlayerComputer;   
+    private int expectedPosPlayerHuman;
+    private int expectedPosPlayerComputer;
     private int lastPosPlayerHuman;
     private int lastPosPlayerComputer;
     
@@ -36,10 +38,12 @@ public class RacingData {
         diceComputer = 0;
         round = 1;
         time = new Date();
-        lastPosPlayerHuman = 1;
-        lastPosPlayerComputer = 1;
-        posPlayerHuman = 1;
-        posPlayerComputer = 1;
+        posPlayerHuman = 0;
+        posPlayerComputer = 0;
+        expectedPosPlayerHuman = 0;
+        expectedPosPlayerComputer = 0;
+        lastPosPlayerHuman = 0;
+        lastPosPlayerComputer = 0;      
     }
     
     /**
@@ -72,6 +76,22 @@ public class RacingData {
      */
     public int getPositionPlayerComputer(){
         return posPlayerComputer;
+    }
+    
+    /**
+     * Returns the position field number expected Position of Player 1
+     * @return current fieldnumber of Player 1
+     */
+    public int getExpectedPositionPlayerHuman(){
+        return expectedPosPlayerHuman;
+    }
+    
+    /**
+     * Returns the position field number of the expected Position of Player 2
+     * @return current fieldnumber of Player 2
+     */
+    public int getExpectedPositionPlayerComputer(){
+        return expectedPosPlayerComputer;
     }
     
     /**
@@ -189,6 +209,14 @@ public class RacingData {
         this.posPlayerComputer = fieldnumber;
     }
     
+    public void setExpectedFieldHuman(int fieldnumber) {
+        this.expectedPosPlayerHuman = fieldnumber;
+    }
+    
+    public void setExpectedFieldComputer(int fieldnumber) {
+        this.expectedPosPlayerComputer = fieldnumber;
+    }
+    
     /**
      * Sets the Round
      * @param round, not null, != ""
@@ -212,5 +240,4 @@ public class RacingData {
     public void setDiceComputer(int diceComputer){
         this.diceComputer = diceComputer;
     }
-    
 }
