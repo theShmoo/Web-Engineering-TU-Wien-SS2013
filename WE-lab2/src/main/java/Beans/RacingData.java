@@ -8,21 +8,31 @@ import java.util.Date;
  */
 public class RacingData {
     
-    private String humanPlayer;
-    private String computerPlayer;
+    private String humanName;
+    private String computerName;
     private String leadingPlayer;
+
+    private int posPlay1;
+    private int posPlay2;    
+    private int lastPosPlay1;
+    private int lastPosPlay2;
+    
     private int round;
     private int dice; 
     private Date time;
     
     public RacingData(){
         //TODO Namen richtig anpassen, nur zum Debug Zweck mit XXX versehen
-        humanPlayer = "Super Mario XXX";
-        computerPlayer = "Super C";
+        humanName = "Super Mario XXX";
+        computerName = "Super C";
         leadingPlayer = "mehrere";
         dice = 0;
         round = 1;
         time = new Date();
+        lastPosPlay1 = 1;
+        lastPosPlay2 = 1;
+        posPlay1 = 1;
+        posPlay2 = 1;
     }
     
     /**
@@ -30,7 +40,7 @@ public class RacingData {
      * @return Human Player
      */
     public String getHumanPlayer(){
-        return humanPlayer;
+        return humanName;
     }
     
     /**
@@ -38,7 +48,39 @@ public class RacingData {
      * @return Computer Player
      */
     public String getComputerPlayer(){
-        return computerPlayer;
+        return computerName;
+    }
+    
+    /**
+     * Returns the position field number current Position of Player 1
+     * @return current fieldnumber of Player 1
+     */
+    public int getPositionPlayer1(){
+        return posPlay1;
+    }
+    
+    /**
+     * Returns the position field number of the current Position of Player 2
+     * @return current fieldnumber of Player 2
+     */
+    public int getPositionPlayer2(){
+        return posPlay2;
+    }
+    
+    /**
+     * Returns the last position of Player 1
+     * @return last fieldnumber of Player 1
+     */
+    public int getLastPositionPlayer1(){
+        return lastPosPlay1;
+    }
+    
+    /**
+     * Returns the last position of Player 2
+     * @return last fieldnumber of Player 2
+     */
+    public int getLastPositionPlayer2(){
+        return lastPosPlay2;
     }
     
     /**
@@ -70,7 +112,7 @@ public class RacingData {
      * @return Date of the game
      */
     public Date getTime(){
-        return time;
+        return new Date(new Date().getTime() - time.getTime());
     }
     
     /**
@@ -78,7 +120,7 @@ public class RacingData {
      * @param humanPlayer, not null, != "" 
      */
     public void setHumanPlayer(String humanPlayer){
-        this.humanPlayer = humanPlayer;
+        this.humanName = humanPlayer;
     }
     
     /**
@@ -86,7 +128,7 @@ public class RacingData {
      * @param computerPlayer, not null, != "" 
      */
     public void setComputerPlayer(String computerPlayer){
-        this.computerPlayer = computerPlayer;
+        this.computerName = computerPlayer;
     }
     
     /**
@@ -95,6 +137,24 @@ public class RacingData {
      */
     public void setLeadingPlayer(String leadingPlayer){
         this.leadingPlayer = leadingPlayer;
+    }
+    
+    /**
+     * Sets a Field for Player 1
+     * @param valid fieldnumber > 0
+     */
+    public void setFieldPlayer1(int fieldnumber){
+        this.lastPosPlay1 = getPositionPlayer1();
+        this.posPlay1 = fieldnumber;
+    }
+    
+        /**
+     * Sets a Field for Player 2
+     * @param valid fieldnumber > 0
+     */
+    public void setFieldPlayer2(int fieldnumber){
+        this.lastPosPlay2 = getPositionPlayer2();
+        this.posPlay2 = fieldnumber;
     }
     
     /**

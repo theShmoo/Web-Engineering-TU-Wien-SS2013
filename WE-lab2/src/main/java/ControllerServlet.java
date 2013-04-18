@@ -6,6 +6,7 @@
 import Beans.RacingData;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-
 
 @WebServlet(urlPatterns = {"/ControllerServlet"})
 public class ControllerServlet extends HttpServlet {
@@ -25,10 +24,8 @@ public class ControllerServlet extends HttpServlet {
     protected void newRace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     HttpSession session = request.getSession(true);
     session.setAttribute("raceData",new RacingData());
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
-    dispatcher.forward(request,response);
     }
-  
+   
     
     /**
      * Processes requests for both HTTP
@@ -42,10 +39,9 @@ public class ControllerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Session requesten // Leere Bean erstellen
+        
         HttpSession session = request.getSession(true);
-        RacingData bohne = null;
-                
+        RacingData bohne = null;         
         if(session.getAttribute("raceData") == null){
             newRace(request,response);
         }
@@ -53,13 +49,25 @@ public class ControllerServlet extends HttpServlet {
             bohne = (RacingData) session.getAttribute("raceData");
         }
         
-        
-        // JSP File wird erstmalig aufgerufen
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
-        dispatcher.forward(request,response);
     }
     
-    
+    protected void rollDice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Generate Random number and 
+        int random = new Random().nextInt(3)+1;
+        HttpSession session = request.getSession(true);
+        RacingData bohne = (RacingData) session.getAttribute("raceData");
+        bohne.setDice(random);
+        
+        // TODO 
+        // Der Spieler fährt weiter.
+        // Es muss überprüft werden, ob das "neue" Feld ein Ölfleck ist, wenn ja dann retour an Start
+        // Es muss der Computer würfeln
+        // Es muss überprüft werden, ob das "neue" Feld ein Ölfleck ist, wenn ja dann retour an Start
+        // Es muss der Führende ermittelt und in der Bean aktualisiert werden
+        
+        bohne.setRound(bohne.getRound()+1);
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -74,19 +82,17 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //unterscheiden zwischen new game und würfeln
         
-        //TODO request.get auf null überprüfen
-        
-        String action = (String) request.getParameter("action");
-        
-        if(action != null && action.equals("new")){
-           newRace(request,response);
+        String action = request.getParameter("action");
+        if(action==null) {
+            processRequest(request,response);
         }
-        
-        processRequest(request,response);
-        
-          // JSP File wird erstmalig aufgerufen
+        else if(action.equals("new")){
+            newRace(request,response);
+        }
+        else if(action.equals("rolldice")){
+            rollDice(request,response);          
+        }
         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/table.jsp");
         dispatcher.forward(request,response);
@@ -95,7 +101,6 @@ public class ControllerServlet extends HttpServlet {
     /**
      * Handles the HTTP
      * <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -109,7 +114,6 @@ public class ControllerServlet extends HttpServlet {
 
     /**
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

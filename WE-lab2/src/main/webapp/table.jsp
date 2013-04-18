@@ -3,11 +3,9 @@
     Created on : 18.04.2013, 09:10:11
     Author     : Lukas Kraenkl
 --%>
-
+<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<jsp:useBean id="rd" scope="session" class="Beans.RacingData"/>
-
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<jsp:useBean id="raceData" scope="session" class="Beans.RacingData"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
     <head>
@@ -26,7 +24,7 @@
                 <div id="navigation">
                     <h2 class="accessibility">Navigation</h2>
                     <ul title="Navigation">
-                        <li><a id="startNewGame" href="#" tabindex="1">Neues Spiel</a></li>
+                        <li><a id="startNewGame" href="ControllerServlet?action=new" tabindex="1">Neues Spiel</a></li>
                         <li><a href="#" tabindex="2">Ausloggen</a></li>
                     </ul>
                 </div>
@@ -34,15 +32,15 @@
                     <div class="info">
                         <h2>Spielinformationen</h2>
                         <table summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
-                            <tr><th id="leaderLabel" class="label">F&uuml;hrender</th><td id="leader" class="data"><%= rd.getLeadingPlayer() %></td></tr>
-                            <tr><th id="roundLabel" class="label">Runde</th><td id="round" class="data"><%= rd.getRound() %></td></tr>
-                            <tr><th id="timeLabel" class="label">Zeit</th><td id="time" class="data"><%= new SimpleDateFormat("mm:ss").format(rd.getTime().getTime()) %></td></tr>
-                            <tr><th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em>Super C</em></th><td id="computerScore" class="data"><%= rd.getDice() %></td></tr>
+                            <tr><th id="leaderLabel" class="label">F&uuml;hrender</th><td id="leader" class="data"><%= raceData.getLeadingPlayer() %></td></tr>
+                            <tr><th id="roundLabel" class="label">Runde</th><td id="round" class="data"><%= raceData.getRound() %></td></tr>
+                            <tr><th id="timeLabel" class="label">Zeit</th><td id="time" class="data"><%= new SimpleDateFormat("mm:ss").format(raceData.getTime().getTime())%></td></tr>
+                            <tr><th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em>Super C</em></th><td id="computerScore" class="data"><%= raceData.getDice() %></td></tr>
                         </table>  
                         <h2>Spieler</h2>
                         <table summary="Diese Tabelle listet die Namen der Spieler auf">
-                            <tr><th id="player1NameLabel" class="label">Spieler 1</th><td id="player1Name" class="data"><%= rd.getHumanPlayer() %></td></tr>
-                            <tr><th id="player2NameLabel" class="label">Spieler 2</th><td id="player2Name" class="data"><%= rd.getComputerPlayer() %></td></tr>
+                            <tr><th id="player1NameLabel" class="label">Spieler 1</th><td id="player1Name" class="data"><%= raceData.getHumanPlayer() %></td></tr>
+                            <tr><th id="player2NameLabel" class="label">Spieler 2</th><td id="player2Name" class="data"><%= raceData.getComputerPlayer() %></td></tr>
                         </table>    	  
                     </div>
                     <div class="field">
@@ -77,11 +75,12 @@
                             </li>
                         </ol>
                     </div>
+                   
                     <div class="player">
                         <h2 class="accessibility">W&uuml;rfelbereich</h2>
                         <span class="accessibility">An der Reihe ist</span><div id="currentPlayerName">Super Mario</div>
-                        <a id="dice" href="#" tabindex="4">
-                            <img id="diceImage" src="img/wuerfel<%= rd.getDice() %>.png" alt="W&uuml;rfel mit einer Eins" />	
+                        <a id="dice" href="ControllerServlet?action=rolldice" tabindex="4">
+                            <img id="diceImage" src="img/wuerfel<%= raceData.getDice() %>.png" alt="W&uuml;rfel mit einer Eins" />	
                         </a>
                     </div>
                 </div>
@@ -107,14 +106,14 @@
                 $("body").append(div);
             }
             
-            $("#dice").click(function() {
-                prepareAnimation();
-                $("#player1").fadeOut(700, function() {
-                    $("#player1").appendTo("#start_road");
-                    $("#player1").fadeIn(700,completeAnimation);                    
-                });
-                return false;
-            });
+            //$("#dice").click(function() {
+              //  prepareAnimation();
+               // $("#player1").fadeOut(700, function() {
+                //    $("#player1").appendTo("#start_road");
+                //    $("#player1").fadeIn(700,completeAnimation);                    
+               // });
+               // return false;
+           // });
             //]]>
         </script>
 
