@@ -31,7 +31,7 @@ public class RacingData {
     
     public RacingData(){
         //TODO Namen richtig anpassen, nur zum Debug Zweck mit XXX versehen
-        humanName = "Super Mario XXX";
+        humanName = "Super Mario";
         computerName = "Super C";
         leadingPlayer = "mehrere";
         dice = 0;
