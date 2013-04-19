@@ -78,9 +78,9 @@
                    
                     <div class="player">
                         <h2 class="accessibility">W&uuml;rfelbereich</h2>
-                        <span class="accessibility">An der Reihe ist</span><div id="currentPlayerName">Super Mario</div>
+                        <span class="accessibility">An der Reihe ist</span><div id="currentPlayerName"><%= raceData.getHumanPlayer() %></div>
                         <a id="dice" href="ControllerServlet?action=rolldice" tabindex="4">
-                            <img id="diceImage" src="img/wuerfel<%= raceData.getDice() %>.png" alt="W&uuml;rfel mit einer Eins" />	
+                            <img id="diceImage" src="img/wuerfel<%= raceData.getDice() %>.png" alt="W&uuml;rfel mit der Augenzahl <%= raceData.getDice() %>" />	
                         </a>
                     </div>
                 </div>

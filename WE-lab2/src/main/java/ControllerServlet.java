@@ -22,8 +22,8 @@ public class ControllerServlet extends HttpServlet {
      * Creates a new race and resets all RacingData
      */
     protected void newRace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-    HttpSession session = request.getSession(true);
-    session.setAttribute("raceData",new RacingData());
+        HttpSession session = request.getSession(true);
+        session.setAttribute("raceData",new RacingData());
     }
    
     
@@ -71,7 +71,7 @@ public class ControllerServlet extends HttpServlet {
         List<Integer> oilSpillsList = bohne.getOilSpills();
         
         Integer[] oilSpills = new Integer[oilSpillsList.size()];
-        oilSpillsList.toArray(oilSpills);
+        oilSpills = oilSpillsList.toArray(oilSpills);
         
         //Checking for collisions with oil Spills
         for(int i = 0; i<oilSpills.length; i++) {
@@ -87,6 +87,9 @@ public class ControllerServlet extends HttpServlet {
         bohne.setFieldPlayerComputer(computerNewPosition);
         
         bohne.setLeadingPlayer();        
+        //TODO setRound useless?
+        //braucht man die setRound methode ueberhaupt? 
+        //es wird ja sowieso immer nur um eins erhoeht
         bohne.setRound(bohne.getRound()+1);
 
     }
