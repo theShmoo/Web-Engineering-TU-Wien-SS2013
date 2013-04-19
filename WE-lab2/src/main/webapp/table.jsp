@@ -78,7 +78,6 @@
                    
                     <div class="player">
                         <h2 class="accessibility">W&uuml;rfelbereich</h2>
-                        <span class="accessibility">An der Reihe ist</span><div id="currentPlayerName"><%= raceData.getHumanPlayer() %></div>
                         <a id="dice" href="ControllerServlet?action=rolldice" tabindex="4">
                             <img id="diceImage" src="img/wuerfel<%= raceData.getDice() %>.png" alt="W&uuml;rfel mit der Augenzahl <%= raceData.getDice() %>" />	
                         </a>
@@ -94,7 +93,7 @@
             //<![CDATA[
             
             getDivId = function(num) {
-                if(num === 0) {
+                if(num <= 0) {
                     return "#start_road";
                 }
                 if(num >= 6) {
@@ -122,31 +121,51 @@
                 
                 var humanExpectedPosition = getDivId("<%= raceData.getExpectedPositionPlayerHuman() %>");
                 var humanPosition = getDivId("<%= raceData.getPositionPlayerHuman() %>");
-                $("#player1").fadeOut(700, function() {
-                    $("#player1").appendTo(humanExpectedPosition);
-                    $("#player1").fadeIn(700,completeAnimation);                    
-                });
-                // if oil Spill -> reset
-                if(humanExpectedPosition.toString() !== humanPosition.toString()) {
+                var computerExpectedPosition = getDivId("<%= raceData.getExpectedPositionPlayerComputer()%>");
+                var computerPosition = getDivId("<%= raceData.getPositionPlayerComputer()%>");
+                
+                driveHuman();
+                
+                
+                function driveHuman() {
+                    console.log("humanExpectedPosition: " + humanExpectedPosition + ", humanPosition: " + humanPosition);
                     $("#player1").fadeOut(700, function() {
-                        $("#player1").appendTo(humanPosition);
-                        $("#player1").fadeIn(700,completeAnimation);                    
+                        $("#player1").appendTo(humanExpectedPosition);
+                        $("#player1").fadeIn(700,checkHumanOnOilSpill);                    
                     });
                 }
                 
-                var computerExpectedPosition = getDivId("<%= raceData.getExpectedPositionPlayerComputer()%>");
-                var computerPosition = getDivId("<%= raceData.getPositionPlayerComputer()%>");
-                $("#player2").fadeOut(700, function() {
-                    $("#player2").appendTo(computerExpectedPosition);
-                    $("#player2").fadeIn(700,completeAnimation);                    
-                });
-                // if oil Spill -> reset
-                if(humanExpectedPosition.toString() !== computerPosition.toString()) {
+                function checkHumanOnOilSpill() {
+                    if(humanExpectedPosition.toString() !== humanPosition.toString()) {
+                        console.log("I'm in my nice little function!");
+                            $("#player1").fadeOut(700, function() {
+                            $("#player1").appendTo(humanPosition);
+                            $("#player1").fadeIn(700, driveComputer());                    
+                        });
+                    } else {
+                        driveComputer();
+                    }
+                }
+                
+                function driveComputer() {
                     $("#player2").fadeOut(700, function() {
-                        $("#player2").appendTo(computerPosition);
-                        $("#player2").fadeIn(700,completeAnimation);                    
+                        $("#player2").appendTo(computerExpectedPosition);
+                        $("#player2").fadeIn(700,checkComputerOnOilSpill);                    
                     });
                 }
+                
+                function checkComputerOnOilSpill() {
+                    if(computerExpectedPosition.toString() !== computerPosition.toString()) {
+                        console.log("Computer on Oil Spill");
+                            $("#player2").fadeOut(700, function() {
+                            $("#player2").appendTo(computerPosition);
+                            $("#player2").fadeIn(700, completeAnimation());                    
+                        });
+                    } else {
+                        completeAnimation();
+                    }
+                }
+                
             });
             
             //]]>

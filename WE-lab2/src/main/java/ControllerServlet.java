@@ -88,8 +88,8 @@ public class ControllerServlet extends HttpServlet {
         
         bohne.setLeadingPlayer();        
         //TODO setRound useless?
-        //braucht man die setRound methode ueberhaupt? 
-        //es wird ja sowieso immer nur um eins erhoeht
+        //Ja doch brauchen wir... wir rufen ja auch immer getRound auf.
+        // muss links im Kastel angezeigt werden :)
         bohne.setRound(bohne.getRound()+1);
 
     }
