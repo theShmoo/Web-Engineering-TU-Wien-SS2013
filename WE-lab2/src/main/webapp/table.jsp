@@ -1,7 +1,7 @@
 <%-- 
     Document   : table jsp-File 
     Created on : 18.04.2013, 09:10:11
-    Author     : Lukas Kraenkl
+    Author     : Johannes Deml, Lukas Kraenkl, David Pfahler
 --%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -32,15 +32,15 @@
                     <div class="info">
                         <h2>Spielinformationen</h2>
                         <table summary="Diese Tabelle zeigt Informationen zum aktuellen Spiel">
-                            <tr><th id="leaderLabel" class="label">F&uuml;hrender</th><td id="leader" class="data"><%= raceData.getLeadingPlayer() %></td></tr>
-                            <tr><th id="roundLabel" class="label">Runde</th><td id="round" class="data"><%= raceData.getRound() %></td></tr>
+                            <tr><th id="leaderLabel" class="label">F&uuml;hrender</th><td id="leader" class="data"><%= raceData.getLeadingPlayer()%></td></tr>
+                            <tr><th id="roundLabel" class="label">Runde</th><td id="round" class="data"><%= raceData.getRound()%></td></tr>
                             <tr><th id="timeLabel" class="label">Zeit</th><td id="time" class="data"><%= new SimpleDateFormat("mm:ss").format(raceData.getTime().getTime())%></td></tr>
-                            <tr><th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em><%= raceData.getComputerPlayer() %></em></th><td id="computerScore" class="data"><%= raceData.getDiceComputer()%></td></tr>
+                            <tr><th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em><%= raceData.getComputerPlayer()%></em></th><td id="computerScore" class="data"><%= raceData.getDiceComputer()%></td></tr>
                         </table>  
                         <h2>Spieler</h2>
                         <table summary="Diese Tabelle listet die Namen der Spieler auf">
-                            <tr><th id="player1NameLabel" class="label">Spieler 1</th><td id="player1Name" class="data"><%= raceData.getHumanPlayer() %></td></tr>
-                            <tr><th id="player2NameLabel" class="label">Spieler 2</th><td id="player2Name" class="data"><%= raceData.getComputerPlayer() %></td></tr>
+                            <tr><th id="player1NameLabel" class="label">Spieler 1</th><td id="player1Name" class="data"><%= raceData.getHumanPlayer()%></td></tr>
+                            <tr><th id="player2NameLabel" class="label">Spieler 2</th><td id="player2Name" class="data"><%= raceData.getComputerPlayer()%></td></tr>
                         </table>    	  
                     </div>
                     <div class="field">
@@ -75,12 +75,12 @@
                             </li>
                         </ol>
                     </div>
-                   
+
                     <div class="player">
-                       <span class="accessibility">An der Reihe ist</span><div id="currentPlayerName"><%= raceData.getHumanPlayer() %></div>
+                        <span class="accessibility">An der Reihe ist</span><div id="currentPlayerName"><%= raceData.getHumanPlayer()%></div>
                         <h2 class="accessibility">W&uuml;rfelbereich</h2>
                         <a id="dice" href="ControllerServlet?action=rolldice" tabindex="4">
-                            <img id="diceImage" src="img/wuerfel<%= raceData.getDice() %>.png" alt="W&uuml;rfel mit der Augenzahl <%= raceData.getDice() %>" />	
+                            <img id="diceImage" src="img/wuerfel<%= raceData.getDice()%>.png" alt="W&uuml;rfel mit der Augenzahl <%= raceData.getDice()%>" />	
                         </a>
                     </div>
                 </div>
@@ -92,23 +92,23 @@
 
         <script type="text/javascript">
             //<![CDATA[
-            
+
             getDivId = function(num) {
-                if(num <= 0) {
+                if (num <= 0) {
                     return "#start_road";
                 }
-                if(num >= 6) {
+                if (num >= 6) {
                     return "#finish_road";
                 }
-                return "#road_"+num;
+                return "#road_" + num;
             };
             // call this function once before starting the animations
             function prepareAnimation() {
-                $("#player1").appendTo(getDivId("<%= raceData.getLastPositionPlayerHuman() %>"));
+                $("#player1").appendTo(getDivId("<%= raceData.getLastPositionPlayerHuman()%>"));
                 $("#player2").appendTo(getDivId("<%= raceData.getLastPositionPlayerComputer()%>"));
                 $("#animationDone").remove();
             }
-            
+
             // call this function once after all animations have finished
             function completeAnimation() {
                 var div = $(document.createElement('div'));
@@ -116,59 +116,67 @@
                 div.addClass('hide');
                 $("body").append(div);
             }
-            
+
+            //This Function gets called when the page gets reloaded
             $(document).ready(function() {
-                prepareAnimation();
-                
-                var humanExpectedPosition = getDivId("<%= raceData.getExpectedPositionPlayerHuman() %>");
-                var humanPosition = getDivId("<%= raceData.getPositionPlayerHuman() %>");
-                var computerExpectedPosition = getDivId("<%= raceData.getExpectedPositionPlayerComputer()%>");
-                var computerPosition = getDivId("<%= raceData.getPositionPlayerComputer()%>");
-                
-                driveHuman();
-                
-                
+
+                //load functions
+
                 function driveHuman() {
                     console.log("humanExpectedPosition: " + humanExpectedPosition + ", humanPosition: " + humanPosition);
-                    $("#player1").fadeOut(700, function() {
+                    $("#player1").fadeOut(speed, function() {
                         $("#player1").appendTo(humanExpectedPosition);
-                        $("#player1").fadeIn(700,checkHumanOnOilSpill);                    
+                        $("#player1").fadeIn(speed, checkHumanOnOilSpill);
                     });
                 }
-                
+
                 function checkHumanOnOilSpill() {
-                    if(humanExpectedPosition.toString() !== humanPosition.toString()) {
+                    if (humanExpectedPosition.toString() !== humanPosition.toString()) {
                         console.log("I'm in my nice little function!");
-                            $("#player1").fadeOut(700, function() {
+                        $("#player1").fadeOut(speed, function() {
                             $("#player1").appendTo(humanPosition);
-                            $("#player1").fadeIn(700, driveComputer());                    
+                            $("#player1").fadeIn(speed, driveComputer());
                         });
                     } else {
                         driveComputer();
                     }
                 }
-                
+
                 function driveComputer() {
-                    $("#player2").fadeOut(700, function() {
+                    $("#player2").fadeOut(speed, function() {
                         $("#player2").appendTo(computerExpectedPosition);
-                        $("#player2").fadeIn(700,checkComputerOnOilSpill);                    
+                        $("#player2").fadeIn(speed, checkComputerOnOilSpill);
                     });
                 }
-                
+
                 function checkComputerOnOilSpill() {
-                    if(computerExpectedPosition.toString() !== computerPosition.toString()) {
+                    if (computerExpectedPosition.toString() !== computerPosition.toString()) {
                         console.log("Computer on Oil Spill");
-                            $("#player2").fadeOut(700, function() {
+                        $("#player2").fadeOut(speed, function() {
                             $("#player2").appendTo(computerPosition);
-                            $("#player2").fadeIn(700, completeAnimation());                    
+                            $("#player2").fadeIn(speed, completeAnimation());
                         });
                     } else {
                         completeAnimation();
                     }
                 }
-                
+
+                //If it is not the first round and if the game isn't over, move the cars
+                if (<%= raceData.isFirstRound()%> !== true) {
+                    var speed = 700;
+                    prepareAnimation();
+
+                    if (<%= raceData.isOver()%> !== true) {
+                        var humanExpectedPosition = getDivId("<%= raceData.getExpectedPositionPlayerHuman()%>");
+                        var humanPosition = getDivId("<%= raceData.getPositionPlayerHuman()%>");
+                        var computerExpectedPosition = getDivId("<%= raceData.getExpectedPositionPlayerComputer()%>");
+                        var computerPosition = getDivId("<%= raceData.getPositionPlayerComputer()%>");
+
+                        driveHuman();
+                    }
+                }
             });
-            
+
             //]]>
         </script>
 
