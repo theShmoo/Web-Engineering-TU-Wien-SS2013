@@ -1,25 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
-    <head>
-        <title xml:lang="de">Formel 0 - Registrieren</title>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" type="text/css" href="styles/screen.css" />
-        <script src="js/jquery.js" type="text/javascript"></script>
-    </head>
-    <body>
-        <div id="container">
-            <div id="bordercontainer">
-                <div id="header">
-                    <div id="header_left"><h1 class="accessibility">Formel 0</h1></div>
-                    <div id="header_right"></div>
-                </div>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+   
+       <ui:composition template="./template.xhtml">
+       <head>
+            <ui:define name="title">
+                <title xml:lang="de">Formel 0 - Registrieren</title>  
+            </ui:define>
+       </head>
+       <body>
+  
+            <ui:define name="navigation">
                 <div id="navigation">
                     <h2 class="accessibility">Navigation</h2>
                     <ul title="Navigation">
                         <li><a id="backToLogin" href="#" tabindex="1">Einloggen</a></li>
                     </ul>
                 </div>
+            </ui:define>
+            <ui:define name="content">
                 <div id="content">
                     <h2>Registrieren</h2>
                     <p>Bitte f&uuml;llen Sie das unten stehende Formular aus!</p>
@@ -64,12 +67,10 @@
                         </p>
                     </form>
                 </div>
-            </div>
-            <div id="footer">
-                &copy; 2013 Formel 0
-            </div>
-        </div>
-
+           
+        </ui:define>
+           
+        <ui:define name="js">
         <script type="text/javascript">
             //<![CDATA[
             // Only disable the button if javascript is enabled
@@ -152,6 +153,8 @@
             }
             //]]>
         </script>
-
-    </body>
+        </ui:define>
+             </body>
+      </ui:composition>
+    
 </html>
