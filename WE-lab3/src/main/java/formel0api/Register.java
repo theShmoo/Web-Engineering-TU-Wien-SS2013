@@ -19,7 +19,7 @@ import javax.faces.validator.ValidatorException;
 public class Register {
 
     private static Register instance = null; 
-    private static RegisterValidator validator= null;
+    private static DateValidator validator= null;
     private ArrayList<User> list = new ArrayList<User>();
     
     /**
@@ -35,7 +35,7 @@ public class Register {
     public static Register getInstance(){
         if(instance==null){
             instance = new Register();
-            validator = new RegisterValidator();
+            validator = new DateValidator();
         }
         return instance;
     }

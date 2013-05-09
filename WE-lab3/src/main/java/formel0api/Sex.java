@@ -11,9 +11,19 @@ public enum Sex {
     /**
      * A male user
      */
-    MALE,
+    MALE("data.sexes.male"),
     /**
      * A female user
      */
-    FEMALE
+    FEMALE("data.sexes.female");
+    
+    private String label;
+
+    private Sex(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
 }

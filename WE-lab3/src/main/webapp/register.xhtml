@@ -7,74 +7,105 @@
 
 
     <ui:composition template="./template.xhtml">
-            <ui:define name="title">
-                <title xml:lang="de">Formel 0 - Registrieren</title>  
-            </ui:define>
-            <ui:define name="navigation">
-                <div id="navigation">
-                    <h2 class="accessibility">Navigation</h2>
-                    <ul title="Navigation">
-                        <li><a id="backToLogin" href="#" tabindex="1">Einloggen</a></li>
-                    </ul>
-                </div>
-            </ui:define>
-            <ui:define name="content">
-                <div id="content">
-                    <h:outputText value="#{msg['register.header']}" escape="false"/>
-                    <h:outputText value="#{msg['register.fillForm']}" escape="false"/>
+        <ui:define name="title">
+            <title xml:lang="de">Formel 0 - Registrieren</title>  
+        </ui:define>
+        <ui:define name="navigation">
+            <div id="navigation">
+                <h2 class="accessibility">Navigation</h2>
+                <ul title="Navigation">
+                    <li><a id="backToLogin" href="#" tabindex="1">Einloggen</a></li>
+                </ul>
+            </div>
+        </ui:define>
+        <ui:define name="content">
+            <div id="content">
+                <h:outputText value="#{msg['register.header']}" escape="false"/>
+                <h:outputText value="#{msg['register.fillForm']}" escape="false"/>
 
-                    <h:form id="form">
-                        <h:outputText value="#{msg['register.personalData']}" escape="false"/>
-                        <h:outputLabel value="#{msg['register.firstname']}" escape="false" for="fistname" class="registerform" />
+                <h:form id="form">
+                    <h:outputText value="#{msg['register.personalData']}" escape="false"/>
+                    <h:outputLabel value="#{msg['register.firstname']}" 
+                                   for="fistname" class="registerform" />
 
-                        <h:inputText id="firstname" value="#{userController.user.firstName}" tabindex="3" /><br />
+                    <h:inputText id="firstname" value="#{userController.user.firstName}" 
+                                 tabindex="3" required="true" 
+                                 requiredMessage="#{msg['register.error.required']}" 
+                                 validatorMessage="#{msg['register.error.onlyText']}">
+                        <f:validateRegex pattern="[a-zA-Z]+" />
+                        <f:ajax execute="@this" event="keyup" render="firstname_messages" />
+                    </h:inputText>
+                    <h:message id="firstname_messages" for="firstname" styleClass="validation_error" />
+                    <f:verbatim><br/></f:verbatim>
 
-                        <h:outputLabel value="#{msg['register.lastname']}" for="lastname" class="registerform" />
-                        <h:inputText id="lastname" value="#{userController.user.lastName}" tabindex="4" /><br />
+                    <h:outputLabel value="#{msg['register.lastname']}" for="lastname" class="registerform" />
+                    <h:inputText id="lastname" value="#{userController.user.lastName}" tabindex="4" required="true" 
+                                 requiredMessage="#{msg['register.error.required']}" 
+                                 validatorMessage="#{msg['register.error.onlyText']}">
+                        <f:validateRegex pattern="[a-zA-Z]+" />
+                        <f:ajax execute="@this" event="keyup" render="lastname_messages" />
+                    </h:inputText>
+                    <h:message id="lastname_messages" for="lastname" styleClass="validation_error" />
+                    <f:verbatim><br/></f:verbatim>
 
-                        <h:outputLabel value="#{msg['register.birthday']}" for="birthday" class="registerform" />
-                        <h:inputText id="birthday" value="#{userController.user.birthdate}"
-                                     tabindex="5" immediate="true" required="true"
-                                     validator ="#{userController.validateBirthday}">
+                    <h:outputLabel value="#{msg['register.birthday']}" for="birthday" class="registerform" />
+                    <h:inputText id="birthday" value="#{userController.user.birthdate}"
+                                 tabindex="5" immediate="true" required="true"
+                                 validator ="dateValidator" validatorMessage="#{msg['register.error.birthday']}"
+                                 requiredMessage="#{msg['register.error.required']}">
+                        <f:ajax execute="@this" event="keyup" render="birthday_messages" />
+                    </h:inputText>
+                    <h:message id="birthday_messages" for="birthday" styleClass="validation_error" />
+                    <f:verbatim><br/></f:verbatim>
+
+
+                    <h:outputLabel value="#{msg['register.sex']}" for="sex" class="registerform" />
+
+
+                    <!--
+                    TODO: Drop-Down und JSF Menue ueberlegen
+                    <h:selectOneMenu value="#{userController.user.gender}" id="sex" tabindex="6">  
+                         <option value="f">weiblich</option>
+                        <option value="m">m&auml;nnlich</option>
+                    </h:selectOneMenu>  //-->
+                    <h:selectOneMenu value="#{userController.user.gender}" id="sex" tabindex="6">  
+                        <f:selectItems value="#{data.sexes}" var="status"
+                                       itemValue="#{sexes}" itemLabel="#{msg[sexes.label]}" />
+                    </h:selectOneMenu>
+
+                    <h:outputText value="#{msg['register.loginData']}" escape="false" />
+                    <fieldset>
+                        <h:outputLabel value="#{msg['register.username']}" for="username" class="registerform" />
+                        <h:inputText value="#{userController.user.username}" id="username" tabindex="7" required="true" 
+                                     requiredMessage="#{msg['register.error.required']}" 
+                                     validatorMessage="#{msg['register.error.onlyText']}">
+                            <f:validateRegex pattern="[a-zA-Z]+" />
+                            <f:ajax execute="@this" event="keyup" render="username_messages" />
                         </h:inputText>
-                        <h:message id="msg_birthday" for="birthday" styleClass="validation_error" />
+                        <h:message id="username_messages" for="username" styleClass="validation_error" />
+                        <!--<span id="msg_username" class="validation_error hide">Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>-->
                         <f:verbatim><br/></f:verbatim>
 
+                        <h:outputLabel value="#{msg['register.password']}" for="password" class="registerform" />
+                        <h:inputSecret value="#{userController.user.password}" id="password" tabindex="8" required="true" 
+                                       requiredMessage="#{msg['register.error.required']}" 
+                                       validatorMessage="#{msg['register.error.password']}">
+                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-zA-Z]).{2})" />
+                            <f:ajax execute="@this" event="keyup" render="password_messages" />
+                        </h:inputSecret>
+                        <h:message id="password_messages" for="password" styleClass="validation_error" />
+                        <f:verbatim><br/></f:verbatim>
+                    </fieldset>
 
-                        <h:outputLabel value="#{msg['register.sex']}" for="sex" class="registerform" />
-
-
-                        <!--
-                        TODO: Drop-Down und JSF Menue ueberlegen
-                        <h:selectOneMenu value="#{userController.user.gender}" id="sex" tabindex="6">  
-                             <option value="f">weiblich</option>
-                            <option value="m">m&auml;nnlich</option>
-                        </h:selectOneMenu>  //-->
-
-                        <h:outputText value="#{msg['register.loginData']}" escape="false" />
-                        <fieldset>
-                            <h:outputLabel value="#{msg['register.username']}" for="username" class="registerform" />
-                            <h:inputText value="#{userController.user.username}" id="username" tabindex="7" />
-                            <h:message id="msg_username" for="username" styleClass="validation_error"/>
-                            <!--<span id="msg_username" class="validation_error hide">Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>-->
-                            <f:verbatim><br/></f:verbatim>
-
-                            <h:outputLabel value="#{msg['register.password']}" for="password" class="registerform" />
-                            <h:inputText value="#{userController.user.password}" id="password" tabindex="8" />
-                            <h:message id="msg_password" for="password" styleClass="validation_error"/>
-                            <!--<span id="msg_password" class="validation_error hide">Das Passwort muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>-->
-                            <f:verbatim><br/></f:verbatim>
-                        </fieldset>
-
-                        <p>
-                            <h:commandButton action="#{userController.register}" 
-                                             value="#{msg['register.submit']}" 
-                                             id="submit" 
-                                             tabindex="9" />
-                        </p>
-                    </h:form>
-                </div>
-            </ui:define>
+                    <p>
+                        <h:commandButton action="#{userController.register}" 
+                                         value="#{msg['register.submit']}" 
+                                         id="submit" 
+                                         tabindex="9" />
+                    </p>
+                </h:form>
+            </div>
+        </ui:define>
     </ui:composition>
 
 </html>
