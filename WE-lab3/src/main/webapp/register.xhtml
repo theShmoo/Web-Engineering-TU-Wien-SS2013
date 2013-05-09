@@ -43,28 +43,35 @@
                             <span id="msg_birthday" class="validation_error hide">Der Verwenden Sie bitte folgendes Datumsformat: dd.mm.yyyy (z.B. 24.12.2012).</span>
                             <br />
 
+                           
                             <h:outputLabel value="Geschlecht" for="sex" class="registerform" />
-                            <select id="sex" name="sex" tabindex="6">
-                                <option value="f">weiblich</option>
+                            
+                            
+                            <!--
+                            TODO: Drop-Down und JSF Menue ueberlegen
+                            <h:selectOneMenu value="#{user.gender}" id="sex" tabindex="6">  
+                                 <option value="f">weiblich</option>
                                 <option value="m">m&auml;nnlich</option>
-                            </select><br />
+                            </h:selectOneMenu>  //-->
+                          
                         </h:form>
 
                         <h3>Login Daten</h3>
                         <fieldset>
-                            <label for="username" class="registerform">Benutzername</label>
-                            <input type="text" id="username" name="username" tabindex="7" />
+                            <h:outputLabel value="Username" for="username" class="registerform" />
+                            <h:inputText value="#{user.username}" id="username" tabindex="7" />
                             <span id="msg_username" class="validation_error hide">Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>
                             <br />
 
-                            <label for="password" class="registerform">Passwort</label>
-                            <input type="password" id="password" name="password" tabindex="8" />
+                            <h:outputLabel value="Passwort" for="password" class="registerform" />
+                            <h:inputText value="#{user.password}" id="password" tabindex="8" />
                             <span id="msg_password" class="validation_error hide">Das Passwort muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>
                             <br />
                         </fieldset>
 
                         <p>
-                            <input id="submit" type="submit" value="Registrieren" tabindex="9" />
+                            <h:commandButton action="#{gameController.register}" value="Registration" id="submit" tabindex="9" />
+                        
                         </p>
                     </form>
                 </div>
