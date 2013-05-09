@@ -1,7 +1,9 @@
 /**
  * In this bean all registered users are listed and managed
  * #ContainerClass
- * @author: Lukas Kraenkl, David Pfahler and Johannes Deml
+ * @author Lukas Kraenkl
+ * @author David Pfahler
+ * @author Johannes Deml
  */
 package formel0api;
 
@@ -10,12 +12,14 @@ import javax.faces.bean.ManagedBean;
 // Application Scoped means that the Klass will be saved during the whole Server session 
 // (solange Glassfish halt noch werkelt)
 import javax.faces.bean.ApplicationScoped;
+import javax.faces.validator.ValidatorException;
 
 @ManagedBean
 @ApplicationScoped
 public class Register {
 
     private static Register instance = null; 
+    private static RegisterValidator validator= null;
     private ArrayList<User> list = new ArrayList<User>();
     
     /**
@@ -31,6 +35,7 @@ public class Register {
     public static Register getInstance(){
         if(instance==null){
             instance = new Register();
+            validator = new RegisterValidator();
         }
         return instance;
     }

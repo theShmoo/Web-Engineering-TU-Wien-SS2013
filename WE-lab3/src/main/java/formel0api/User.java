@@ -1,9 +1,15 @@
 /**
  * This class represents an user
- * @author Lukas Kraenkl, David Pfahler, Johannes Deml
+ * @author Lukas Kraenkl
+ * @author David Pfahler
+ * @author Johannes Deml
  */
 package formel0api;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.faces.bean.ManagedBean;
 // Session scoped == Solange die Session aufrecht ist, ist auch diese Bean aufrecht
@@ -15,8 +21,8 @@ public class User {
 
     private String firstname;
     private String lastname;
-    private GregorianCalendar birthdate;
-    private String gender;
+    private String birthdate;
+    private Sex gender;
     private String username;
     private String password;
     
@@ -24,10 +30,9 @@ public class User {
         this.firstname = "";
         this.lastname = "";
         this.birthdate = null;
-        this.gender = "";
+        this.gender = null;
         this.username = "";
         this.password = "";
-        
     }
     
     /**
@@ -39,7 +44,7 @@ public class User {
      * @param username 
      * @param password 
      */
-    public User(String firstname,String lastname,GregorianCalendar birthdate,String gender,String username,String password) {
+    public User(String firstname,String lastname,String birthdate,Sex gender,String username,String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthdate = birthdate;
@@ -68,7 +73,7 @@ public class User {
      * Gets Birthdate of the user
      * @return birthdate
      */
-    public GregorianCalendar getBirthdate(){
+    public String getBirthdate(){
         return this.birthdate;
     }
     
@@ -76,7 +81,7 @@ public class User {
      * Gets gender of the user
      * @return male or female
      */
-    public String getGender(){
+    public Sex getGender(){
         return this.gender;
     }
     
@@ -116,7 +121,7 @@ public class User {
      * Sets a new Birthdate of the user
      * @param birthdate < now
      */
-    public void setBirthdate(GregorianCalendar birthdate){
+    public void setBirthdate(String birthdate){
         this.birthdate = birthdate;
     }
     
@@ -124,7 +129,7 @@ public class User {
      * Sets a new gender of the user
      * @param gender (MALE || FEMALE)
      */
-    public void setGender(String gender){
+    public void setGender(Sex gender){
         this.gender = gender;
     }
     

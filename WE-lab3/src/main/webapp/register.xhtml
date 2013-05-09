@@ -4,16 +4,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    
-   
-       <ui:composition template="./template.xhtml">
-       <head>
+
+
+    <ui:composition template="./template.xhtml">
             <ui:define name="title">
                 <title xml:lang="de">Formel 0 - Registrieren</title>  
             </ui:define>
-       </head>
-       <body>
-  
             <ui:define name="navigation">
                 <div id="navigation">
                     <h2 class="accessibility">Navigation</h2>
@@ -24,60 +20,61 @@
             </ui:define>
             <ui:define name="content">
                 <div id="content">
-                    <h2>Registrieren</h2>
-                    <p>Bitte f&uuml;llen Sie das unten stehende Formular aus!</p>
+                    <h:outputText value="#{msg['register.header']}" escape="false"/>
+                    <h:outputText value="#{msg['register.fillForm']}" escape="false"/>
 
-                    <form id="form" action="#">
-                        <h3>Pers&ouml;nliche Daten</h3>
+                    <h:form id="form">
+                        <h:outputText value="#{msg['register.personalData']}" escape="false"/>
+                        <h:outputLabel value="#{msg['register.firstname']}" escape="false" for="fistname" class="registerform" />
 
-                        <h:form id="form">
-                            <h:outputLabel value="Vorname" for="fistname" class="registerform" />
-                          
-                            <h:inputText id="firstname" value="#{user.firstName}" tabindex="3" /><br />
+                        <h:inputText id="firstname" value="#{userController.user.firstName}" tabindex="3" /><br />
 
-                            <h:outputLabel value="Nachname" for="lastname" class="registerform" />
-                            <h:inputText id="lastname" value="#{user.lastName}" tabindex="4" /><br />
+                        <h:outputLabel value="#{msg['register.lastname']}" for="lastname" class="registerform" />
+                        <h:inputText id="lastname" value="#{userController.user.lastName}" tabindex="4" /><br />
 
-                            <h:outputLabel value="Geburtstag" for="birthday" class="registerform" />
-                            <h:inputText id="birthday" value="#{user.birthdate}" tabindex="5" />
-                            <span id="msg_birthday" class="validation_error hide">Der Verwenden Sie bitte folgendes Datumsformat: dd.mm.yyyy (z.B. 24.12.2012).</span>
-                            <br />
+                        <h:outputLabel value="#{msg['register.birthday']}" for="birthday" class="registerform" />
+                        <h:inputText id="birthday" value="#{userController.user.birthdate}"
+                                     tabindex="5" immediate="true" required="true"
+                                     validator ="#{userController.validateBirthday}">
+                        </h:inputText>
+                        <h:message id="msg_birthday" for="birthday" styleClass="validation_error" />
+                        <f:verbatim><br/></f:verbatim>
 
-                           
-                            <h:outputLabel value="Geschlecht" for="sex" class="registerform" />
-                            
-                            
-                            <!--
-                            TODO: Drop-Down und JSF Menue ueberlegen
-                            <h:selectOneMenu value="#{user.gender}" id="sex" tabindex="6">  
-                                 <option value="f">weiblich</option>
-                                <option value="m">m&auml;nnlich</option>
-                            </h:selectOneMenu>  //-->
-                          
-                        </h:form>
 
-                        <h3>Login Daten</h3>
+                        <h:outputLabel value="#{msg['register.sex']}" for="sex" class="registerform" />
+
+
+                        <!--
+                        TODO: Drop-Down und JSF Menue ueberlegen
+                        <h:selectOneMenu value="#{userController.user.gender}" id="sex" tabindex="6">  
+                             <option value="f">weiblich</option>
+                            <option value="m">m&auml;nnlich</option>
+                        </h:selectOneMenu>  //-->
+
+                        <h:outputText value="#{msg['register.loginData']}" escape="false" />
                         <fieldset>
-                            <h:outputLabel value="Username" for="username" class="registerform" />
-                            <h:inputText value="#{user.username}" id="username" tabindex="7" />
-                            <span id="msg_username" class="validation_error hide">Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>
-                            <br />
+                            <h:outputLabel value="#{msg['register.username']}" for="username" class="registerform" />
+                            <h:inputText value="#{userController.user.username}" id="username" tabindex="7" />
+                            <h:message id="msg_username" for="username" styleClass="validation_error"/>
+                            <!--<span id="msg_username" class="validation_error hide">Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>-->
+                            <f:verbatim><br/></f:verbatim>
 
-                            <h:outputLabel value="Passwort" for="password" class="registerform" />
-                            <h:inputText value="#{user.password}" id="password" tabindex="8" />
-                            <span id="msg_password" class="validation_error hide">Das Passwort muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>
-                            <br />
+                            <h:outputLabel value="#{msg['register.password']}" for="password" class="registerform" />
+                            <h:inputText value="#{userController.user.password}" id="password" tabindex="8" />
+                            <h:message id="msg_password" for="password" styleClass="validation_error"/>
+                            <!--<span id="msg_password" class="validation_error hide">Das Passwort muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>-->
+                            <f:verbatim><br/></f:verbatim>
                         </fieldset>
 
                         <p>
-                            <h:commandButton action="#{gameController.register}" value="Registration" id="submit" tabindex="9" />
-                        
+                            <h:commandButton action="#{userController.register}" 
+                                             value="#{msg['register.submit']}" 
+                                             id="submit" 
+                                             tabindex="9" />
                         </p>
-                    </form>
+                    </h:form>
                 </div>
-           
-        </ui:define>
-             </body>
-      </ui:composition>
-    
+            </ui:define>
+    </ui:composition>
+
 </html>
