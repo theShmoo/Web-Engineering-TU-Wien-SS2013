@@ -1,6 +1,6 @@
 /**
- * Diese Bean beschreibt einen User
- * @author Lukas Kraenkl
+ * This class represents an user
+ * @author Lukas Kraenkl, David Pfahler, Johannes Deml
  */
 package formel0api;
 
@@ -19,6 +19,16 @@ public class User {
     private String gender;
     private String username;
     private String password;
+    
+    public User(){
+        this.firstname = "";
+        this.lastname = "";
+        this.birthdate = null;
+        this.gender = "";
+        this.username = "";
+        this.password = "";
+        
+    }
     
     /**
      * Creates a new User
