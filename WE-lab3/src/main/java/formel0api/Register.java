@@ -1,5 +1,6 @@
 /**
  * In this bean all registered users are listed and managed
+ * #ContainerClass
  * @author: Lukas Kraenkl, David Pfahler and Johannes Deml
  */
 package formel0api;
