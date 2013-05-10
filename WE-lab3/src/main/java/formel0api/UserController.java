@@ -34,9 +34,10 @@ public class UserController {
         return "/index.xhtml";
     }
     
-    public void register(){
+    public String register(){
         Register.getInstance().addUser(user);
         login();
+        return "/table.xhtml";
     }
 
     public User getUser() {
