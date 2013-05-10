@@ -62,12 +62,7 @@
                     <h:outputLabel value="#{msg['register.sex']}" for="sex" class="registerform" />
 
 
-                    <!--
-                    TODO: Drop-Down und JSF Menue ueberlegen
-                    <h:selectOneMenu value="#{userController.user.gender}" id="sex" tabindex="6">  
-                         <option value="f">weiblich</option>
-                        <option value="m">m&auml;nnlich</option>
-                    </h:selectOneMenu>  //-->
+         
                     <h:selectOneMenu value="#{userController.user.gender}" id="sex" tabindex="6">  
                         <f:selectItems value="#{data.sexes}" var="status"
                                        itemValue="#{sexes}" itemLabel="#{msg[sexes.label]}" />
@@ -95,6 +90,9 @@
                         </h:inputSecret>
                         <h:message id="password_messages" for="password" styleClass="validation_error" />
                         <f:verbatim><br/></f:verbatim>
+                        
+                        <!-- TODO: Checkbox - Terms of Condition //-->
+                        
                     </fieldset>
 
                     <p>
