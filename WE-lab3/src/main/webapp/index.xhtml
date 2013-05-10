@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:mc="http://java.sun.com/jsf/composite/mycomponents">
 
 
     <ui:composition template="./template.xhtml">
@@ -20,20 +21,9 @@
         </ui:define>
         <ui:define name="content">
             <div id="content">
-                <h:outputText value="#{msg['login.header']}" escape="false" />
-                <h:form id="form">
-                    <fieldset>
-                    <h:outputLabel value="#{msg['login.username']}" for="username" class="registerform" />
-                    <h:inputText value="#{userController.user.username}" id="username" tabindex="2"/>
-                    <f:verbatim><br/></f:verbatim>
-                    <h:outputLabel value="#{msg['login.password']}" for="password" class="registerform" />
-                    <h:inputSecret value="#{userController.user.password}" id="password" tabindex="3" />
-                    </fieldset>
-                    <h:commandButton action="#{userController.login}" 
-                                             value="#{msg['login.submit']}" 
-                                             id="submit" 
-                                             tabindex="4" />
-                </h:form>
+                
+                <mc:login />
+                
             </div>
         </ui:define>
     </ui:composition>

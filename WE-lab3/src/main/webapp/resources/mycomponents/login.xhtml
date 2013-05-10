@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- INTERFACE -->
+  <composite:interface>
+      <composite:attribute name="value" required="false"/>
+  </composite:interface>
+
+  <!-- IMPLEMENTATION -->
+  <composite:implementation>
+    
+         <h:outputText value="#{msg['login.header']}" escape="false" />
+        <h:form id="form"> 
+            <fieldset>
+            <h:outputLabel value="#{msg['login.username']}" for="username" class="registerform" />
+            <h:inputText value="#{userController.user.username}" id="username" tabindex="2"/>
+            <f:verbatim><br/></f:verbatim>
+            <h:outputLabel value="#{msg['login.password']}" for="password" class="registerform" />
+            <h:inputSecret value="#{userController.user.password}" id="password" tabindex="3" />
+            </fieldset>
+            <h:commandButton action="#{userController.login}" 
+                                     value="#{msg['login.submit']}" 
+                                     id="submit" 
+                                     tabindex="4" />
+        </h:form>
+      
+  </composite:implementation>
+</html>

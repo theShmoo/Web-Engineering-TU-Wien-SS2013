@@ -24,7 +24,7 @@ public class UserController {
     
     public String login(){
         String username = user.getUsername();
-        User tmp = Register.getInstance().getUser(username);
+        User tmp = storage.getUser(username);
         if(tmp==null){
             return "/index.xhtml";
         }
@@ -35,7 +35,7 @@ public class UserController {
     }
     
     public String register(){
-        Register.getInstance().addUser(user);
+        storage.addUser(user);
         return "/table.xhtml";
     }
 
