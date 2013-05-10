@@ -16,6 +16,7 @@ public class UserController {
     @ManagedProperty(value = "#{user}")
     private User user;
     private Register storage;
+    private boolean loginfailed = false;
     /**
      * Creates a new instance of Controller
      */
@@ -27,9 +28,11 @@ public class UserController {
         String username = user.getUsername();
         User tmp = storage.getUser(username);
         if(tmp==null){
+            loginfailed = true;
             return "/index.xhtml";
         }
         if(tmp.getPassword().equals(user.getPassword())){
+            loginfailed = false;
             return "/table.xhtml";
         }
         return "/index.xhtml";
@@ -38,6 +41,10 @@ public class UserController {
     public String register(){
         storage.addUser(user);
         return "/table.xhtml";
+    }
+    
+    public boolean getFailedStatus(){
+        return this.loginfailed;
     }
 
     public User getUser() {

@@ -18,7 +18,10 @@
          <h:outputText value="#{msg['login.header']}" escape="false" />
         <h:form id="form"> 
             <fieldset>
+                
             <h:outputLabel value="#{msg['login.username']}" for="username" class="registerform" />
+             <h:message id="login_messages" for="username" styleClass="validation_error" />
+            
             
             <h:inputText value="#{cc.attrs.username}" id="username" tabindex="2"/>
             
@@ -27,11 +30,18 @@
             
             <h:inputSecret value="#{cc.attrs.password}" id="password" tabindex="3" />
             </fieldset>
+           
+            <h:outputText value="#{msg['login.failed']}" rendered="#{userController.failedStatus}" style="color: red"/>
+            <h:messages style="color: red"/>
             
+            <f:verbatim><br/></f:verbatim>
              <h:commandButton action="#{cc.attrs.action}" 
                                      value="#{msg['login.submit']}" 
                                      id="submit" 
                                      tabindex="4" />
+             
+           
+             
         </h:form>
       
   </composite:implementation>
