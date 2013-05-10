@@ -16,8 +16,9 @@
                     <div id="navigation">
                         <h2 class="accessibility">Navigation</h2>
                         <ul title="Navigation">
-                            <li><a id="startNewGame" href="#" tabindex="1">Neues Spiel</a></li>
-                            <li><a id="logout" href="#" tabindex="2">Ausloggen</a></li>
+                            <!-- TODO Links richtig setzen !-->
+                            <li><h:link value="#{msg['navi.newGame']}" outcome="register" id="register" tabindex="1"/></li>
+                            <li><h:link value="#{msg['navi.logout']}" outcome="register" id="register" tabindex="2"/></li>
                         </ul>
                     </div>
             </ui:define>
@@ -25,14 +26,14 @@
                     <div id="main-area">
                         <div class="info">
                             <h2>Spielinformationen</h2>
-                            <table summary="#{msg['table.InfoGameHeader']}">
+                            <table summary="#{msg['table.infoGameHeader']}">
                                 <tr><th id="leaderLabel" class="label">F&uuml;hrender</th><td id="leader" class="data">Super C</td></tr>
                                 <tr><th id="roundLabel" class="label">Runde</th><td id="round" class="data">1</td></tr>
                                 <tr><th id="timeLabel" class="label">Zeit</th><td id="time" class="data">02:30</td></tr>
                                 <tr><th id="computerScoreLabel" class="label">W&uuml;rfelergebnis <em>Super C</em></th><td id="computerScore" class="data">3</td></tr>
                             </table>  
                             <h2>Spieler</h2>
-                            <table summary="#{msg['table.InfoNameHeader']}">
+                            <table summary="#{msg['table.infoNameHeader']}">
                                 <tr><th id="player1NameLabel" class="label">Spieler 1</th><td id="player1Name" class="data">Super Mario</td></tr>
                                 <tr><th id="player2NameLabel" class="label">Spieler 2</th><td id="player2Name" class="data">Super C</td></tr>
                             </table>    	  
@@ -72,23 +73,22 @@
                         <div id="player" class="player">
                             <h2 class="accessibility">#{msg['table.accessabilityDiceArea']}W&uuml;rfelbereich</h2>
                             <span class="accessibility">#{msg['table.accessabilityItsTurnFor']}An der Reihe ist</span><div id="currentPlayerName">Super Mario</div>
-                            <input id="dice" type="image" tabindex="4" src="img/wuerfel1.png" title="#{msg['table.DiceTitle1']}" alt="#{msg['table.DiceDescription11']}" />
+                            <input id="dice" type="image" tabindex="4" src="resources/img/wuerfel1.png" title="#{msg['table.diceTitle1']}" alt="#{msg['table.diceDescription11']}" />
                         </div>
                     </div>
             </ui:define>
             <ui:define name="js">
-
-            <script type="text/javascript">
-                //<![CDATA[
-                $("#dice").click(function() {
-                    $("#player1").fadeOut(700, function() {
-                        $("#player1").appendTo("#start_road");
-                        $("#player1").fadeIn(700);
+                <script type="text/javascript">
+                    //<![CDATA[
+                    $("#dice").click(function() {
+                        $("#player1").fadeOut(700, function() {
+                            $("#player1").appendTo("#start_road");
+                            $("#player1").fadeIn(700);
+                        });
+                        return false;
                     });
-                    return false;
-                });
-                //]]>
-            </script>
+                    //]]>
+                </script>
             </ui:define>
         </body>
         </ui:composition>
