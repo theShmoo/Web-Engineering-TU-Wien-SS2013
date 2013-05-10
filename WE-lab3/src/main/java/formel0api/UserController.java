@@ -22,8 +22,21 @@ public class UserController {
     public UserController() {
     }
     
+    public String login(){
+        String username = user.getUsername();
+        User tmp = Register.getInstance().getUser(username);
+        if(tmp==null){
+            return "/mycomponents/login.xhtml";
+        }
+        if(tmp.getPassword().equals(user.getPassword())){
+            return "/table.xhtml";
+        }
+        return "/mycomponents/login.xhtml";
+    }
+    
     public void register(){
         //TODO (wird ausgeloest, wenn man auf den Submit Button im Register drueckt)
+        
     }
     //TODO: Login, Register Functions
 
