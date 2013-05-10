@@ -27,7 +27,7 @@
                     <h:inputText value="#{userController.user.username}" id="username" tabindex="2"/>
                     <f:verbatim><br/></f:verbatim>
                     <h:outputLabel value="#{msg['login.password']}" for="password" class="registerform" />
-                    <h:inputText value="#{userController.user.password}" id="password" tabindex="3" />
+                    <h:inputSecret value="#{userController.user.password}" id="password" tabindex="3" />
                     </fieldset>
                     <h:commandButton action="#{userController.login}" 
                                              value="#{msg['login.submit']}" 
