@@ -10,9 +10,15 @@
  */
 package formel0api;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
 /**
  * Class representing a Formel 0 game
  */
+@ManagedBean(name="game")
+@SessionScoped
 public class Game {
 
     private static final int LAST_FIELD = 6;
@@ -27,26 +33,40 @@ public class Game {
     /**
      * Dice that is used in this game
      */
-    private Dice dice = new Dice();
+    private Dice dice;
     /**
      * Specifies if the game is over (
      * <code>true</code>) or not (
      * <code>false</code)
      */
-    private boolean gameOver = false;
+    private boolean gameOver;
     /**
      * Starting time of the game
      */
-    private long gamestarttime = System.currentTimeMillis();
+    private long gamestarttime;
     /**
      * Time already spent in this game
      */
     private long spenttime;
-
+    /**
+     * Current round
+     */
+    private int round;
+    
     /**
      * Constructs a new {@link Game}
      */
+    public Game() {
+        this.player = new Player("defaultPlayer");
+        this.computer = new Player("defaultComputer");
+        round = 0;
+        gamestarttime = System.currentTimeMillis();
+        gameOver = false;
+        dice = new Dice();
+    }
+    
     public Game(Player player, Player computer) {
+        this();
         this.player = player;
         this.computer = computer;
     }
@@ -80,7 +100,7 @@ public class Game {
      * @param player Player who rolls the dice
      * @return score
      */
-    public int rollthedice(Player player) {
+    public int rollTheDice(Player player) {
         if (gameOver) {
             throw new IllegalArgumentException(
                     "Game is over. Rolling the dice is not allowed.");
@@ -125,7 +145,13 @@ public class Game {
         } else if (computer.getPosition() > player.getPosition()) {
             return computer;
         } else {
-            return null;
+            //TODO Return "several" in the correct language
+            String several = "TODO!!";
+            /*FacesContext ctx = FacesContext.getCurrentInstance();
+            several = ctx.getApplication()
+            .getResourceBundle(ctx, "table")
+            .getString("several");*/
+            return new Player(several);
         }
     }
 
@@ -145,5 +171,14 @@ public class Game {
      */
     public Player getComputer() {
         return computer;
+    }
+    
+    /**
+     * Returns the current round
+     * 
+     * @return round
+     */
+    public int getRound() {
+        return round;
     }
 }
