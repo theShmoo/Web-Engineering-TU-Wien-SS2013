@@ -27,6 +27,7 @@
                         <div class="info">
                             <h2>Spielinformationen</h2>
                             <table summary="#{msg['table.infoGameHeader']}">
+                                <tr><th><h:outputText id="test" value="#{game.round}" /></th></tr>
                                 <tr><th id="leaderLabel" class="label">#{msg['table.infoGame.leading']}</th><td id="leader" class="data">#{game.leader.name}</td></tr>
                                 <tr><th id="roundLabel" class="label">#{msg['table.infoGame.round']}</th><td id="round" class="data">#{game.round}</td></tr>
                                 <tr><th id="timeLabel" class="label">#{msg['table.infoGame.time']}</th><td id="time" class="data">#{game.spentTime}</td></tr>
@@ -74,6 +75,13 @@
                             <h2 class="accessibility">#{msg['table.accessabilityDiceArea']}W&uuml;rfelbereich</h2>
                             <span class="accessibility">#{msg['table.accessabilityItsTurnFor']}</span><div id="currentPlayerName">#{game.player.name}</div>
                             <input id="dice" type="image" tabindex="4" src="resources/img/wuerfel1.png" title="#{msg['table.diceTitle1']}" alt="#{msg['table.diceDescription1']}" />
+                            <h:panelGrid columns="1">
+                                <h:inputText id="first" value="#{game.player.name}"/>
+                                <h:inputText id="last" value="#{game.computer.name}"/>
+                                <h:commandButton value="Show">
+                                    <f:ajax execute="first last" render=":test"/>
+                                </h:commandButton>
+                            </h:panelGrid>
                         </div>
                     </div>
             </ui:define>

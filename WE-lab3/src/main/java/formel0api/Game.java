@@ -94,13 +94,25 @@ public class Game {
     }
 
     /**
-     * Rolls the dice for the player and updates the position of the player's
+     * Interface for JSF to roll the Dice for player and Computer
+     * 
+     */
+    public void rollDice() {
+        rollDiceOnePlayer(player);
+        if(!gameOver) {
+            rollDiceOnePlayer(computer);
+        }
+        round ++;
+    }
+    
+    /**
+     * Rolls the dice for a player and updates the position of the player's
      * car according to the score
      *
      * @param player Player who rolls the dice
      * @return score
      */
-    public int rollTheDice(Player player) {
+    private int rollDiceOnePlayer(Player player) {
         if (gameOver) {
             throw new IllegalArgumentException(
                     "Game is over. Rolling the dice is not allowed.");
