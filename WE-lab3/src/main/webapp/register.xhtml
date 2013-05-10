@@ -90,7 +90,7 @@
                         <h:inputSecret value="#{userController.user.password}" id="password" tabindex="8" required="true" 
                                        requiredMessage="#{msg['register.error.required']}" 
                                        validatorMessage="#{msg['register.error.password']}">
-                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-zA-Z]).{2})" />
+                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z,A-Z]).{2,})" />
                             <f:ajax execute="@this" event="keyup" render="password_messages" />
                         </h:inputSecret>
                         <h:message id="password_messages" for="password" styleClass="validation_error" />

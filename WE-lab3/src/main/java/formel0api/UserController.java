@@ -36,7 +36,6 @@ public class UserController {
     
     public String register(){
         Register.getInstance().addUser(user);
-        login();
         return "/table.xhtml";
     }
 
