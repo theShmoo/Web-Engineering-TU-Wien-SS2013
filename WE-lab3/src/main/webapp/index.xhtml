@@ -22,7 +22,11 @@
         <ui:define name="content">
             <div id="content">
                 
-                <mc:login />
+                <mc:login 
+                    username="#{userController.user.username}"
+                    password="#{userController.user.password}"
+                    action="#{userController.login()}"
+                    />
                 
             </div>
         </ui:define>

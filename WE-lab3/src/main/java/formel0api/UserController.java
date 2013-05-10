@@ -15,11 +15,12 @@ public class UserController {
 
     @ManagedProperty(value = "#{user}")
     private User user;
-    private Register storage = Register.getInstance();
+    private Register storage;
     /**
      * Creates a new instance of Controller
      */
     public UserController() {
+        storage = Register.getInstance();
     }
     
     public String login(){

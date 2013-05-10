@@ -7,7 +7,9 @@
 
     <!-- INTERFACE -->
   <composite:interface>
-      <composite:attribute name="value" required="false"/>
+      <composite:attribute name="username" required="true"/>
+      <composite:attribute name="password" required="true"/>
+      <composite:attribute name="action" method-signature="java.lang.String f()" required="true" />
   </composite:interface>
 
   <!-- IMPLEMENTATION -->
@@ -17,12 +19,16 @@
         <h:form id="form"> 
             <fieldset>
             <h:outputLabel value="#{msg['login.username']}" for="username" class="registerform" />
-            <h:inputText value="#{userController.user.username}" id="username" tabindex="2"/>
+            
+            <h:inputText value="#{cc.attrs.username}" id="username" tabindex="2"/>
+            
             <f:verbatim><br/></f:verbatim>
             <h:outputLabel value="#{msg['login.password']}" for="password" class="registerform" />
-            <h:inputSecret value="#{userController.user.password}" id="password" tabindex="3" />
+            
+            <h:inputSecret value="#{cc.attrs.password}" id="password" tabindex="3" />
             </fieldset>
-            <h:commandButton action="#{userController.login}" 
+            
+             <h:commandButton action="#{cc.attrs.action}" 
                                      value="#{msg['login.submit']}" 
                                      id="submit" 
                                      tabindex="4" />
