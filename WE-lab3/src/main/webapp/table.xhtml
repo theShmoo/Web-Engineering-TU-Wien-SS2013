@@ -26,6 +26,12 @@
                     <div id="main-area">
                         <div class="info">
                             <h2>Spielinformationen</h2>
+                            <h:panelGrid id="playerInformation" columns="2">
+                                <h:outputLabel value="#{msg['table.infoGame.leading']}" 
+                                   for="leading" class="label" />
+                                <h:outputText id="leading" value="#{game.leader.name}" />
+                                
+                            </h:panelGrid>
                             <table summary="#{msg['table.infoGameHeader']}">
                                 <tr><th><h:outputText id="test" value="#{game.round}" /></th></tr>
                                 <tr><th id="leaderLabel" class="label">#{msg['table.infoGame.leading']}</th><td id="leader" class="data">#{game.leader.name}</td></tr>
@@ -75,13 +81,13 @@
                             <h2 class="accessibility">#{msg['table.accessabilityDiceArea']}W&uuml;rfelbereich</h2>
                             <span class="accessibility">#{msg['table.accessabilityItsTurnFor']}</span><div id="currentPlayerName">#{game.player.name}</div>
                             <input id="dice" type="image" tabindex="4" src="resources/img/wuerfel1.png" title="#{msg['table.diceTitle1']}" alt="#{msg['table.diceDescription1']}" />
+                            <h:form id="form">
                             <h:panelGrid columns="1">
-                                <h:inputText id="first" value="#{game.player.name}"/>
-                                <h:inputText id="last" value="#{game.computer.name}"/>
-                                <h:commandButton value="Show">
-                                    <f:ajax execute="first last" render=":test"/>
+                                <h:commandButton value="Roll">
+                                    <f:ajax listener="#{game.rollDice()}" render=":test :playerInformation"/>
                                 </h:commandButton>
                             </h:panelGrid>
+                            </h:form>
                         </div>
                     </div>
             </ui:define>

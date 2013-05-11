@@ -98,6 +98,7 @@ public class Game {
      * 
      */
     public void rollDice() {
+        
         rollDiceOnePlayer(player);
         if(!gameOver) {
             rollDiceOnePlayer(computer);
@@ -113,6 +114,7 @@ public class Game {
      * @return score
      */
     private int rollDiceOnePlayer(Player player) {
+        
         if (gameOver) {
             throw new IllegalArgumentException(
                     "Game is over. Rolling the dice is not allowed.");
@@ -192,5 +194,9 @@ public class Game {
      */
     public int getRound() {
         return round;
+    }
+    
+    public void setRound(int round) {
+        this.round = round;
     }
 }
