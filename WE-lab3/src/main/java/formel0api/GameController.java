@@ -10,6 +10,7 @@ package formel0api;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name="gameController")
 @SessionScoped
@@ -17,11 +18,12 @@ public class GameController {
     private Game game;
     
     public GameController() {
-        this.game = new Game();
-    }
-    
-    public GameController(Player player, Player computer) {
-        this.game = new Game(player, computer);
+        /*UserController uc = (UserController) FacesContext.getCurrentInstance().
+                getExternalContext().getRequestMap().get("userController");
+        String username = uc.getUser().getUsername();
+        
+        this.game = new Game(new Player(username), new Player("DefaultComputer"));*/
+        this.game = new Game(new Player("Player"), new Player("Computer"));
     }
     
     public void resetGame() {
