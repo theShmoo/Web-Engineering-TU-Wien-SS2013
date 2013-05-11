@@ -29,49 +29,49 @@
                         <h:panelGrid id="gameInformation" columns="2"  summary="#{msg['table.infoGameHeader']}">
                             <h:outputLabel value="#{msg['table.infoGame.leading']}" 
                                            for="leading" class="label" />
-                            <h:outputText id="leading" class="data" value="#{game.leader.name}" />
+                            <h:outputText id="leading" class="data" value="#{gameController.game.leader.name}" />
 
                             <h:outputLabel value="#{msg['table.infoGame.round']}" 
                                            for="round" class="label" />
-                            <h:outputText id="round" class="data" value="#{game.round}" />
+                            <h:outputText id="round" class="data" value="#{gameController.game.round}" />
 
                             <h:outputLabel value="#{msg['table.infoGame.time']}" 
                                            for="time" class="label" />
-                            <h:outputText id="time" class="data" value="#{game.spentTime}" />
+                            <h:outputText id="time" class="data" value="#{gameController.game.spentTime}" />
 
                             <h:outputLabel value="#{msg['table.infoGame.diceRoll']}" 
                                            for="diceRoll" class="label" />
-                            <h:outputText id="diceRoll" class="data" value="#{game.computer.dice.lastRoll}" />
+                            <h:outputText id="diceRoll" class="data" value="#{gameController.game.computer.dice.lastRoll}" />
 
                             <!-- Hidden fields !-->
                             <h:outputText style="display: none" value="hiddenInformation" />
-                            <h:outputText style="display: none" id="humanExpectedPosition" value="#{game.player.expectedPosition}" />
-                            <h:outputText style="display: none" id="humanPosition" value="#{game.player.position}" />
-                            <h:outputText style="display: none" id="computerExpectedPosition" value="#{game.computer.expectedPosition}" />
-                            <h:outputText style="display: none" id="computerPosition" value="#{game.computer.position}" />
-                            <h:outputText style="display: none" id="gameOver" value="#{game.gameOver}" />
+                            <h:outputText style="display: none" id="humanExpectedPosition" value="#{gameController.game.player.expectedPosition}" />
+                            <h:outputText style="display: none" id="humanPosition" value="#{gameController.game.player.position}" />
+                            <h:outputText style="display: none" id="computerExpectedPosition" value="#{gameController.game.computer.expectedPosition}" />
+                            <h:outputText style="display: none" id="computerPosition" value="#{gameController.game.computer.position}" />
+                            <h:outputText style="display: none" id="gameOver" value="#{gameController.game.gameOver}" />
                         </h:panelGrid>
                         <!-- TODO delete if everything works 
                         <table summary="#{msg['table.infoGameHeader']}">
-                            <tr><th id="leaderLabel" class="label">#{msg['table.infoGame.leading']}</th><td id="leader" class="data">#{game.leader.name}</td></tr>
-                            <tr><th id="roundLabel" class="label">#{msg['table.infoGame.round']}</th><td id="round" class="data">#{game.round}</td></tr>
-                            <tr><th id="timeLabel" class="label">#{msg['table.infoGame.time']}</th><td id="time" class="data">#{game.spentTime}</td></tr>
-                            <tr><th id="computerScoreLabel" class="label">#{msg['table.infoGame.diceRoll']} <em>#{game.computer.name}</em></th><td id="computerScore" class="data">3</td></tr>
+                            <tr><th id="leaderLabel" class="label">#{msg['table.infoGame.leading']}</th><td id="leader" class="data">#{gameController.game.leader.name}</td></tr>
+                            <tr><th id="roundLabel" class="label">#{msg['table.infoGame.round']}</th><td id="round" class="data">#{gameController.game.round}</td></tr>
+                            <tr><th id="timeLabel" class="label">#{msg['table.infoGame.time']}</th><td id="time" class="data">#{gameController.game.spentTime}</td></tr>
+                            <tr><th id="computerScoreLabel" class="label">#{msg['table.infoGame.diceRoll']} <em>#{gameController.game.computer.name}</em></th><td id="computerScore" class="data">3</td></tr>
                         </table>  !-->
                         <h2>Spieler</h2>
                         <h:panelGrid id="playerInformation" columns="2" summary="#{msg['table.infoNameHeader']}" headerClass="label">
                             <h:outputLabel value="#{msg['table.infoName.player1']}" 
                                            for="player1Name" class="label" />
-                            <h:outputText id="player1Name" class="data" value="#{game.player.name}" />
+                            <h:outputText id="player1Name" class="data" value="#{gameController.game.player.name}" />
 
                             <h:outputLabel value="#{msg['table.infoName.player2']}" 
                                            for="player2Name" class="label" />
-                            <h:outputText id="player2Name" class="data" value="#{game.computer.name}" />
+                            <h:outputText id="player2Name" class="data" value="#{gameController.game.computer.name}" />
                         </h:panelGrid>
                         <!-- TODO delete if everything works
                         <table summary="#{msg['table.infoNameHeader']}">
-                            <tr><th id="player1NameLabel" class="label">#{msg['table.infoName.player1']}</th><td id="player1Name" class="data">#{game.player.name}</td></tr>
-                            <tr><th id="player2NameLabel" class="label">#{msg['table.infoName.player2']}</th><td id="player2Name" class="data">#{game.computer.name}</td></tr>
+                            <tr><th id="player1NameLabel" class="label">#{msg['table.infoName.player1']}</th><td id="player1Name" class="data">#{gameController.game.player.name}</td></tr>
+                            <tr><th id="player2NameLabel" class="label">#{msg['table.infoName.player2']}</th><td id="player2Name" class="data">#{gameController.game.computer.name}</td></tr>
                         </table> !-->    	  
                     </div>
                     <div id="field" class="field">
@@ -108,15 +108,15 @@
                     </div>
                     <div id="player" class="player">
                         <h2 class="accessibility">#{msg['table.accessabilityDiceArea']}W&uuml;rfelbereich</h2>
-                        <span class="accessibility">#{msg['table.accessabilityItsTurnFor']}</span><div id="currentPlayerName">#{game.player.name}</div>
+                        <span class="accessibility">#{msg['table.accessabilityItsTurnFor']}</span><div id="currentPlayerName">#{gameController.game.player.name}</div>
                         <h:form id="diceForm">
                             <h:commandButton id="dice" type="image" 
                                              tabindex="4" 
-                                             image="#{resource[game.player.dice.diceImage]}" 
-                                             title="#{msg[game.player.dice.diceTitle]}" 
-                                             alt="#{msg[game.player.dice.diceDescription]}" 
+                                             image="#{resource[gameController.game.player.dice.diceImage]}" 
+                                             title="#{msg[gameController.game.player.dice.diceTitle]}" 
+                                             alt="#{msg[gameController.game.player.dice.diceDescription]}" 
                                              value="Roll the Dice">
-                                <f:ajax listener="#{game.rollDice()}" render=":diceForm :gameInformation :playerInformation" onevent="updateGame"/>
+                                <f:ajax listener="#{gameController.game.rollDice()}" render=":diceForm :gameInformation :playerInformation" onevent="updateGame"/>
                             </h:commandButton>
                         </h:form>
                     </div>
