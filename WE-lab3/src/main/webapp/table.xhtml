@@ -44,12 +44,12 @@
                                     <h:outputText id="diceRoll" class="data" value="#{game.computer.dice.lastRoll}" />
                                     
                                     <!-- Hidden fields !-->
-                                    <h:outputText style="hidden" value="hiddenInformation" />
-                                    <h:outputText style="hidden" id="humanExpectedPosition" value="#{game.player.expectedPosition}" />
-                                    <h:outputText style="hidden" id="humanPosition" value="#{game.player.position}" />
-                                    <h:outputText style="hidden" id="computerExpectedPosition" value="#{game.computer.expectedPosition}" />
-                                    <h:outputText style="hidden" id="computerPosition" value="#{game.computer.position}" />
-                                    <h:outputText style="hidden" id="gameOver" value="#{game.gameOver}" />
+                                    <h:outputText style="display: none" value="hiddenInformation" />
+                                    <h:outputText style="display: none" id="humanExpectedPosition" value="#{game.player.expectedPosition}" />
+                                    <h:outputText style="display: none" id="humanPosition" value="#{game.player.position}" />
+                                    <h:outputText style="display: none" id="computerExpectedPosition" value="#{game.computer.expectedPosition}" />
+                                    <h:outputText style="display: none" id="computerPosition" value="#{game.computer.position}" />
+                                    <h:outputText style="display: none" id="gameOver" value="#{game.gameOver}" />
                             </h:panelGrid>
                             <!-- TODO delete if everything works 
                             <table summary="#{msg['table.infoGameHeader']}">
@@ -112,7 +112,7 @@
                             <h:form id="diceForm">
                             <h:panelGrid columns="1">
                                 <h:commandButton id="dice" type="image" tabindex="4" image="#{resource['img/wuerfel0.png']}" title="#{msg['table.diceTitle1']}" alt="#{msg['table.diceDescription1']}" value="Roll the Dice">
-                                    <f:ajax listener="#{game.rollDice()}" render="@form :gameInformation :playerInformation" onevent="updateGame"/>
+                                    <f:ajax listener="#{game.rollDice()}" render=":gameInformation :playerInformation" onevent="updateGame"/>
                                 </h:commandButton>
                             </h:panelGrid>
                             </h:form>
