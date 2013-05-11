@@ -29,8 +29,13 @@ public class Player {
     /**
      * The current position of the user's car
      */
-    private int position = 0;
+    private int position;
 
+    /**
+     * The position the player would expect by rolling the dice, without knowing the field
+     */
+    private int expectedPosition;
+    
     /**
      * A private dice, used to get a random number
      */
@@ -45,10 +50,22 @@ public class Player {
     public Player(String name) {
         super();
         this.name = name;
+        this.position = 0;
         setPosition(0);
         this.dice = new Dice();
     }
 
+    /**
+     * Lets the Player roll the dice
+     * 
+     * @return The rolled number
+     */
+    public int rollDice() {
+        int rollResult = dice.roll();
+        expectedPosition = position + rollResult;
+        return rollResult;
+    }
+    
     /**
      * Returns the name of this player.
      *
@@ -76,7 +93,14 @@ public class Player {
         this.position = pos;
         history.add(new Integer(pos));
     }
-
+    
+    /**
+     * get the exPectedPosition
+     */
+    public int getExpectedPosition() {
+        return expectedPosition;
+    }
+    
     /**
      * Returns the position at time (now - t) (i.e., if t=0 returns the current
      * position, if t=1 returns last position, etc.)

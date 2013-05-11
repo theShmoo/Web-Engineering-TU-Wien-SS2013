@@ -115,7 +115,7 @@ public class Game {
                     "Game is over. Rolling the dice is not allowed.");
         }
 
-        int score = player.getDice().roll();
+        int score = player.rollDice();
 
         int position = player.getPosition();
 
@@ -193,5 +193,11 @@ public class Game {
     
     public void setRound(int round) {
         this.round = round;
+    }
+    
+    public Game resetGame() {
+        Player resetetPlayer = new Player(player.getName());
+        Player resetetComputer = new Player(computer.getName());
+        return new Game(resetetPlayer, resetetComputer);
     }
 }

@@ -26,27 +26,30 @@
                     <div id="main-area">
                         <div class="info">
                             <h2>Spielinformationen</h2>
-                            <h:panelGrid id="gameInformation" columns="1" summary="#{msg['table.infoGameHeader']}">
-                                <h:panelGroup>
+                            <h:panelGrid id="gameInformation" columns="2"  summary="#{msg['table.infoGameHeader']}">
                                     <h:outputLabel value="#{msg['table.infoGame.leading']}" 
                                        for="leading" class="label" />
                                     <h:outputText id="leading" class="data" value="#{game.leader.name}" />
-                                </h:panelGroup>
-                                <h:panelGroup>
+                                    
                                     <h:outputLabel value="#{msg['table.infoGame.round']}" 
                                        for="round" class="label" />
                                     <h:outputText id="round" class="data" value="#{game.round}" />
-                                </h:panelGroup>
-                                <h:panelGroup>
+                                    
                                     <h:outputLabel value="#{msg['table.infoGame.time']}" 
                                        for="time" class="label" />
                                     <h:outputText id="time" class="data" value="#{game.spentTime}" />
-                                </h:panelGroup>
-                                <h:panelGroup>
+                                    
                                     <h:outputLabel value="#{msg['table.infoGame.diceRoll']}" 
                                        for="diceRoll" class="label" />
                                     <h:outputText id="diceRoll" class="data" value="#{game.computer.dice.lastRoll}" />
-                                </h:panelGroup>
+                                    
+                                    <!-- Hidden fields !-->
+                                    <h:outputText style="hidden" value="hiddenInformation" />
+                                    <h:outputText style="hidden" id="humanExpectedPosition" value="#{game.player.expectedPosition}" />
+                                    <h:outputText style="hidden" id="humanPosition" value="#{game.player.position}" />
+                                    <h:outputText style="hidden" id="computerExpectedPosition" value="#{game.computer.expectedPosition}" />
+                                    <h:outputText style="hidden" id="computerPosition" value="#{game.computer.position}" />
+                                    <h:outputText style="hidden" id="gameOver" value="#{game.gameOver}" />
                             </h:panelGrid>
                             <!-- TODO delete if everything works 
                             <table summary="#{msg['table.infoGameHeader']}">
@@ -56,17 +59,14 @@
                                 <tr><th id="computerScoreLabel" class="label">#{msg['table.infoGame.diceRoll']} <em>#{game.computer.name}</em></th><td id="computerScore" class="data">3</td></tr>
                             </table>  !-->
                             <h2>Spieler</h2>
-                            <h:panelGrid id="playerInformation" columns="1" summary="#{msg['table.infoNameHeader']}">
-                                <h:panelGroup >
+                            <h:panelGrid id="playerInformation" columns="2" summary="#{msg['table.infoNameHeader']}" headerClass="label">
                                     <h:outputLabel value="#{msg['table.infoName.player1']}" 
-                                       for="player1Name" class="label" />
+                                                   for="player1Name" class="label" />
                                     <h:outputText id="player1Name" class="data" value="#{game.player.name}" />
-                                </h:panelGroup>
-                                <h:panelGroup >
+                                    
                                     <h:outputLabel value="#{msg['table.infoName.player2']}" 
                                        for="player2Name" class="label" />
                                     <h:outputText id="player2Name" class="data" value="#{game.computer.name}" />
-                                </h:panelGroup>
                             </h:panelGrid>
                             <!-- TODO delete if everything works
                             <table summary="#{msg['table.infoNameHeader']}">
@@ -79,24 +79,24 @@
                             <ol id="road">
                                 <li id="start_road">
                                     <span class="accessibility">#{msg['table.accessabilityStartField']}</span>
+                                    <span id="player1">
+                                        <span class="accessibility"><em>#{msg['table.accessabilityPlayer1']}</em></span>
+                                    </span>
+                                    <span id="player2">
+                                        <span class="accessibility"><em>#{msg['table.accessabilityPlayer2']}</em></span>
+                                    </span>
                                 </li>
                                 <li class="empty_road" id="road_1">
                                     <span class="accessibility">#{msg['table.accessabilityGameField2']}</span>
                                 </li>
                                 <li class="oil_road" id="road_2">
                                     <span class="accessibility">#{msg['table.accessabilityGameField3']}</span>
-                                    <span id="player1">
-                                        <span class="accessibility"><em>#{msg['table.accessabilityPlayer1']}</em></span>
-                                    </span>
                                 </li>
                                 <li class="empty_road" id="road_3">
                                     <span class="accessibility">#{msg['table.accessabilityGameField4']}</span>
                                 </li>
                                 <li class="empty_road" id="road_4">
                                     <span class="accessibility">#{msg['table.accessabilityGameField5']}</span>
-                                    <span id="player2">
-                                        <span class="accessibility"><em>#{msg['table.accessabilityPlayer2']}</em></span>
-                                    </span>
                                 </li>
                                 <li class="oil_road" id="road_5">
                                     <span class="accessibility">#{msg['table.accessabilityGameField6']}</span>
@@ -109,11 +109,10 @@
                         <div id="player" class="player">
                             <h2 class="accessibility">#{msg['table.accessabilityDiceArea']}W&uuml;rfelbereich</h2>
                             <span class="accessibility">#{msg['table.accessabilityItsTurnFor']}</span><div id="currentPlayerName">#{game.player.name}</div>
-                            <input id="dice" type="image" tabindex="4" src="resources/img/wuerfel1.png" title="#{msg['table.diceTitle1']}" alt="#{msg['table.diceDescription1']}" />
-                            <h:form id="form">
+                            <h:form id="diceForm">
                             <h:panelGrid columns="1">
-                                <h:commandButton value="Roll">
-                                    <f:ajax listener="#{game.rollDice()}" render=":gameInformation :playerInformation"/>
+                                <h:commandButton id="dice" type="image" tabindex="4" image="#{resource['img/wuerfel0.png']}" title="#{msg['table.diceTitle1']}" alt="#{msg['table.diceDescription1']}" value="Roll the Dice">
+                                    <f:ajax listener="#{game.rollDice()}" render="@form :gameInformation :playerInformation" onevent="updateGame"/>
                                 </h:commandButton>
                             </h:panelGrid>
                             </h:form>
@@ -123,13 +122,89 @@
             <ui:define name="js">
                 <script type="text/javascript">
                     //<![CDATA[
-                    $("#dice").click(function() {
-                        $("#player1").fadeOut(700, function() {
-                            $("#player1").appendTo("#start_road");
-                            $("#player1").fadeIn(700);
-                        });
-                        return false;
-                    });
+
+                    getDivId = function(num) {
+                        if (num <= 0) {
+                            return "#start_road";
+                        }
+                        if (num >= 6) {
+                            return "#finish_road";
+                        }
+                        return "#road_" + num;
+                    };
+                    // call this function once before starting the animations
+                    function prepareAnimation() {
+                        $("#animationDone").remove();
+                    }
+
+                    // call this function once after all animations have finished
+                    function completeAnimation() {
+                        var div = $(document.createElement('div'));
+                        div.attr('id', 'animationDone');
+                        div.addClass('hide');
+                        $("body").append(div);
+                    }
+
+                    //This Function gets called when the page gets reloaded
+                    function updateGame() {
+
+                        //load functions
+
+                        function driveHuman() {
+                            console.log("humanExpectedPosition: " + humanExpectedPosition + ", humanPosition: " + humanPosition);
+                            $("#player1").fadeOut(speed, function() {
+                                $("#player1").appendTo(humanExpectedPosition);
+                                $("#player1").fadeIn(speed, checkHumanOnOilSpill);
+                            });
+                        }
+
+                        function checkHumanOnOilSpill() {
+                            if (humanExpectedPosition.toString() != humanPosition.toString()) {
+                                console.log("Player hit oil Spill");
+                                $("#player1").fadeOut(speed, function() {
+                                    $("#player1").appendTo(humanPosition);
+                                    $("#player1").fadeIn(speed, driveComputer());
+                                });
+                            } else {
+                                driveComputer();
+                            }
+                        }
+
+                        function driveComputer() {
+                            $("#player2").fadeOut(speed, function() {
+                                $("#player2").appendTo(computerExpectedPosition);
+                                $("#player2").fadeIn(speed, checkComputerOnOilSpill);
+                            });
+                        }
+
+                        function checkComputerOnOilSpill() {
+                            if (computerExpectedPosition.toString() != computerPosition.toString()) {
+                                console.log("Computer on Oil Spill");
+                                $("#player2").fadeOut(speed, function() {
+                                    $("#player2").appendTo(computerPosition);
+                                    $("#player2").fadeIn(speed, completeAnimation());
+                                });
+                            } else {
+                                completeAnimation();
+                            }
+                        }
+
+                        //If it is not the first round and if the game isn't over, move the cars
+                        if($("#gameOver").text() == "false")
+                        if ($("#round").text() != 0) {
+                            var speed = 700;
+                            prepareAnimation();
+
+                            
+                                var humanExpectedPosition = getDivId($("#humanExpectedPosition").text());
+                                var humanPosition = getDivId($("#humanPosition").text());
+                                var computerExpectedPosition = getDivId($("#computerExpectedPosition").text());
+                                var computerPosition = getDivId($("#computerPosition").text());
+                                driveHuman();
+                            
+                        }
+                  }
+
                     //]]>
                 </script>
             </ui:define>
