@@ -64,8 +64,8 @@
 
 
                     <h:selectOneMenu value="#{userController.user.gender}" id="sex" tabindex="6">  
-                        <f:selectItems value="#{data.sexes}" var="status"
-                                       itemValue="#{sexes}" itemLabel="#{msg[sexes.label]}" />
+                        <f:selectItems value="#{data.sexes}" var="sex"   
+                                       itemValue="#{sex}" itemLabel="#{msg[sex.label]}"/>
                     </h:selectOneMenu>
 
                     <h:outputText value="#{msg['register.loginData']}" escape="false" />
