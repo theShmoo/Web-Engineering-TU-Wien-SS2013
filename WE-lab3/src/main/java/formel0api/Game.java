@@ -135,8 +135,10 @@ public class Game {
         /**
          * Test if deadly field was reached
          */
-        if (Arrays.binarySearch(OIL_STAINS, newposition) > 0) {
-            newposition = 0;
+        for(int i=0; i<OIL_STAINS.length; i++) {
+            if(OIL_STAINS[i] == newposition) {
+                newposition =0;
+            }
         }
         
         player.setPosition(newposition);

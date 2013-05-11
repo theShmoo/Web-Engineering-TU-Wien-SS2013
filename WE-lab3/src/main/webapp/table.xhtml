@@ -17,7 +17,9 @@
                     <h2 class="accessibility">Navigation</h2>
                     <ul title="Navigation">
                         <!-- TODO Links richtig setzen !-->
-                        <li><h:link value="#{msg['navi.newGame']}" outcome="table" id="table" tabindex="1"/></li>
+                        <li>
+                            <h:link value="#{msg['navi.newGame']}" outcome="table" onclick="#{gameController.resetGame()}" id="table" tabindex="1"/>
+                        </li>
                         <li><h:link value="#{msg['navi.logout']}" outcome="index" id="index" tabindex="2"/></li>
                     </ul>
                 </div>
@@ -51,13 +53,6 @@
                             <h:outputText style="display: none" id="computerPosition" value="#{gameController.game.computer.position}" />
                             <h:outputText style="display: none" id="gameOver" value="#{gameController.game.gameOver}" />
                         </h:panelGrid>
-                        <!-- TODO delete if everything works 
-                        <table summary="#{msg['table.infoGameHeader']}">
-                            <tr><th id="leaderLabel" class="label">#{msg['table.infoGame.leading']}</th><td id="leader" class="data">#{gameController.game.leader.name}</td></tr>
-                            <tr><th id="roundLabel" class="label">#{msg['table.infoGame.round']}</th><td id="round" class="data">#{gameController.game.round}</td></tr>
-                            <tr><th id="timeLabel" class="label">#{msg['table.infoGame.time']}</th><td id="time" class="data">#{gameController.game.spentTime}</td></tr>
-                            <tr><th id="computerScoreLabel" class="label">#{msg['table.infoGame.diceRoll']} <em>#{gameController.game.computer.name}</em></th><td id="computerScore" class="data">3</td></tr>
-                        </table>  !-->
                         <h2>Spieler</h2>
                         <h:panelGrid id="playerInformation" columns="2" summary="#{msg['table.infoNameHeader']}" headerClass="label">
                             <h:outputLabel value="#{msg['table.infoName.player1']}" 
@@ -67,12 +62,7 @@
                             <h:outputLabel value="#{msg['table.infoName.player2']}" 
                                            for="player2Name" class="label" />
                             <h:outputText id="player2Name" class="data" value="#{gameController.game.computer.name}" />
-                        </h:panelGrid>
-                        <!-- TODO delete if everything works
-                        <table summary="#{msg['table.infoNameHeader']}">
-                            <tr><th id="player1NameLabel" class="label">#{msg['table.infoName.player1']}</th><td id="player1Name" class="data">#{gameController.game.player.name}</td></tr>
-                            <tr><th id="player2NameLabel" class="label">#{msg['table.infoName.player2']}</th><td id="player2Name" class="data">#{gameController.game.computer.name}</td></tr>
-                        </table> !-->    	  
+                        </h:panelGrid> 	  
                     </div>
                     <div id="field" class="field">
                         <h2 class="accessibility">#{msg['table.accessabilityGameArea']}</h2>
@@ -114,7 +104,7 @@
                                              tabindex="4" 
                                              image="#{resource[gameController.game.player.dice.diceImage]}" 
                                              title="#{msg[gameController.game.player.dice.diceTitle]}" 
-                                             alt="#{msg[gameController.game.player.dice.diceDescription]}" 
+                                             alt="#{msg[gameController.game.player.dice.diceDescription]}"
                                              value="Roll the Dice">
                                 <f:ajax listener="#{gameController.game.rollDice()}" render=":diceForm :gameInformation :playerInformation" onevent="updateGame"/>
                             </h:commandButton>
@@ -149,15 +139,17 @@
                     }
 
                     //This Function gets called when the page gets reloaded
-                    function updateGame() {
-
+                    //data contains the information in which status ajax is
+                    function updateGame(data) {
+                        var speed = 700;
                         //load functions
 
                         function driveHuman() {
                             console.log("humanExpectedPosition: " + humanExpectedPosition + ", humanPosition: " + humanPosition);
                             $("#player1").fadeOut(speed, function() {
                                 $("#player1").appendTo(humanExpectedPosition);
-                                $("#player1").fadeIn(speed, checkHumanOnOilSpill());
+                                console.log("Fading to expectedPosition");
+                                $("#player1").fadeIn(speed, checkHumanOnOilSpill);
                             });
                         }
 
@@ -174,9 +166,10 @@
                         }
 
                         function driveComputer() {
+                            console.log("computerExpectedPosition: " + computerExpectedPosition + ", computerPosition: " + computerPosition);
                             $("#player2").fadeOut(speed, function() {
                                 $("#player2").appendTo(computerExpectedPosition);
-                                $("#player2").fadeIn(speed, checkComputerOnOilSpill());
+                                $("#player2").fadeIn(speed, checkComputerOnOilSpill);
                             });
                         }
 
@@ -191,21 +184,20 @@
                                 completeAnimation();
                             }
                         }
+                        if(data.status == "success") {
+                            //If it is not the first round
+                                if ($("#round").text() !== 0) {
+                                    prepareAnimation();
+                                    
+                                    var humanExpectedPosition = getDivId($("#humanExpectedPosition").text());
+                                    var humanPosition = getDivId($("#humanPosition").text());
+                                    var computerExpectedPosition = getDivId($("#computerExpectedPosition").text());
+                                    var computerPosition = getDivId($("#computerPosition").text());
+                                    console.log("Refreshing GameInformation")
+                                    driveHuman();
 
-                        //If it is not the first round and if the game isn't over, move the cars
-                        //if ($("#gameOver").text() === "false")
-                            if ($("#round").text() !== 0) {
-                                var speed = 700;
-                                prepareAnimation();
-
-
-                                var humanExpectedPosition = getDivId($("#humanExpectedPosition").text());
-                                var humanPosition = getDivId($("#humanPosition").text());
-                                var computerExpectedPosition = getDivId($("#computerExpectedPosition").text());
-                                var computerPosition = getDivId($("#computerPosition").text());
-                                driveHuman();
-
-                            }
+                                }
+                        }
                     }
 
                     //]]>

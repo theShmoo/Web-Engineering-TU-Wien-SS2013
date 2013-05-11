@@ -150,13 +150,13 @@ div.info table {
     margin-left: 0.8em;
 }
 
-div.info th.label {
+div.info table td label {
     color: #ef9300;
     font: 0.8em arial,sans-serif;
     text-align: left;
 }
 
-div.info td.data {
+div.info table td data {
     color: #fff;
     padding-left: 1em;
     font: 0.8em arial,sans-serif;
