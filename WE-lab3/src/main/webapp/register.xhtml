@@ -14,7 +14,7 @@
             <div id="navigation">
                 <h2 class="accessibility">Navigation</h2>
                 <ul title="Navigation">
-                     <li><h:link value="#{msg['navi.login']}" outcome="index" id="backToLogin" tabindex="1"/></li>
+                    <li><h:link value="#{msg['navi.login']}" outcome="index" id="backToLogin" tabindex="1"/></li>
                 </ul>
             </div>
         </ui:define>
@@ -62,7 +62,7 @@
                     <h:outputLabel value="#{msg['register.sex']}" for="sex" class="registerform" />
 
 
-         
+
                     <h:selectOneMenu value="#{userController.user.gender}" id="sex" tabindex="6">  
                         <f:selectItems value="#{data.sexes}" var="status"
                                        itemValue="#{sexes}" itemLabel="#{msg[sexes.label]}" />
@@ -78,21 +78,26 @@
                             <f:ajax execute="@this" event="keyup" render="username_messages" />
                         </h:inputText>
                         <h:message id="username_messages" for="username" styleClass="validation_error" />
-                        <!--<span id="msg_username" class="validation_error hide">Der Benutzername muss mindestens 4 Zeichen und darf maximal 8 Zeichen enthalten.</span>-->
                         <f:verbatim><br/></f:verbatim>
 
                         <h:outputLabel value="#{msg['register.password']}" for="password" class="registerform" />
                         <h:inputSecret value="#{userController.user.password}" id="password" tabindex="8" required="true" 
                                        requiredMessage="#{msg['register.error.required']}" 
                                        validatorMessage="#{msg['register.error.password']}">
-                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z,A-Z]).{2,})" />
+                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-z,A-Z]).{1,})" />
                             <f:ajax execute="@this" event="keyup" render="password_messages" />
                         </h:inputSecret>
                         <h:message id="password_messages" for="password" styleClass="validation_error" />
                         <f:verbatim><br/></f:verbatim>
-                        
-                        <!-- TODO: Checkbox - Terms of Condition //-->
-                        
+
+                        <h:selectBooleanCheckbox id="showterms" value="#{userController.user.agreedTerms}">
+                            <f:ajax event="change" execute="terms" render="terms" />
+                        </h:selectBooleanCheckbox>
+                        <h:outputLabel value="#{msg['register.showterms']}" for="showterms" />
+                        <f:verbatim><br/></f:verbatim>
+                        <h:panelGroup id="terms">
+                            <h:outputText value="#{msg['register.terms']}" rendered="#{userController.user.agreedTerms}"/>
+                        </h:panelGroup>
                     </fieldset>
 
                     <p>

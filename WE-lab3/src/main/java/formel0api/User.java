@@ -25,6 +25,7 @@ public class User {
     private Sex gender;
     private String username;
     private String password;
+    private boolean agreedTerms;
     
     public User(){
         this.firstname = "";
@@ -33,6 +34,7 @@ public class User {
         this.gender = null;
         this.username = "";
         this.password = "";
+        this.agreedTerms = false;
     }
     
     /**
@@ -44,13 +46,14 @@ public class User {
      * @param username 
      * @param password 
      */
-    public User(String firstname,String lastname,String birthdate,Sex gender,String username,String password) {
+    public User(String firstname,String lastname,String birthdate,Sex gender,String username,String password,boolean agreedTerms) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthdate = birthdate;
         this.gender = gender;
         this.username = username;
         this.password = password;
+        this.agreedTerms = agreedTerms;
     }
     
     /*
@@ -149,4 +152,14 @@ public class User {
     public void setPassword(String password){
         this.password = password;
     }
+
+    public boolean isAgreedTerms() {
+        return agreedTerms;
+    }
+
+    public void setAgreedTerms(boolean agreedTerms) {
+        this.agreedTerms = agreedTerms;
+    }
+    
+    
 }
