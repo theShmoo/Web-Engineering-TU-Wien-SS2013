@@ -26,40 +26,53 @@
                     <div id="main-area">
                         <div class="info">
                             <h2>Spielinformationen</h2>
-                            <h:panelGrid id="playerInformation" columns="1">
+                            <h:panelGrid id="gameInformation" columns="1" summary="#{msg['table.infoGameHeader']}">
                                 <h:panelGroup>
                                     <h:outputLabel value="#{msg['table.infoGame.leading']}" 
                                        for="leading" class="label" />
-                                    <h:outputText id="leading" value="#{game.leader.name}" />
+                                    <h:outputText id="leading" class="data" value="#{game.leader.name}" />
                                 </h:panelGroup>
                                 <h:panelGroup>
                                     <h:outputLabel value="#{msg['table.infoGame.round']}" 
                                        for="round" class="label" />
-                                    <h:outputText id="round" value="#{game.round}" />
+                                    <h:outputText id="round" class="data" value="#{game.round}" />
                                 </h:panelGroup>
                                 <h:panelGroup>
                                     <h:outputLabel value="#{msg['table.infoGame.time']}" 
                                        for="time" class="label" />
-                                    <h:outputText id="time" value="#{game.spentTime}" />
+                                    <h:outputText id="time" class="data" value="#{game.spentTime}" />
                                 </h:panelGroup>
                                 <h:panelGroup>
                                     <h:outputLabel value="#{msg['table.infoGame.diceRoll']}" 
                                        for="diceRoll" class="label" />
-                                    <h:outputText id="diceRoll" value="#{game.computer.dice.lastRoll}" />
+                                    <h:outputText id="diceRoll" class="data" value="#{game.computer.dice.lastRoll}" />
                                 </h:panelGroup>
                             </h:panelGrid>
+                            <!-- TODO delete if everything works 
                             <table summary="#{msg['table.infoGameHeader']}">
-                                <tr><th><h:outputText id="test" value="#{game.round}" /></th></tr>
                                 <tr><th id="leaderLabel" class="label">#{msg['table.infoGame.leading']}</th><td id="leader" class="data">#{game.leader.name}</td></tr>
                                 <tr><th id="roundLabel" class="label">#{msg['table.infoGame.round']}</th><td id="round" class="data">#{game.round}</td></tr>
                                 <tr><th id="timeLabel" class="label">#{msg['table.infoGame.time']}</th><td id="time" class="data">#{game.spentTime}</td></tr>
                                 <tr><th id="computerScoreLabel" class="label">#{msg['table.infoGame.diceRoll']} <em>#{game.computer.name}</em></th><td id="computerScore" class="data">3</td></tr>
-                            </table>  
+                            </table>  !-->
                             <h2>Spieler</h2>
+                            <h:panelGrid id="playerInformation" columns="1" summary="#{msg['table.infoNameHeader']}">
+                                <h:panelGroup >
+                                    <h:outputLabel value="#{msg['table.infoName.player1']}" 
+                                       for="player1Name" class="label" />
+                                    <h:outputText id="player1Name" class="data" value="#{game.player.name}" />
+                                </h:panelGroup>
+                                <h:panelGroup >
+                                    <h:outputLabel value="#{msg['table.infoName.player2']}" 
+                                       for="player2Name" class="label" />
+                                    <h:outputText id="player2Name" class="data" value="#{game.computer.name}" />
+                                </h:panelGroup>
+                            </h:panelGrid>
+                            <!-- TODO delete if everything works
                             <table summary="#{msg['table.infoNameHeader']}">
                                 <tr><th id="player1NameLabel" class="label">#{msg['table.infoName.player1']}</th><td id="player1Name" class="data">#{game.player.name}</td></tr>
                                 <tr><th id="player2NameLabel" class="label">#{msg['table.infoName.player2']}</th><td id="player2Name" class="data">#{game.computer.name}</td></tr>
-                            </table>    	  
+                            </table> !-->    	  
                         </div>
                         <div id="field" class="field">
                             <h2 class="accessibility">#{msg['table.accessabilityGameArea']}</h2>
@@ -100,7 +113,7 @@
                             <h:form id="form">
                             <h:panelGrid columns="1">
                                 <h:commandButton value="Roll">
-                                    <f:ajax listener="#{game.rollDice()}" render=":test :playerInformation"/>
+                                    <f:ajax listener="#{game.rollDice()}" render=":gameInformation :playerInformation"/>
                                 </h:commandButton>
                             </h:panelGrid>
                             </h:form>
