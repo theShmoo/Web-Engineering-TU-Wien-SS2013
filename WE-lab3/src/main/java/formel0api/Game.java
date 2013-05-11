@@ -20,8 +20,6 @@ import javax.faces.context.FacesContext;
 /**
  * Class representing a Formel 0 game
  */
-@ManagedBean(name="game")
-@SessionScoped
 public class Game {
 
     private static final int LAST_FIELD = 6;   
@@ -133,16 +131,15 @@ public class Game {
          * Move on field
          */
         int newposition = Math.min(position + score, LAST_FIELD);
-        player.setPosition(newposition);
 
         /**
          * Test if deadly field was reached
          */
         if (Arrays.binarySearch(OIL_STAINS, newposition) > 0) {
             newposition = 0;
-            player.setPosition(newposition);
         }
-
+        
+        player.setPosition(newposition);
         /**
          * Test if the figure of the player reached the end and the game is over
          */
