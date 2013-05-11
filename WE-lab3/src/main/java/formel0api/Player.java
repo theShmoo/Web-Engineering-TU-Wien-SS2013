@@ -14,7 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class representing a player playing in a {@link Game}.
+ * Class representing a {@link Player} playing in a {@link Game}.
+ * 
+ * @author Lukas Kraenkl
+ * @author David Pfahler
+ * @author Johannes Deml
  */
 public class Player {
 

@@ -3,7 +3,11 @@ package formel0api;
 import java.util.Random;
 
 /**
- * Class representing a dice
+ * Class representing a {@link Dice}
+ * 
+ * @author Lukas Kraenkl
+ * @author David Pfahler
+ * @author Johannes Deml
  */
 public class Dice {
 

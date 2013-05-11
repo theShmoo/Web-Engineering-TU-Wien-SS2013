@@ -1,5 +1,6 @@
 /**
- * This class represents an user
+ * This class represents an {@link User}
+ * 
  * @author Lukas Kraenkl
  * @author David Pfahler
  * @author Johannes Deml

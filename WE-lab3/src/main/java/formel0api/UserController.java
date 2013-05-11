@@ -1,7 +1,10 @@
 /**
  * This controller handels the user management
  * Here there are functions like Login and other Register Functions
- * @author: Lukas Kraenkl, David Pfahler, Johannes Deml
+ * 
+ * @author Lukas Kraenkl
+ * @author David Pfahler
+ * @author Johannes Deml
  **/
 package formel0api;
 
