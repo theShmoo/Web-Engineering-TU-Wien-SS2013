@@ -16,15 +16,17 @@ public class UserController {
     @ManagedProperty(value = "#{user}")
     private User user;
     private Register storage;
-    private boolean loginfailed = false;
+    private boolean loginfailed;
     /**
      * Creates a new instance of Controller
      */
     public UserController() {
         storage = Register.getInstance();
+        loginfailed = false;
     }
     
     public String login(){
+        loginfailed = false;
         String username = user.getUsername();
         User tmp = storage.getUser(username);
         if(tmp==null){
@@ -35,11 +37,13 @@ public class UserController {
             loginfailed = false;
             return "/table.xhtml";
         }
+        loginfailed = true;
         return "/index.xhtml";
     }
     
     public String register(){
         storage.addUser(user);
+        loginfailed = false;
         return "/table.xhtml";
     }
     
