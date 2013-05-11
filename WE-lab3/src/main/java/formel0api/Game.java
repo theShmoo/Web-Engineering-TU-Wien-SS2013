@@ -31,10 +31,6 @@ public class Game {
      */
     private Player computer;
     /**
-     * Dice that is used in this game
-     */
-    private Dice dice;
-    /**
      * Specifies if the game is over (
      * <code>true</code>) or not (
      * <code>false</code)
@@ -62,7 +58,6 @@ public class Game {
         round = 0;
         gamestarttime = System.currentTimeMillis();
         gameOver = false;
-        dice = new Dice();
     }
     
     public Game(Player player, Player computer) {
@@ -120,7 +115,7 @@ public class Game {
                     "Game is over. Rolling the dice is not allowed.");
         }
 
-        int score = dice.roll();
+        int score = player.getDice().roll();
 
         int position = player.getPosition();
 

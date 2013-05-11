@@ -26,11 +26,27 @@
                     <div id="main-area">
                         <div class="info">
                             <h2>Spielinformationen</h2>
-                            <h:panelGrid id="playerInformation" columns="2">
-                                <h:outputLabel value="#{msg['table.infoGame.leading']}" 
-                                   for="leading" class="label" />
-                                <h:outputText id="leading" value="#{game.leader.name}" />
-                                
+                            <h:panelGrid id="playerInformation" columns="1">
+                                <h:panelGroup>
+                                    <h:outputLabel value="#{msg['table.infoGame.leading']}" 
+                                       for="leading" class="label" />
+                                    <h:outputText id="leading" value="#{game.leader.name}" />
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:outputLabel value="#{msg['table.infoGame.round']}" 
+                                       for="round" class="label" />
+                                    <h:outputText id="round" value="#{game.round}" />
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:outputLabel value="#{msg['table.infoGame.time']}" 
+                                       for="time" class="label" />
+                                    <h:outputText id="time" value="#{game.spentTime}" />
+                                </h:panelGroup>
+                                <h:panelGroup>
+                                    <h:outputLabel value="#{msg['table.infoGame.diceRoll']}" 
+                                       for="diceRoll" class="label" />
+                                    <h:outputText id="diceRoll" value="#{game.computer.dice.lastRoll}" />
+                                </h:panelGroup>
                             </h:panelGrid>
                             <table summary="#{msg['table.infoGameHeader']}">
                                 <tr><th><h:outputText id="test" value="#{game.round}" /></th></tr>

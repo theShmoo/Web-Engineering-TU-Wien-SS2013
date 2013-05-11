@@ -32,6 +32,11 @@ public class Player {
     private int position = 0;
 
     /**
+     * A private dice, used to get a random number
+     */
+    private Dice dice;
+    
+    /**
      * Initializes a {@link Player} with the specified
      * <code>name</code>.
      *
@@ -41,6 +46,7 @@ public class Player {
         super();
         this.name = name;
         setPosition(0);
+        this.dice = new Dice();
     }
 
     /**
@@ -83,5 +89,12 @@ public class Player {
             return history.get(index);
         }
         return -1;
+    }
+    
+    /**
+     * Returns a Dice, from which you find the information about the last roll
+     */
+    public Dice getDice() {
+        return dice;
     }
 }
