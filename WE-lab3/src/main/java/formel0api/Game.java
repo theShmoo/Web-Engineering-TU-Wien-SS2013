@@ -31,10 +31,6 @@ public class Game {
      */
     private Player computer;
     /**
-     * Dice that is used in this game
-     */
-    private Dice dice;
-    /**
      * Specifies if the game is over (
      * <code>true</code>) or not (
      * <code>false</code)
@@ -62,7 +58,6 @@ public class Game {
         round = 0;
         gamestarttime = System.currentTimeMillis();
         gameOver = false;
-        dice = new Dice();
     }
     
     public Game(Player player, Player computer) {
@@ -94,19 +89,33 @@ public class Game {
     }
 
     /**
-     * Rolls the dice for the player and updates the position of the player's
+     * Interface for JSF to roll the Dice for player and Computer
+     * 
+     */
+    public void rollDice() {
+        
+        rollDiceOnePlayer(player);
+        if(!gameOver) {
+            rollDiceOnePlayer(computer);
+        }
+        round ++;
+    }
+    
+    /**
+     * Rolls the dice for a player and updates the position of the player's
      * car according to the score
      *
      * @param player Player who rolls the dice
      * @return score
      */
-    public int rollTheDice(Player player) {
+    private int rollDiceOnePlayer(Player player) {
+        
         if (gameOver) {
             throw new IllegalArgumentException(
                     "Game is over. Rolling the dice is not allowed.");
         }
 
-        int score = dice.roll();
+        int score = player.rollDice();
 
         int position = player.getPosition();
 
@@ -180,5 +189,15 @@ public class Game {
      */
     public int getRound() {
         return round;
+    }
+    
+    public void setRound(int round) {
+        this.round = round;
+    }
+    
+    public Game resetGame() {
+        Player resetetPlayer = new Player(player.getName());
+        Player resetetComputer = new Player(computer.getName());
+        return new Game(resetetPlayer, resetetComputer);
     }
 }

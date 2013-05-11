@@ -12,12 +12,14 @@ public class Dice {
      * the score thrown by rolling this dice
      */
     Random random;
+    int lastRoll;
 
     /**
      * Creates a new dice
      */
     public Dice() {
         random = new Random();
+        this.lastRoll = 0;
     }
 
     /**
@@ -26,6 +28,15 @@ public class Dice {
      * @return score thrown
      */
     public int roll() {
-        return random.nextInt(3) + 1;
+        lastRoll = random.nextInt(3) + 1;
+        return lastRoll;
+        
+    }
+    
+   /**
+    * Returns the number the dice is currently showing
+    */
+    public int getLastRoll() {
+        return lastRoll;
     }
 }
