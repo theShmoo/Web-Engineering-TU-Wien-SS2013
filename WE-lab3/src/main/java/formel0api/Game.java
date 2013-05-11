@@ -10,6 +10,9 @@
  */
 package formel0api;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -21,7 +24,14 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class Game {
 
-    private static final int LAST_FIELD = 6;
+    private static final int LAST_FIELD = 6;   
+    /**
+     * sorted Array of deadly fields
+     * @invariant OIL_STAINS.isSorted()
+     */
+    private static final int[] OIL_STAINS = {2,5};
+    
+    private static SimpleDateFormat formatter = new SimpleDateFormat("mm:ss:SSS", Locale.getDefault());
     /**
      * Player playing the game
      */
@@ -81,11 +91,11 @@ public class Game {
      *
      * @return the time already spent on this game
      */
-    public long getSpentTime() {
+    public String getSpentTime() {
         if (!gameOver) {
             spenttime = System.currentTimeMillis() - this.gamestarttime;
         }
-        return spenttime;
+        return formatter.format(spenttime);
     }
 
     /**
@@ -128,7 +138,7 @@ public class Game {
         /**
          * Test if deadly field was reached
          */
-        if (newposition == 2 || newposition == 5) {
+        if (Arrays.binarySearch(OIL_STAINS, newposition) > 0) {
             newposition = 0;
             player.setPosition(newposition);
         }

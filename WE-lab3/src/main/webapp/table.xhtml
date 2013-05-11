@@ -4,8 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-   
-        <ui:composition template="./template.xhtml">
+
+    <ui:composition template="./template.xhtml">
         <head>
             <ui:define name="title">
                 <title xml:lang="de">Formel 0 - Spielen</title>
@@ -13,111 +13,114 @@
         </head>      
         <body>
             <ui:define name="navigation">
-                    <div id="navigation">
-                        <h2 class="accessibility">Navigation</h2>
-                        <ul title="Navigation">
-                            <!-- TODO Links richtig setzen !-->
-                            <li><h:link value="#{msg['navi.newGame']}" outcome="table" id="table" tabindex="1"/></li>
-                            <li><h:link value="#{msg['navi.logout']}" outcome="index" id="index" tabindex="2"/></li>
-                        </ul>
-                    </div>
+                <div id="navigation">
+                    <h2 class="accessibility">Navigation</h2>
+                    <ul title="Navigation">
+                        <!-- TODO Links richtig setzen !-->
+                        <li><h:link value="#{msg['navi.newGame']}" outcome="table" id="table" tabindex="1"/></li>
+                        <li><h:link value="#{msg['navi.logout']}" outcome="index" id="index" tabindex="2"/></li>
+                    </ul>
+                </div>
             </ui:define>
             <ui:define name="content">
-                    <div id="main-area">
-                        <div class="info">
-                            <h2>Spielinformationen</h2>
-                            <h:panelGrid id="gameInformation" columns="2"  summary="#{msg['table.infoGameHeader']}">
-                                    <h:outputLabel value="#{msg['table.infoGame.leading']}" 
-                                       for="leading" class="label" />
-                                    <h:outputText id="leading" class="data" value="#{game.leader.name}" />
-                                    
-                                    <h:outputLabel value="#{msg['table.infoGame.round']}" 
-                                       for="round" class="label" />
-                                    <h:outputText id="round" class="data" value="#{game.round}" />
-                                    
-                                    <h:outputLabel value="#{msg['table.infoGame.time']}" 
-                                       for="time" class="label" />
-                                    <h:outputText id="time" class="data" value="#{game.spentTime}" />
-                                    
-                                    <h:outputLabel value="#{msg['table.infoGame.diceRoll']}" 
-                                       for="diceRoll" class="label" />
-                                    <h:outputText id="diceRoll" class="data" value="#{game.computer.dice.lastRoll}" />
-                                    
-                                    <!-- Hidden fields !-->
-                                    <h:outputText style="display: none" value="hiddenInformation" />
-                                    <h:outputText style="display: none" id="humanExpectedPosition" value="#{game.player.expectedPosition}" />
-                                    <h:outputText style="display: none" id="humanPosition" value="#{game.player.position}" />
-                                    <h:outputText style="display: none" id="computerExpectedPosition" value="#{game.computer.expectedPosition}" />
-                                    <h:outputText style="display: none" id="computerPosition" value="#{game.computer.position}" />
-                                    <h:outputText style="display: none" id="gameOver" value="#{game.gameOver}" />
-                            </h:panelGrid>
-                            <!-- TODO delete if everything works 
-                            <table summary="#{msg['table.infoGameHeader']}">
-                                <tr><th id="leaderLabel" class="label">#{msg['table.infoGame.leading']}</th><td id="leader" class="data">#{game.leader.name}</td></tr>
-                                <tr><th id="roundLabel" class="label">#{msg['table.infoGame.round']}</th><td id="round" class="data">#{game.round}</td></tr>
-                                <tr><th id="timeLabel" class="label">#{msg['table.infoGame.time']}</th><td id="time" class="data">#{game.spentTime}</td></tr>
-                                <tr><th id="computerScoreLabel" class="label">#{msg['table.infoGame.diceRoll']} <em>#{game.computer.name}</em></th><td id="computerScore" class="data">3</td></tr>
-                            </table>  !-->
-                            <h2>Spieler</h2>
-                            <h:panelGrid id="playerInformation" columns="2" summary="#{msg['table.infoNameHeader']}" headerClass="label">
-                                    <h:outputLabel value="#{msg['table.infoName.player1']}" 
-                                                   for="player1Name" class="label" />
-                                    <h:outputText id="player1Name" class="data" value="#{game.player.name}" />
-                                    
-                                    <h:outputLabel value="#{msg['table.infoName.player2']}" 
-                                       for="player2Name" class="label" />
-                                    <h:outputText id="player2Name" class="data" value="#{game.computer.name}" />
-                            </h:panelGrid>
-                            <!-- TODO delete if everything works
-                            <table summary="#{msg['table.infoNameHeader']}">
-                                <tr><th id="player1NameLabel" class="label">#{msg['table.infoName.player1']}</th><td id="player1Name" class="data">#{game.player.name}</td></tr>
-                                <tr><th id="player2NameLabel" class="label">#{msg['table.infoName.player2']}</th><td id="player2Name" class="data">#{game.computer.name}</td></tr>
-                            </table> !-->    	  
-                        </div>
-                        <div id="field" class="field">
-                            <h2 class="accessibility">#{msg['table.accessabilityGameArea']}</h2>
-                            <ol id="road">
-                                <li id="start_road">
-                                    <span class="accessibility">#{msg['table.accessabilityStartField']}</span>
-                                    <span id="player1">
-                                        <span class="accessibility"><em>#{msg['table.accessabilityPlayer1']}</em></span>
-                                    </span>
-                                    <span id="player2">
-                                        <span class="accessibility"><em>#{msg['table.accessabilityPlayer2']}</em></span>
-                                    </span>
-                                </li>
-                                <li class="empty_road" id="road_1">
-                                    <span class="accessibility">#{msg['table.accessabilityGameField2']}</span>
-                                </li>
-                                <li class="oil_road" id="road_2">
-                                    <span class="accessibility">#{msg['table.accessabilityGameField3']}</span>
-                                </li>
-                                <li class="empty_road" id="road_3">
-                                    <span class="accessibility">#{msg['table.accessabilityGameField4']}</span>
-                                </li>
-                                <li class="empty_road" id="road_4">
-                                    <span class="accessibility">#{msg['table.accessabilityGameField5']}</span>
-                                </li>
-                                <li class="oil_road" id="road_5">
-                                    <span class="accessibility">#{msg['table.accessabilityGameField6']}</span>
-                                </li>
-                                <li id="finish_road">
-                                    <span class="accessibility">#{msg['table.accessabilityFinishLine']}</span>
-                                </li>
-                            </ol>
-                        </div>
-                        <div id="player" class="player">
-                            <h2 class="accessibility">#{msg['table.accessabilityDiceArea']}W&uuml;rfelbereich</h2>
-                            <span class="accessibility">#{msg['table.accessabilityItsTurnFor']}</span><div id="currentPlayerName">#{game.player.name}</div>
-                            <h:form id="diceForm">
-                            <h:panelGrid columns="1">
-                                <h:commandButton id="dice" type="image" tabindex="4" image="#{resource['img/wuerfel0.png']}" title="#{msg['table.diceTitle1']}" alt="#{msg['table.diceDescription1']}" value="Roll the Dice">
-                                    <f:ajax listener="#{game.rollDice()}" render=":gameInformation :playerInformation" onevent="updateGame"/>
-                                </h:commandButton>
-                            </h:panelGrid>
-                            </h:form>
-                        </div>
+                <div id="main-area">
+                    <div class="info">
+                        <h2>Spielinformationen</h2>
+                        <h:panelGrid id="gameInformation" columns="2"  summary="#{msg['table.infoGameHeader']}">
+                            <h:outputLabel value="#{msg['table.infoGame.leading']}" 
+                                           for="leading" class="label" />
+                            <h:outputText id="leading" class="data" value="#{game.leader.name}" />
+
+                            <h:outputLabel value="#{msg['table.infoGame.round']}" 
+                                           for="round" class="label" />
+                            <h:outputText id="round" class="data" value="#{game.round}" />
+
+                            <h:outputLabel value="#{msg['table.infoGame.time']}" 
+                                           for="time" class="label" />
+                            <h:outputText id="time" class="data" value="#{game.spentTime}" />
+
+                            <h:outputLabel value="#{msg['table.infoGame.diceRoll']}" 
+                                           for="diceRoll" class="label" />
+                            <h:outputText id="diceRoll" class="data" value="#{game.computer.dice.lastRoll}" />
+
+                            <!-- Hidden fields !-->
+                            <h:outputText style="display: none" value="hiddenInformation" />
+                            <h:outputText style="display: none" id="humanExpectedPosition" value="#{game.player.expectedPosition}" />
+                            <h:outputText style="display: none" id="humanPosition" value="#{game.player.position}" />
+                            <h:outputText style="display: none" id="computerExpectedPosition" value="#{game.computer.expectedPosition}" />
+                            <h:outputText style="display: none" id="computerPosition" value="#{game.computer.position}" />
+                            <h:outputText style="display: none" id="gameOver" value="#{game.gameOver}" />
+                        </h:panelGrid>
+                        <!-- TODO delete if everything works 
+                        <table summary="#{msg['table.infoGameHeader']}">
+                            <tr><th id="leaderLabel" class="label">#{msg['table.infoGame.leading']}</th><td id="leader" class="data">#{game.leader.name}</td></tr>
+                            <tr><th id="roundLabel" class="label">#{msg['table.infoGame.round']}</th><td id="round" class="data">#{game.round}</td></tr>
+                            <tr><th id="timeLabel" class="label">#{msg['table.infoGame.time']}</th><td id="time" class="data">#{game.spentTime}</td></tr>
+                            <tr><th id="computerScoreLabel" class="label">#{msg['table.infoGame.diceRoll']} <em>#{game.computer.name}</em></th><td id="computerScore" class="data">3</td></tr>
+                        </table>  !-->
+                        <h2>Spieler</h2>
+                        <h:panelGrid id="playerInformation" columns="2" summary="#{msg['table.infoNameHeader']}" headerClass="label">
+                            <h:outputLabel value="#{msg['table.infoName.player1']}" 
+                                           for="player1Name" class="label" />
+                            <h:outputText id="player1Name" class="data" value="#{game.player.name}" />
+
+                            <h:outputLabel value="#{msg['table.infoName.player2']}" 
+                                           for="player2Name" class="label" />
+                            <h:outputText id="player2Name" class="data" value="#{game.computer.name}" />
+                        </h:panelGrid>
+                        <!-- TODO delete if everything works
+                        <table summary="#{msg['table.infoNameHeader']}">
+                            <tr><th id="player1NameLabel" class="label">#{msg['table.infoName.player1']}</th><td id="player1Name" class="data">#{game.player.name}</td></tr>
+                            <tr><th id="player2NameLabel" class="label">#{msg['table.infoName.player2']}</th><td id="player2Name" class="data">#{game.computer.name}</td></tr>
+                        </table> !-->    	  
                     </div>
+                    <div id="field" class="field">
+                        <h2 class="accessibility">#{msg['table.accessabilityGameArea']}</h2>
+                        <ol id="road">
+                            <li id="start_road">
+                                <span class="accessibility">#{msg['table.accessabilityStartField']}</span>
+                                <span id="player1">
+                                    <span class="accessibility"><em>#{msg['table.accessabilityPlayer1']}</em></span>
+                                </span>
+                                <span id="player2">
+                                    <span class="accessibility"><em>#{msg['table.accessabilityPlayer2']}</em></span>
+                                </span>
+                            </li>
+                            <li class="empty_road" id="road_1">
+                                <span class="accessibility">#{msg['table.accessabilityGameField2']}</span>
+                            </li>
+                            <li class="oil_road" id="road_2">
+                                <span class="accessibility">#{msg['table.accessabilityGameField3']}</span>
+                            </li>
+                            <li class="empty_road" id="road_3">
+                                <span class="accessibility">#{msg['table.accessabilityGameField4']}</span>
+                            </li>
+                            <li class="empty_road" id="road_4">
+                                <span class="accessibility">#{msg['table.accessabilityGameField5']}</span>
+                            </li>
+                            <li class="oil_road" id="road_5">
+                                <span class="accessibility">#{msg['table.accessabilityGameField6']}</span>
+                            </li>
+                            <li id="finish_road">
+                                <span class="accessibility">#{msg['table.accessabilityFinishLine']}</span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div id="player" class="player">
+                        <h2 class="accessibility">#{msg['table.accessabilityDiceArea']}W&uuml;rfelbereich</h2>
+                        <span class="accessibility">#{msg['table.accessabilityItsTurnFor']}</span><div id="currentPlayerName">#{game.player.name}</div>
+                        <h:form id="diceForm">
+                            <h:commandButton id="dice" type="image" 
+                                             tabindex="4" 
+                                             image="#{resource[game.player.dice.diceImage]}" 
+                                             title="#{msg[game.player.dice.diceTitle]}" 
+                                             alt="#{msg[game.player.dice.diceDescription]}" 
+                                             value="Roll the Dice">
+                                <f:ajax listener="#{game.rollDice()}" render=":diceForm :gameInformation :playerInformation" onevent="updateGame"/>
+                            </h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
             </ui:define>
             <ui:define name="js">
                 <script type="text/javascript">
@@ -154,12 +157,12 @@
                             console.log("humanExpectedPosition: " + humanExpectedPosition + ", humanPosition: " + humanPosition);
                             $("#player1").fadeOut(speed, function() {
                                 $("#player1").appendTo(humanExpectedPosition);
-                                $("#player1").fadeIn(speed, checkHumanOnOilSpill);
+                                $("#player1").fadeIn(speed, checkHumanOnOilSpill());
                             });
                         }
 
                         function checkHumanOnOilSpill() {
-                            if (humanExpectedPosition.toString() != humanPosition.toString()) {
+                            if (humanExpectedPosition.toString() !== humanPosition.toString()) {
                                 console.log("Player hit oil Spill");
                                 $("#player1").fadeOut(speed, function() {
                                     $("#player1").appendTo(humanPosition);
@@ -173,12 +176,12 @@
                         function driveComputer() {
                             $("#player2").fadeOut(speed, function() {
                                 $("#player2").appendTo(computerExpectedPosition);
-                                $("#player2").fadeIn(speed, checkComputerOnOilSpill);
+                                $("#player2").fadeIn(speed, checkComputerOnOilSpill());
                             });
                         }
 
                         function checkComputerOnOilSpill() {
-                            if (computerExpectedPosition.toString() != computerPosition.toString()) {
+                            if (computerExpectedPosition.toString() !== computerPosition.toString()) {
                                 console.log("Computer on Oil Spill");
                                 $("#player2").fadeOut(speed, function() {
                                     $("#player2").appendTo(computerPosition);
@@ -190,24 +193,24 @@
                         }
 
                         //If it is not the first round and if the game isn't over, move the cars
-                        if($("#gameOver").text() == "false")
-                        if ($("#round").text() != 0) {
-                            var speed = 700;
-                            prepareAnimation();
+                        //if ($("#gameOver").text() === "false")
+                            if ($("#round").text() !== 0) {
+                                var speed = 700;
+                                prepareAnimation();
 
-                            
+
                                 var humanExpectedPosition = getDivId($("#humanExpectedPosition").text());
                                 var humanPosition = getDivId($("#humanPosition").text());
                                 var computerExpectedPosition = getDivId($("#computerExpectedPosition").text());
                                 var computerPosition = getDivId($("#computerPosition").text());
                                 driveHuman();
-                            
-                        }
-                  }
+
+                            }
+                    }
 
                     //]]>
                 </script>
             </ui:define>
         </body>
-        </ui:composition>
+    </ui:composition>
 </html>
