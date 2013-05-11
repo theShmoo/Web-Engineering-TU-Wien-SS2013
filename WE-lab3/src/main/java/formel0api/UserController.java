@@ -7,10 +7,10 @@ package formel0api;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean(name = "userController")
-@RequestScoped
+@SessionScoped
 public class UserController {
 
     @ManagedProperty(value = "#{user}")
