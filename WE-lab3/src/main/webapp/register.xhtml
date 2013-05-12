@@ -32,7 +32,7 @@
                                  tabindex="3" required="true" 
                                  requiredMessage="#{msg['register.error.required']}" 
                                  validatorMessage="#{msg['register.error.onlyText']}">
-                        <f:validateRegex pattern="[a-zA-Z]+" />
+                        <f:validateRegex pattern="[a-zA-Z\u00E4\u00C4\u00F6\u00D6\u00FC\u00DC\u00df]+" />
                         <f:ajax execute="@this" event="keyup" render="firstname_messages" />
                     </h:inputText>
                     <h:message id="firstname_messages" for="firstname" styleClass="validation_error" />
@@ -42,7 +42,7 @@
                     <h:inputText id="lastname" value="#{userController.user.lastName}" tabindex="4" required="true" 
                                  requiredMessage="#{msg['register.error.required']}" 
                                  validatorMessage="#{msg['register.error.onlyText']}">
-                        <f:validateRegex pattern="[a-zA-Z]+" />
+                        <f:validateRegex pattern="[a-zA-Z\u00E4\u00C4\u00F6\u00D6\u00FC\u00DC\u00df]+" />
                         <f:ajax execute="@this" event="keyup" render="lastname_messages" />
                     </h:inputText>
                     <h:message id="lastname_messages" for="lastname" styleClass="validation_error" />
@@ -74,7 +74,7 @@
                         <h:inputText value="#{userController.user.username}" id="username" tabindex="7" required="true" 
                                      requiredMessage="#{msg['register.error.required']}" 
                                      validatorMessage="#{msg['register.error.onlyText']}">
-                            <f:validateRegex pattern="[a-zA-Z]+" />
+                            <f:validateRegex pattern="[a-zA-Z\u00E4\u00C4\u00F6\u00D6\u00FC\u00DC\u00df]+" />
                             <f:ajax execute="@this" event="keyup" render="username_messages" />
                         </h:inputText>
                         <h:message id="username_messages" for="username" styleClass="validation_error" />

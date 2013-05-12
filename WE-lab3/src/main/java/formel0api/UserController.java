@@ -45,8 +45,9 @@ public class UserController {
         return "/index.xhtml";
     }
     
-    public void logout(){
-        //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    public String logout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index";
     }
     
     public String register(){

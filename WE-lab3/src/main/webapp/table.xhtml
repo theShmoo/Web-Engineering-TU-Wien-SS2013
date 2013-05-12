@@ -16,11 +16,16 @@
                 <div id="navigation">
                     <h2 class="accessibility">Navigation</h2>
                     <ul title="Navigation">
-                        <!-- TODO Links richtig setzen !-->
+                        <!-- TODO Links richtig setzen
+                        navigation rules
+                        commands
+                        !-->
+                        <h:form>
                         <li>
-                            <h:link value="#{msg['navi.newGame']}" outcome="table" onclick="#{gameController.resetGame()}" id="table" tabindex="1"/>
+                            <h:commandLink style="" value="#{msg['navi.newGame']}" action="#{gameController.resetGame()}" id="table" tabindex="1"/>
                         </li>
-                        <li><h:link value="#{msg['navi.logout']}" outcome="index" onclick="#{userController.logout()}" id="index" tabindex="2"/></li>
+                        <li><h:commandLink value="#{msg['navi.logout']}" action="#{userController.logout()}" id="index" tabindex="2"/></li>
+                        </h:form>
                     </ul>
                 </div>
             </ui:define>
@@ -199,6 +204,7 @@
                                 }
                         }
                     }
+                    //TODO load on startup
 
                     //]]>
                 </script>
