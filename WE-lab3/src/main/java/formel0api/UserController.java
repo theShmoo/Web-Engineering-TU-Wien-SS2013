@@ -11,6 +11,7 @@ package formel0api;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "userController")
 @SessionScoped
@@ -19,39 +20,43 @@ public class UserController {
     @ManagedProperty(value = "#{user}")
     private User user;
     private Register storage;
-    private boolean loginfailed;
+    private boolean loggedIn;
     /**
      * Creates a new instance of Controller
      */
     public UserController() {
         storage = Register.getInstance();
-        loginfailed = false;
+        loggedIn = false;
     }
     
     public String login(){
-        loginfailed = false;
+        loggedIn = false;
         String username = user.getUsername();
         User tmp = storage.getUser(username);
         if(tmp==null){
-            loginfailed = true;
+            loggedIn = false;
             return "/index.xhtml";
         }
         if(tmp.getPassword().equals(user.getPassword())){
-            loginfailed = false;
+            loggedIn = true;
             return "/table.xhtml";
         }
-        loginfailed = true;
+        loggedIn = false;
         return "/index.xhtml";
+    }
+    
+    public void logout(){
+        //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
     
     public String register(){
         storage.addUser(user);
-        loginfailed = false;
+        loggedIn = true;
         return "/table.xhtml";
     }
     
-    public boolean getFailedStatus(){
-        return this.loginfailed;
+    public boolean isLoggedIn(){
+        return this.loggedIn;
     }
 
     public User getUser() {

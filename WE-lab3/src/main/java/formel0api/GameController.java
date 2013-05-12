@@ -9,6 +9,7 @@
 package formel0api;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -22,7 +23,9 @@ public class GameController {
                 getExternalContext().getRequestMap().get("userController");
         String username = uc.getUser().getUsername();
         
-        this.game = new Game(new Player(username), new Player("DefaultComputer"));*/
+        this.game = new Game(new Player(username), new Player("DefaultComputer"));
+        //TODO that doesnt work
+        */
         this.game = new Game(new Player("Player"), new Player("Computer"));
     }
     

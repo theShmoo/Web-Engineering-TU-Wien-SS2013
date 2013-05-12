@@ -7,11 +7,6 @@
  */
 package formel0api;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.faces.bean.ManagedBean;
 // Session scoped == Solange die Session aufrecht ist, ist auch diese Bean aufrecht
 import javax.faces.bean.SessionScoped;

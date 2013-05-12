@@ -31,7 +31,7 @@
             <h:inputSecret value="#{cc.attrs.password}" id="password" tabindex="3" />
             </fieldset>
            
-            <h:outputText value="#{msg['login.failed']}" rendered="#{userController.failedStatus}" style="color: red"/>
+            <h:outputText value="#{msg['login.failed']}" rendered="#{!userController.loggedIn}" style="color: red"/>
             <h:messages style="color: red"/><!-- TODO: maybe with class? -->
             
             <f:verbatim><br/></f:verbatim>

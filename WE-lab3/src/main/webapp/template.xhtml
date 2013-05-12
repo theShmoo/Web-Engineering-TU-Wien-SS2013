@@ -14,14 +14,16 @@
         <div id="container">
             <div id="bordercontainer">
                 <div id="header">
-                    <div id="header_left"><h1 class="accessibility">Formel 0</h1></div>
+                    <div id="header_left">
+                        <h:outputText class="accessibility" value="#{msg[formel0.accessibility.title]}" escape="false"/>
+                    </div>
                     <div id="header_right"></div>
                 </div>
                 <ui:insert name="navigation"></ui:insert>
                 <ui:insert name="content"></ui:insert>
             </div>
             <div id="footer">
-                &copy; 2013 Formel 0
+                <h:outputText value="#{msg[formel0.footer]}" escape="false"/>
             </div>
         </div>
         <ui:insert name="js"></ui:insert>

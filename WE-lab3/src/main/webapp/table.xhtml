@@ -20,7 +20,7 @@
                         <li>
                             <h:link value="#{msg['navi.newGame']}" outcome="table" onclick="#{gameController.resetGame()}" id="table" tabindex="1"/>
                         </li>
-                        <li><h:link value="#{msg['navi.logout']}" outcome="index" id="index" tabindex="2"/></li>
+                        <li><h:link value="#{msg['navi.logout']}" outcome="index" onclick="#{userController.logout()}" id="index" tabindex="2"/></li>
                     </ul>
                 </div>
             </ui:define>
@@ -184,7 +184,7 @@
                                 completeAnimation();
                             }
                         }
-                        if(data.status == "success") {
+                        if(data.status === "success") {
                             //If it is not the first round
                                 if ($("#round").text() !== 0) {
                                     prepareAnimation();

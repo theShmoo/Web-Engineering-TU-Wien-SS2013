@@ -163,12 +163,11 @@ public class Game {
         } else if (computer.getPosition() > player.getPosition()) {
             return computer;
         } else {
-            //TODO Return "several" in the correct language
-            String several = "TODO!!";
-            /*FacesContext ctx = FacesContext.getCurrentInstance();
+            String several = "";
+            FacesContext ctx = FacesContext.getCurrentInstance();
             several = ctx.getApplication()
-            .getResourceBundle(ctx, "table")
-            .getString("several");*/
+            .getResourceBundle(ctx, "msg")
+            .getString("table.several");
             return new Player(several);
         }
     }
