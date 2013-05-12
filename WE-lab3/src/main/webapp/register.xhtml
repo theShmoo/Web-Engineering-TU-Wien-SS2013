@@ -11,7 +11,7 @@
             <h:outputText value="#{msg['register.title']}" escape="false"/>
         </ui:define>
         <ui:define name="navigation">
-            <li><h:link value="#{msg['navi.login']}" outcome="index" id="backToLogin" tabindex="1"/></li>
+            <li><h:commandLink value="#{msg['navi.login']}" action="index.xhtml" id="backToLogin" tabindex="1"/></li>
         </ui:define>
         <ui:define name="content">
             <div id="content">
