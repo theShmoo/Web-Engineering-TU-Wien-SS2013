@@ -15,11 +15,14 @@
         </ui:define>
         <ui:define name="content">
             <div id="content">
-                <h:outputText value="#{msg['register.header']}" escape="false"/>
-                <h:outputText value="#{msg['register.fillForm']}" escape="false"/>
-
+                <h2>
+                    <h:outputText value="#{msg['register.header']}" escape="false"/>
+                </h2>
+                <p>
+                    <h:outputText value="#{msg['register.fillForm']}" escape="false"/>
+                </p>
                 <h:form id="form">
-                    <h:outputText value="#{msg['register.personalData']}" escape="false"/>
+                    <h3><h:outputText value="#{msg['register.personalData']}" escape="false"/></h3>
                     <h:outputLabel value="#{msg['register.firstname']}" 
                                    for="firstname" class="registerform" />
 
@@ -63,7 +66,7 @@
                                        itemValue="#{sex}" itemLabel="#{msg[sex.label]}"/>
                     </h:selectOneMenu>
 
-                    <h:outputText value="#{msg['register.loginData']}" escape="false" />
+                    <h3><h:outputText value="#{msg['register.loginData']}" escape="false" /></h3>
                     <fieldset>
                         <h:outputLabel value="#{msg['register.username']}" for="username" class="registerform" />
                         <h:inputText value="#{userController.user.username}" id="username" tabindex="7" required="true" 
