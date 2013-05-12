@@ -58,6 +58,7 @@ public class UserController {
     public String register(){
         storage.addUser(user);
         loggedIn = true;
+        gameController.startGame(user.getUsername());       
         return "/table.xhtml";
     }
     
