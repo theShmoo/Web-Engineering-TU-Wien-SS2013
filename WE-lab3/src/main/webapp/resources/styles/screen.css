@@ -156,10 +156,11 @@ div.info table td label {
     text-align: left;
 }
 
-div.info table td data {
-    color: #fff;
+div.info table td .data {
+    color: #FFF;
     padding-left: 1em;
     font: 0.8em arial,sans-serif;
+    margin-left: 10px;
 }
 
 div.field {
