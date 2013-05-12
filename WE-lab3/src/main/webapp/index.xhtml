@@ -9,7 +9,7 @@
 
     <ui:composition template="./template.xhtml">
         <ui:define name="title">
-            <title xml:lang="de">Formel 0 - Login</title>  
+            <h:outputText value="#{msg['login.title']}" escape="false"/>
         </ui:define>
         <ui:define name="navigation">
             <li><h:link value="#{msg['navi.register']}" outcome="register" id="register" tabindex="1"/></li>
