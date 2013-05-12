@@ -21,12 +21,14 @@ public class UserController {
     private User user;
     private Register storage;
     private boolean loggedIn;
+    private boolean failedLogin;
     /**
      * Creates a new instance of Controller
      */
     public UserController() {
         storage = Register.getInstance();
         loggedIn = false;
+        failedLogin = false;
     }
     
     public String login(){
@@ -35,12 +37,14 @@ public class UserController {
         User tmp = storage.getUser(username);
         if(tmp==null){
             loggedIn = false;
+            failedLogin = true;
             return "/index.xhtml";
         }
         if(tmp.getPassword().equals(user.getPassword())){
             loggedIn = true;
             return "/table.xhtml";
         }
+        failedLogin = true;
         loggedIn = false;
         return "/index.xhtml";
     }
@@ -58,6 +62,10 @@ public class UserController {
     
     public boolean isLoggedIn(){
         return this.loggedIn;
+    }
+
+    public boolean isFailedLogin() {
+        return failedLogin;
     }
 
     public User getUser() {
