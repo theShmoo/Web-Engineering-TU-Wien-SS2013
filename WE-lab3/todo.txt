@@ -1,0 +1,7 @@
+todo:
+
+Bei Registrierung muss checkbox zwingend notwendig sein
+Umlaute beim Nachnamen werden nicht als gültig betrachtet
+Session Logout 
+
+
