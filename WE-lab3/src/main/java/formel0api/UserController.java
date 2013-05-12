@@ -16,11 +16,15 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "userController")
 @SessionScoped
 public class UserController {
-
+    
     @ManagedProperty(value = "#{user}")
     private User user;
     private Register storage;
     private boolean loggedIn;
+     
+    @ManagedProperty(value = "#{gameController}")
+    private GameController gameController;    
+    
     /**
      * Creates a new instance of Controller
      */
@@ -39,6 +43,7 @@ public class UserController {
         }
         if(tmp.getPassword().equals(user.getPassword())){
             loggedIn = true;
+            gameController.startGame(user.getUsername());
             return "/table.xhtml";
         }
         loggedIn = false;
@@ -66,5 +71,13 @@ public class UserController {
 
     public void setUser(User user) {
         this.user = user;
+    }
+    
+    public GameController getGameController(){
+        return gameController;
+    }
+    
+    public void setGameController(GameController game){
+        this.gameController = game;
     }
 }

@@ -11,22 +11,20 @@ package formel0api;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 @ManagedBean(name="gameController")
 @SessionScoped
 public class GameController {
+    
+    @ManagedProperty(value = "#{game}")
     private Game game;
     
-    public GameController() {
-        /*UserController uc = (UserController) FacesContext.getCurrentInstance().
-                getExternalContext().getRequestMap().get("userController");
-        String username = uc.getUser().getUsername();
-        
-        this.game = new Game(new Player(username), new Player("DefaultComputer"));
-        //TODO that doesnt work
-        */
-        this.game = new Game(new Player("Player"), new Player("Computer"));
+    public GameController() {  
+        this.game = new Game(new Player("TODO"), new Player("Computer")); 
+    }
+    
+    public void startGame(String username){
+        this.game = new Game(new Player(username), new Player("Computer"));   
     }
     
     public void resetGame() {
@@ -35,5 +33,9 @@ public class GameController {
     
     public Game getGame() {
         return game;
+    }
+    
+    public void setGame(Game game){
+        this.game = game;
     }
 }
