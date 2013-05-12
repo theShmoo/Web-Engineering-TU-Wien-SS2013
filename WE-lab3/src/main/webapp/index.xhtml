@@ -12,22 +12,17 @@
             <title xml:lang="de">Formel 0 - Login</title>  
         </ui:define>
         <ui:define name="navigation">
-            <div id="navigation">
-                <h2 class="accessibility">Navigation</h2>
-                <ul title="Navigation"> 
-                    <li><h:link value="#{msg['navi.register']}" outcome="register" id="register" tabindex="1"/></li>
-                </ul>
-            </div>
+            <li><h:link value="#{msg['navi.register']}" outcome="register" id="register" tabindex="1"/></li>
         </ui:define>
         <ui:define name="content">
             <div id="content">
-                
+
                 <mc:login 
                     username="#{userController.user.username}"
                     password="#{userController.user.password}"
                     action="#{userController.login()}"
                     id="login" />
-                
+
             </div>
         </ui:define>
     </ui:composition>

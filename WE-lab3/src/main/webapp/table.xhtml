@@ -6,33 +6,19 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:composition template="./template.xhtml">
-        <head>
             <ui:define name="title">
-                <title xml:lang="de">Formel 0 - Spielen</title>
-            </ui:define>
-        </head>      
-        <body>
+                 <h:outputText value="#{msg['table.title']}" escape="false"/>
+            </ui:define>   
             <ui:define name="navigation">
-                <div id="navigation">
-                    <h2 class="accessibility">Navigation</h2>
-                    <ul title="Navigation">
-                        <!-- TODO Links richtig setzen
-                        navigation rules
-                        commands
-                        !-->
-                        <h:form>
-                        <li>
-                            <h:commandLink style="" value="#{msg['navi.newGame']}" action="#{gameController.resetGame()}" id="table" tabindex="1"/>
-                        </li>
-                        <li><h:commandLink value="#{msg['navi.logout']}" action="#{userController.logout()}" id="index" tabindex="2"/></li>
-                        </h:form>
-                    </ul>
-                </div>
+                <li>
+                    <h:commandLink value="#{msg['navi.newGame']}" action="#{gameController.resetGame()}" id="table" tabindex="1"/>
+                </li>
+                <li><h:commandLink value="#{msg['navi.logout']}" action="#{userController.logout()}" id="index" tabindex="2"/></li>
             </ui:define>
             <ui:define name="content">
                 <div id="main-area">
                     <div class="info">
-                        <h2>Spielinformationen</h2>
+                        <h:outputText value="#{msg['table.gameInfo']}" escape="false"/>
                         <h:panelGrid id="gameInformation" columns="2"  summary="#{msg['table.infoGameHeader']}">
                             <h:outputLabel value="#{msg['table.infoGame.leading']}" 
                                            for="leading" class="label" />
@@ -58,7 +44,7 @@
                             <h:outputText style="display: none" id="computerPosition" value="#{gameController.game.computer.position}" />
                             <h:outputText style="display: none" id="gameOver" value="#{gameController.game.gameOver}" />
                         </h:panelGrid>
-                        <h2>Spieler</h2>
+                        <h:outputText value="#{msg['table.player']}" escape="false"/>
                         <h:panelGrid id="playerInformation" columns="2" summary="#{msg['table.infoNameHeader']}" headerClass="label">
                             <h:outputLabel value="#{msg['table.infoName.player1']}" 
                                            for="player1Name" class="label" />
@@ -189,19 +175,19 @@
                                 completeAnimation();
                             }
                         }
-                        if(data.status === "success") {
+                        if (data.status === "success") {
                             //If it is not the first round
-                                if ($("#round").text() !== 0) {
-                                    prepareAnimation();
-                                    
-                                    var humanExpectedPosition = getDivId($("#humanExpectedPosition").text());
-                                    var humanPosition = getDivId($("#humanPosition").text());
-                                    var computerExpectedPosition = getDivId($("#computerExpectedPosition").text());
-                                    var computerPosition = getDivId($("#computerPosition").text());
-                                    console.log("Refreshing GameInformation")
-                                    driveHuman();
+                            if ($("#round").text() !== 0) {
+                                prepareAnimation();
 
-                                }
+                                var humanExpectedPosition = getDivId($("#humanExpectedPosition").text());
+                                var humanPosition = getDivId($("#humanPosition").text());
+                                var computerExpectedPosition = getDivId($("#computerExpectedPosition").text());
+                                var computerPosition = getDivId($("#computerPosition").text());
+                                console.log("Refreshing GameInformation")
+                                driveHuman();
+
+                            }
                         }
                     }
                     //TODO load on startup
@@ -209,6 +195,5 @@
                     //]]>
                 </script>
             </ui:define>
-        </body>
     </ui:composition>
 </html>
