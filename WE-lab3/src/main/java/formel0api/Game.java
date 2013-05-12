@@ -29,7 +29,7 @@ public class Game {
      */
     private static final int[] OIL_STAINS = {2,5};
     
-    private static SimpleDateFormat formatter = new SimpleDateFormat("mm:ss:SSS", Locale.getDefault());
+    private static SimpleDateFormat formatter = new SimpleDateFormat("mm:ss", Locale.getDefault());
     /**
      * Player playing the game
      */
