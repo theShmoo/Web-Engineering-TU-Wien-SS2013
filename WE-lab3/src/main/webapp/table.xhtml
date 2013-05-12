@@ -18,7 +18,7 @@
             <ui:define name="content">
                 <div id="main-area">
                     <div class="info">
-                        <h:outputText value="#{msg['table.gameInfo']}" escape="false"/>
+                        <h2><h:outputText value="#{msg['table.gameInfo']}" escape="false"/></h2>
                         <h:panelGrid id="gameInformation" columns="2"  summary="#{msg['table.infoGameHeader']}">
                             <h:outputLabel value="#{msg['table.infoGame.leading']}" 
                                            for="leading" class="label" />
@@ -44,7 +44,7 @@
                             <h:outputText style="display: none" id="computerPosition" value="#{gameController.game.computer.position}" />
                             <h:outputText style="display: none" id="gameOver" value="#{gameController.game.gameOver}" />
                         </h:panelGrid>
-                        <h:outputText value="#{msg['table.player']}" escape="false"/>
+                        <h2><h:outputText value="#{msg['table.player']}" escape="false"/></h2>
                         <h:panelGrid id="playerInformation" columns="2" summary="#{msg['table.infoNameHeader']}" headerClass="label">
                             <h:outputLabel value="#{msg['table.infoName.player1']}" 
                                            for="player1Name" class="label" />
