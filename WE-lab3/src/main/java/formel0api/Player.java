@@ -106,6 +106,13 @@ public class Player {
     }
     
     /**
+     * set the exPectedPosition
+     */
+    public void setExpectedPosition(int expectedPosition) {
+        this.expectedPosition = expectedPosition;
+    }
+    
+    /**
      * Returns the position at time (now - t) (i.e., if t=0 returns the current
      * position, if t=1 returns last position, etc.)
      *

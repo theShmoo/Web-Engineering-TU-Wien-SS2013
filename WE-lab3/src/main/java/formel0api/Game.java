@@ -11,10 +11,7 @@
 package formel0api;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Locale;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -118,6 +115,8 @@ public class Game {
      */
     private int rollDiceOnePlayer(Player player) {
         
+        player.setExpectedPosition(player.getPosition());
+        computer.setExpectedPosition(computer.getPosition());
         if (gameOver) {
             throw new IllegalArgumentException(
                     "Game is over. Rolling the dice is not allowed.");
