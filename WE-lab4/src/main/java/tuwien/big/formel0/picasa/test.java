@@ -21,7 +21,7 @@ package tuwien.big.formel0.picasa;
  */
 public class test {
     public static void main(String[] args) {
-        IRaceDriverService service = new IRaceDriverServiceImpl();
+        IRaceDriverService service = IRaceDriverServiceImpl.getInstance();
         try {
             service.getRaceDrivers();
         } catch (Exception e) {

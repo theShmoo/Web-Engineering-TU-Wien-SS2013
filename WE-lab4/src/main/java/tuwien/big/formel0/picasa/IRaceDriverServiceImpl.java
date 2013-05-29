@@ -33,34 +33,50 @@ import java.util.List;
  */
 public class IRaceDriverServiceImpl implements IRaceDriverService{
 
+    private List<RaceDriver> drivers;
+    private static IRaceDriverServiceImpl instance;
+    
+    private IRaceDriverServiceImpl() {
+        
+    }
+    
+    public static IRaceDriverServiceImpl getInstance() {
+        if(instance == null) {
+            instance = new IRaceDriverServiceImpl();
+        }
+        return instance;
+    }
+    
     @Override
     public List<RaceDriver> getRaceDrivers() throws IOException, ServiceException {
-        System.out.println("Searching for all Drivers in Picasa Webalbum");
-        List<RaceDriver> drivers = new ArrayList<RaceDriver>();
-        PicasawebService service = new PicasawebService("Formel0-Racer");
+        if(drivers == null) {
+            drivers = new ArrayList<RaceDriver>();
+            System.out.println("Searching for all Drivers in Picasa Webalbum");
+            PicasawebService service = new PicasawebService("Formel0-Racer");
+            URL feedURL = new URL("https://picasaweb.google.com/data/feed/api/user/107302466601293793664");
+            //Filtering needed Elements
+            Query driverQuery = new Query(feedURL);
+            driverQuery.setStringCustomParameter("kind", "photo");
+            driverQuery.setStringCustomParameter("tag", "Driver");
 
-        URL feedURL = new URL("https://picasaweb.google.com/data/feed/api/user/107302466601293793664");
-        Query driverQuery = new Query(feedURL);
-        driverQuery.setStringCustomParameter("kind", "photo");
-        driverQuery.setStringCustomParameter("tag", "Driver");
-        
-        AlbumFeed albumFeed = service.query(driverQuery, AlbumFeed.class);
-        for(PhotoEntry photo: albumFeed.getPhotoEntries()) {
-            System.out.println(photo.getDescription().getPlainText());
-            RaceDriver driver = new RaceDriver();
-            driver.setName(photo.getDescription().getPlainText());
-            driver.setUrl(photo.getMediaThumbnails().get(0).getUrl());
-            MediaKeywords mediaKeywords = photo.getMediaKeywords();
-            if(mediaKeywords!= null) {
-                for(String tag:mediaKeywords.getKeywords()) {
-                    if(tag.startsWith("wiki:")) {
-                        driver.setWikiUrl(tag.substring(5));
+            //Retrieving Information
+            AlbumFeed albumFeed = service.query(driverQuery, AlbumFeed.class);
+            for(PhotoEntry photo: albumFeed.getPhotoEntries()) {
+                System.out.println(photo.getDescription().getPlainText());
+                RaceDriver driver = new RaceDriver();
+                driver.setName(photo.getDescription().getPlainText());
+                driver.setUrl(photo.getMediaThumbnails().get(0).getUrl());
+                MediaKeywords mediaKeywords = photo.getMediaKeywords();
+                if(mediaKeywords!= null) {
+                    for(String tag:mediaKeywords.getKeywords()) {
+                        if(tag.startsWith("wiki:")) {
+                            driver.setWikiUrl(tag.substring(5));
+                        }
                     }
                 }
+                drivers.add(driver);
             }
-            drivers.add(driver);
         }
-        
         return drivers;
     }
     
