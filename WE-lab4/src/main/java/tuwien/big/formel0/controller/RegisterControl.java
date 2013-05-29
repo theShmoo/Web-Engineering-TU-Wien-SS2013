@@ -4,6 +4,7 @@ import tuwien.big.formel0.utilities.Utility;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,7 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
 import tuwien.big.formel0.entities.Player;
-import tuwien.big.formel0.entities.RegisteredPlayerPool;
+import tuwien.big.formel0.entities.facade.PlayerDaoJPA;
 
 /**
  *
@@ -26,8 +27,7 @@ public class RegisterControl {
     private Player newplayer;
     @ManagedProperty(value = "false")
     private boolean displayterms;
-    @ManagedProperty(value = "#{rpp}")
-    private RegisteredPlayerPool rpp;
+    @EJB private PlayerDaoJPA playerFacade;
     @ManagedProperty(value = "#{false}")
     private boolean registrationsuccessful;
 
@@ -38,11 +38,14 @@ public class RegisterControl {
     }
 
     public String register() {
-        boolean success = getRpp().addPlayer(newplayer);
-
-        if (success == true) {
+        try{
+            playerFacade.create(newplayer);
             registrationsuccessful = true;
+        }catch(ServiceException e){
+            registrationsuccessful = false;
+            System.err.printf("Registration failed!\n %s \n",e);
         }
+        
         return "register";
     }
 
@@ -102,21 +105,7 @@ public class RegisterControl {
     public void setDisplayterms(boolean displayterms) {
         this.displayterms = displayterms;
     }
-
-    /**
-     * @return the rpp
-     */
-    public RegisteredPlayerPool getRpp() {
-        return rpp;
-    }
-
-    /**
-     * @param rpp the rpp to set
-     */
-    public void setRpp(RegisteredPlayerPool rpp) {
-        this.rpp = rpp;
-    }
-
+    
     /**
      * @return the registrationsuccessful
      */

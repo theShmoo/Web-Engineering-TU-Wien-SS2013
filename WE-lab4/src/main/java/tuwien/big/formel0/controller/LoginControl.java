@@ -1,5 +1,6 @@
 package tuwien.big.formel0.controller;
 
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -7,7 +8,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import tuwien.big.formel0.entities.Player;
-import tuwien.big.formel0.entities.RegisteredPlayerPool;
+import tuwien.big.formel0.entities.facade.PlayerDaoJPA;
 import tuwien.big.formel0.utilities.Utility;
 
 @ManagedBean(name = "lc")
@@ -16,8 +17,8 @@ public class LoginControl {
 
     @ManagedProperty(value = "#{player}")
     private Player player;
-    @ManagedProperty(value = "#{rpp}")
-    private RegisteredPlayerPool rpp;
+    @EJB
+    private PlayerDaoJPA playerDao;
     @ManagedProperty(value = "#{gc}")
     private GameControl gc;
     @ManagedProperty(value = "false")
@@ -44,8 +45,8 @@ public class LoginControl {
     }
 
     public String login() {
-        player = getRpp().getRegisteredPlayer(name, password);
-        
+        player = playerDao.findByNameAndPassword(name, password);
+
         if (player != null) {
             gc = new GameControl(player.getName());
 
@@ -98,20 +99,6 @@ public class LoginControl {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * @return the rpp
-     */
-    public RegisteredPlayerPool getRpp() {
-        return rpp;
-    }
-
-    /**
-     * @param rpp the rpp to set
-     */
-    public void setRpp(RegisteredPlayerPool rpp) {
-        this.rpp = rpp;
     }
 
     /**

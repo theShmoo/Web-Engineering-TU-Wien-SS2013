@@ -2,23 +2,24 @@ package tuwien.big.formel0.entities.facade;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
-import tuwien.big.formel0.entities.Player;
 
 /**
- * EntityFacade
+ * EntityDao
  *
  * @author David Pfahler
  */
-public abstract class EntityFacadeImpl<E> implements EntityFacade<E> {
+public abstract class EntityDaoJPA<E> implements EntityDao<E> {
 
     @PersistenceContext(unitName = "lab4")
     protected EntityManager em;
     protected Class<E> entityClass;
 
-    public EntityFacadeImpl() {
+    public EntityDaoJPA() {
         ParameterizedType genericSuperclass = (ParameterizedType) this
                 .getClass().getGenericSuperclass();
         this.entityClass = (Class<E>) genericSuperclass

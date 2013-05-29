@@ -1,15 +1,16 @@
 package tuwien.big.formel0.entities.facade;
 
 import java.util.List;
+import javax.ejb.Remote;
 
 /**
- * EntityFacade
+ * EntityDao
  *
  * @author David Pfahler
  * 
  * TODO comments in interfaces would be nice
  */
-public interface EntityFacade<E> {
+public interface EntityDao<E> {
 
     public void create(E e);
 
