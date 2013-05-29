@@ -15,15 +15,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="lab4" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <non-jta-data-source>java:comp/env/jdbc/lab4</non-jta-data-source>
-    <class>tuwien.big.formel0.entities.Player</class>
-    <class>tuwien.big.formel0.picasa.RaceDriver</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="lab4" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <non-jta-data-source>java:comp/env/jdbc/lab4</non-jta-data-source>
+        <class>tuwien.big.formel0.entities.Player</class>
+        <class>tuwien.big.formel0.picasa.RaceDriver</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <!-- if this is true, hibernate will print (to stdout) the SQL it executes,
+            so you can check it to ensure it's not doing anything crazy -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        </properties>
+    </persistence-unit>
 </persistence>
