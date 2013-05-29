@@ -1,23 +1,93 @@
 package tuwien.big.formel0.entities;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.NoneScoped;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import tuwien.big.formel0.picasa.RaceDriver;
 
+/**
+ * The entity of a player of the Fomel0 game
+ *
+ * @author David Pfahler
+ */
 @ManagedBean(name = "player")
 @NoneScoped
-public class Player {
+@Entity
+public class Player implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(nullable = false, length = 50)
+    @Size(max = 50)
+    @NotNull
+    @Pattern(regexp = "^[A-Za-z]+$")
     private String firstname = null;
+    @Column(nullable = false, length = 50)
+    @Size(max = 50)
+    @NotNull
+    @Pattern(regexp = "^[A-Za-z]+$")
     private String lastname = null;
+    @Column(nullable = false, length = 50)
+    @Size(max = 50)
+    @NotNull
+    @Pattern(regexp = "^[A-Za-z]+$")
     private String name = null;
+    @Column(nullable = false, length = 50)
+    @Size(max = 50)
+    @NotNull
+    @Pattern(regexp = "^((?=.*\\d)(?=.*[a-z,A-Z]).{1,})$")
     private String password = null;
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @Past
+    @NotNull
     private String birthday = null;
-    private String sex = null;
+    @Enumerated(EnumType.ORDINAL)
+    private Sex sex = null;
+    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
+    private RaceDriver avatar = null;
 
     /**
      * Creates a new instance of Player
      */
     public Player() {
+    }
+
+    /**
+     * Returns the unique id of the player
+     *
+     * @return the unique id of the player
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the unique id of the player
+     *
+     * @pre this should only use the Database!
+     * @param id the unique id of the player
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -93,14 +163,34 @@ public class Player {
     /**
      * @return the sex
      */
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
     /**
-     * @param sex the sex to set
+     * Sets a new gender of the user
+     *
+     * @param gender (MALE || FEMALE)
      */
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
+    }
+
+    /**
+     * Returns the avatar of the player
+     *
+     * @return the avatar of the player
+     */
+    public RaceDriver getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * Set a Avatar for the player
+     *
+     * @param avatar the avatar to set
+     */
+    public void setAvatar(RaceDriver avatar) {
+        this.avatar = avatar;
     }
 }

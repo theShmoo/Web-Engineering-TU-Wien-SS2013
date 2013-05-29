@@ -1,15 +1,39 @@
 package tuwien.big.formel0.picasa;
 
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import tuwien.big.formel0.entities.Player;
+
 /**
  * Represents a race driver from Picasa
+ *
  * @author pl
  *
  */
+@Entity
 public class RaceDriver {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(nullable = false, length = 50)
+    @Size(max = 50)
+    @NotNull
     private String name;
+    @Pattern(regexp = "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\?=.-]*)*\\/?$")
     private String url;
+    @Pattern(regexp = "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\?=.-]*)*\\/?$")
     private String wikiUrl;
+    @OneToMany(mappedBy = "avatar")
+    private Set<Player> players;
 
     public RaceDriver() {
     }
@@ -36,6 +60,5 @@ public class RaceDriver {
 
     public void setWikiUrl(String wikiUrl) {
         this.wikiUrl = wikiUrl;
-    }   
-
+    }
 }
