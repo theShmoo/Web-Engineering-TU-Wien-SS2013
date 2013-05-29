@@ -52,6 +52,7 @@
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
+        
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
@@ -76,6 +77,13 @@
             <artifactId>h2</artifactId>
             <version>1.3.171</version>
         </dependency>
+        
+        <dependency>
+            <groupId>javax.ejb</groupId>
+            <artifactId>ejb-api</artifactId>
+            <version>3.0</version>
+        </dependency>
+            
 
         <!-- JUNIT -->
         <dependency>

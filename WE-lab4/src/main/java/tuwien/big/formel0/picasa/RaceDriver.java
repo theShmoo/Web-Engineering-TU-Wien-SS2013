@@ -35,6 +35,14 @@ public class RaceDriver {
     @OneToMany(mappedBy = "avatar")
     private Set<Player> players;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public RaceDriver() {
     }
 
@@ -60,5 +68,13 @@ public class RaceDriver {
 
     public void setWikiUrl(String wikiUrl) {
         this.wikiUrl = wikiUrl;
+    }
+    
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 }
