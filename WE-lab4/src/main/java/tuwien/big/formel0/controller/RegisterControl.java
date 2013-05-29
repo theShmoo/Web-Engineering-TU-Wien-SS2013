@@ -4,7 +4,6 @@ import tuwien.big.formel0.utilities.Utility;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,8 +12,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
+import javax.validation.ConstraintViolationException;
 import tuwien.big.formel0.entities.Player;
-import tuwien.big.formel0.entities.facade.PlayerDaoJPA;
+import tuwien.big.formel0.entities.dao.PlayerDaoJPA;
 
 /**
  *
@@ -27,7 +27,7 @@ public class RegisterControl {
     private Player newplayer;
     @ManagedProperty(value = "false")
     private boolean displayterms;
-    @EJB private PlayerDaoJPA playerFacade;
+    private PlayerDaoJPA playerDao;
     @ManagedProperty(value = "#{false}")
     private boolean registrationsuccessful;
 
@@ -35,15 +35,16 @@ public class RegisterControl {
      * Creates a new instance of RegisterControl
      */
     public RegisterControl() {
+        playerDao = PlayerDaoJPA.getPlayDaoJPAInstance();
     }
 
     public String register() {
         try{
-            playerFacade.create(newplayer);
+            playerDao.create(newplayer);
             registrationsuccessful = true;
-        }catch(ServiceException e){
+        }catch(ConstraintViolationException e){
             registrationsuccessful = false;
-            System.err.printf("Registration failed!\n %s \n",e);
+            System.err.printf("Registration failed!\n %s \n",e.getMessage());
         }
         
         return "register";

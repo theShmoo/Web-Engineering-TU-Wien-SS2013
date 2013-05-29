@@ -1,6 +1,5 @@
 package tuwien.big.formel0.controller;
 
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -8,17 +7,16 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import tuwien.big.formel0.entities.Player;
-import tuwien.big.formel0.entities.facade.PlayerDaoJPA;
+import tuwien.big.formel0.entities.dao.PlayerDaoJPA;
 import tuwien.big.formel0.utilities.Utility;
 
 @ManagedBean(name = "lc")
 @SessionScoped
 public class LoginControl {
 
+    private PlayerDaoJPA playerDao;
     @ManagedProperty(value = "#{player}")
     private Player player;
-    @EJB
-    private PlayerDaoJPA playerDao;
     @ManagedProperty(value = "#{gc}")
     private GameControl gc;
     @ManagedProperty(value = "false")
@@ -30,6 +28,7 @@ public class LoginControl {
      * Creates a new instance of LoginControl
      */
     public LoginControl() {
+        playerDao = PlayerDaoJPA.getPlayDaoJPAInstance();
     }
 
     public String logout() {

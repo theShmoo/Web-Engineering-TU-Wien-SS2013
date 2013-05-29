@@ -1,7 +1,6 @@
-package tuwien.big.formel0.entities.facade;
+package tuwien.big.formel0.entities.dao;
 
 import java.util.List;
-import javax.ejb.Remote;
 
 /**
  * EntityDao

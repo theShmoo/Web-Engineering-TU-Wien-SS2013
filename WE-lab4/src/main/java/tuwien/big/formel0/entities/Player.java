@@ -12,10 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import tuwien.big.formel0.picasa.RaceDriver;
@@ -54,15 +51,11 @@ public class Player implements Serializable {
     @Pattern(regexp = "^((?=.*\\d)(?=.*[a-z,A-Z]).{1,})$")
     private String password = null;
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    @Past
     @NotNull
     private String birthday = null;
     @Enumerated(EnumType.ORDINAL)
     private Sex sex = null;
-    @Column(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    @NotNull
     private RaceDriver avatar = null;
 
     /**
