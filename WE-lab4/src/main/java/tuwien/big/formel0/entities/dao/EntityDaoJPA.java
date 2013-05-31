@@ -29,8 +29,6 @@ public abstract class EntityDaoJPA<E> implements EntityDao<E> {
     private String findAllQueryString;
 
     public EntityDaoJPA() {
-        
-        em = emf.createEntityManager();
 
         ParameterizedType genericSuperclass = (ParameterizedType) this
                 .getClass().getGenericSuperclass();
@@ -45,6 +43,7 @@ public abstract class EntityDaoJPA<E> implements EntityDao<E> {
 
     @Override
     public void create(E e) {
+        em = emf.createEntityManager();
         Set<ConstraintViolation<E>> violations = validator
                 .validate(e);
         if (violations.isEmpty() == false) {
@@ -54,11 +53,13 @@ public abstract class EntityDaoJPA<E> implements EntityDao<E> {
         em.getTransaction().begin();
         em.persist(e);
         em.getTransaction().commit();
+        em.close();
         System.out.printf("Created new %s!", e);
     }
 
     @Override
     public void edit(E e) {
+        em = emf.createEntityManager();
         Set<ConstraintViolation<E>> violations = validator
                 .validate(e);
         if (violations.isEmpty() == false) {
@@ -67,23 +68,32 @@ public abstract class EntityDaoJPA<E> implements EntityDao<E> {
         }
 
         em.merge(e);
+        em.close();
         System.out.printf("Edited %s!", e);
     }
 
     @Override
     public void remove(E e) {
-        em.remove(em.merge(e));
+        em = emf.createEntityManager();
+        em.remove(e);
         System.out.printf("Removed %s!", e);
+        em.close();
     }
 
     @Override
     public E findById(int id) {
-        return em.find(entityClass, id);
+        em = emf.createEntityManager();
+        E e = em.find(entityClass, id);
+        em.close();
+        return e;
     }
 
     @Override
     public List<E> findAll() {
-        return (List<E>) em
+        em = emf.createEntityManager();
+        List<E> es = (List<E>) em
                 .createQuery(this.findAllQueryString).getResultList();
+        em.close();
+        return es;
     }
 }

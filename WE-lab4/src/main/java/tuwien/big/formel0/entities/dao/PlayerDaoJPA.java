@@ -28,16 +28,18 @@ public class PlayerDaoJPA extends EntityDaoJPA<Player> {
     }
 
     public Player findByNameAndPassword(String name, String password) {
+        Player player = null;
+        em = emf.createEntityManager();
         Query q = em
                 .createQuery(this.loginQueryString);
         q.setParameter ("name", name);
         q.setParameter ("password", password);
+        
         if (q.getResultList().size() == 1){
-            return (Player)q.getResultList().get(0);
+             player = (Player)q.getResultList().get(0);
         }
-        else{
-            return null;
-        }
+        em.close();
+        return player;
         
     }
 }

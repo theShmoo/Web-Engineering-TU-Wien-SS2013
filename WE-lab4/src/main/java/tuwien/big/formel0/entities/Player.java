@@ -30,31 +30,38 @@ public class Player implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     @Column(nullable = false, length = 50)
     @Size(max = 50)
     @NotNull
     @Pattern(regexp = "^[A-Za-z]+$")
     private String firstname = null;
+    
     @Column(nullable = false, length = 50)
     @Size(max = 50)
     @NotNull
     @Pattern(regexp = "^[A-Za-z]+$")
     private String lastname = null;
+    
     @Column(nullable = false, length = 50)
     @Size(max = 50)
     @NotNull
     @Pattern(regexp = "^[A-Za-z]+$")
     private String name = null;
+    
     @Column(nullable = false, length = 50)
     @Size(max = 50)
     @NotNull
     @Pattern(regexp = "^((?=.*\\d)(?=.*[a-z,A-Z]).{1,})$")
     private String password = null;
+    
     @Column(nullable = false)
     @NotNull
     private String birthday = null;
+    
     @Enumerated(EnumType.ORDINAL)
     private Sex sex = null;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     private RaceDriver avatar = null;
 

@@ -29,25 +29,25 @@ import tuwien.big.formel0.picasa.RaceDriver;
  *
  * @author David Pfahler
  */
-public class PlayerTest extends AbstractTestInitializer{
+public class PlayerTest extends AbstractTestInitializer {
 
     private PlayerDaoJPA playerDao;
     private Player validPlayer;
     private RaceDriver avatar;
 
-    public PlayerTest(){}
+    public PlayerTest() {
+    }
 
-    @Before
+    //@Before
     public void setUp() {
         playerDao = PlayerDaoJPA.getPlayDaoJPAInstance();
-        
+
         avatar = new RaceDriver();
         avatar.setName("TestDriverName");
         avatar.setUrl("TestDriverURL");
         avatar.setWikiUrl("TestDriverWikiUrl");
-        
+
         validPlayer = new Player();
-        validPlayer.setAvatar(avatar); //TODO
         validPlayer.setFirstname("TestPlayerFirstname");
         validPlayer.setLastname("TestPlayerLastname");
         validPlayer.setName("TestPlayerName");
@@ -55,32 +55,65 @@ public class PlayerTest extends AbstractTestInitializer{
         validPlayer.setSex(Sex.MALE);
         validPlayer.setBirthday("09.08.1992");
         
+        playerDao.create(validPlayer);
+
+        if (playerDao.findByNameAndPassword("TestPlayerName", "TestPlayerPassword1") == null) {
+            throw new AssertionError("Ned sehr korrekt - Failed to create the valid Player");
+        }
     }
 
-    @After
+    //@After
     public void tearDown() {
+        
+        //playerDao.remove(validPlayer);
+        if (playerDao.findByNameAndPassword("TestPlayerName", "TestPlayerPassword1") == null) {
+            throw new AssertionError("Ned sehr korrekt");
+        }
+        
         playerDao = null;
         validPlayer = null;
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    //@Test(expected = ConstraintViolationException.class)
     public void testToPersistInvalidPlayerEntity() {
         Player player = new Player();
         playerDao.create(player);
     }
-    
-    @Test(expected = IllegalArgumentException.class)
+
+    //@Test(expected = IllegalArgumentException.class)
     public void testToPersistNull() {
         Player player = null;
         playerDao.create(player);
     }
-    
+
     //@Test
     public void testToPersistValidPlayerEntity() {
-        
+
         playerDao.create(validPlayer);
-        
-        if (playerDao.findByNameAndPassword("TestPlayerName", "TestPlayerPassword1") == null){
+
+        if (playerDao.findByNameAndPassword("TestPlayerName", "TestPlayerPassword1") == null) {
+            throw new AssertionError("Ned sehr korrekt - Failed to create the valid Player");
+        }
+
+        playerDao.remove(validPlayer);
+
+        if (playerDao.findByNameAndPassword("TestPlayerName", "TestPlayerPassword1") != null) {
+            throw new AssertionError("Ned sehr korrekt - Failed to delete the Player after creation");
+        }
+    }
+
+    //@Test
+    public void testToLogInPlayerEntity() {
+
+        if (playerDao.findByNameAndPassword("TestPlayerName", "TestPlayerPassword1") == null) {
+            throw new AssertionError("Ned sehr korrekt");
+        }
+    }
+    
+    //@Test
+    public void testToLogInInvalidPlayerEntity() {
+
+        if (playerDao.findByNameAndPassword("WrongTestPlayerName", "WrongTestPlayerPassword1") == null) {
             throw new AssertionError("Ned sehr korrekt");
         }
     }

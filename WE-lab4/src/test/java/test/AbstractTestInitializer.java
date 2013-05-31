@@ -16,13 +16,7 @@
 
 package test;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.derby.jdbc.EmbeddedDataSource;
-import org.apache.naming.java.javaURLContextFactory;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 
 /**
  * AbstractTestInitializer
@@ -33,33 +27,33 @@ import org.junit.BeforeClass;
  */
 abstract public class AbstractTestInitializer {
 
-    @BeforeClass
+    //@BeforeClass
     public static void setUpClass() throws NamingException {
         
-        System.setProperty(Context.INITIAL_CONTEXT_FACTORY, javaURLContextFactory.class.getName());
-        System.setProperty(Context.URL_PKG_PREFIXES,
-                "org.apache.naming");
-        InitialContext ic = new InitialContext();
-
-        ic.createSubcontext("java:");
-        ic.createSubcontext("java:comp");
-        ic.createSubcontext("java:comp/env");
-        ic.createSubcontext("java:comp/env/jdbc");
-
-        EmbeddedDataSource ds = new EmbeddedDataSource();
-        ds.setDatabaseName("lab4");
-        // tell Derby to create the database if it does not already exist
-        ds.setCreateDatabase("create");
-
-        ic.bind("java:comp/env/jdbc/lab4", ds);
+//        System.setProperty(Context.INITIAL_CONTEXT_FACTORY, javaURLContextFactory.class.getName());
+//        System.setProperty(Context.URL_PKG_PREFIXES,
+//                "org.apache.naming");
+//        InitialContext ic = new InitialContext();
+//
+//        ic.createSubcontext("java:");
+//        ic.createSubcontext("java:comp");
+//        ic.createSubcontext("java:comp/env");
+//        ic.createSubcontext("java:comp/env/jdbc");
+//
+//        EmbeddedDataSource ds = new EmbeddedDataSource();
+//        ds.setDatabaseName("lab4");
+//        // tell Derby to create the database if it does not already exist
+//        ds.setCreateDatabase("create");
+//
+//        ic.bind("java:comp/env/jdbc/lab4", ds);
         
     }
 
-    @AfterClass
+    //@AfterClass
     public static void tearDownClass() throws NamingException {
         
-        InitialContext ic = new InitialContext();
-        ic.unbind("java:comp/env/jdbc/lab4");
+//        InitialContext ic = new InitialContext();
+//        ic.unbind("java:comp/env/jdbc/lab4");
         
     }
 }
