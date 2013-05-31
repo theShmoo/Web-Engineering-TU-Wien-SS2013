@@ -1,7 +1,11 @@
 package tuwien.big.formel0.entities;
 
+import java.util.ArrayList;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import tuwien.big.formel0.picasa.IRaceDriverService;
+import tuwien.big.formel0.picasa.IRaceDriverServiceImpl;
+import tuwien.big.formel0.picasa.RaceDriver;
 
 /**
  * a builtin converter for enum from JSF
@@ -14,6 +18,8 @@ import javax.faces.bean.ManagedBean;
 @ApplicationScoped
 public class Data {
 
+    IRaceDriverService raceDriverService;
+    
     /**
      * Returns all possible sexes
      * @return sexes
@@ -21,5 +27,23 @@ public class Data {
     public Sex[] getSexes() {
         return Sex.values();
     }
+    
+    public RaceDriver[] getRaceDrivers() {
+        raceDriverService = IRaceDriverServiceImpl.getInstance();
+        ArrayList<RaceDriver> drivers = null;
+        try {
+            drivers = (ArrayList<RaceDriver>) raceDriverService.getRaceDrivers();
+        } catch (Exception e) {
+            System.out.println("Error in parsing informatzion from Picasa "
+                    + "to Webapp: " + e.getMessage());
+        }
+        
+        RaceDriver[] driverArray = drivers.toArray(new RaceDriver[drivers.size()]);
+        
+        return driverArray;
+        
+    }
+    
+    
 
 }
