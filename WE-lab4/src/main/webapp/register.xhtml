@@ -40,6 +40,7 @@
                                 <f:selectItems value="#{data.sexes}" var="sex"   
                                                itemValue="#{sex}" itemLabel="#{msg[sex.label]}"/>
                             </h:selectOneMenu>
+                            <h:messages id="sex_messages" class="validation_error" for="sex" showDetail="true" showSummary="false"/>
                             
                             <h:outputLabel class="registerform" for="driver" value="#{msg.driver}" />
                             <h:selectOneMenu label="#{msg.driver}" id="driver" value="#{rc.newplayer.avatar}" tabindex="6">
