@@ -7,11 +7,12 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * EntityDao
@@ -19,6 +20,9 @@ import javax.validation.Validator;
  * @author David Pfahler
  */
 public abstract class EntityDaoJPA<E> implements EntityDao<E> {
+    
+    /** Define a logger */
+    private static final Logger log = LoggerFactory.getLogger(EntityDaoJPA.class);
 
     protected static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("lab4");
     protected static final Validator validator = Validation
@@ -38,7 +42,7 @@ public abstract class EntityDaoJPA<E> implements EntityDao<E> {
         this.findAllQueryString = "SELECT e FROM "
                 + this.entityClass.getSimpleName() + " e";
 
-        System.out.printf("Created new Entity: %s \n", this.entityClass);
+        log.info("Created new Entity: {}", this.entityClass);
     }
 
     @Override
@@ -54,7 +58,7 @@ public abstract class EntityDaoJPA<E> implements EntityDao<E> {
         em.persist(e);
         em.getTransaction().commit();
         em.close();
-        System.out.printf("Created new %s!", e);
+        log.info("Persisted {}", e);
     }
 
     @Override
@@ -69,14 +73,14 @@ public abstract class EntityDaoJPA<E> implements EntityDao<E> {
 
         em.merge(e);
         em.close();
-        System.out.printf("Edited %s!", e);
+        log.info("Edited {}", e);
     }
 
     @Override
     public void remove(E e) {
         em = emf.createEntityManager();
         em.remove(e);
-        System.out.printf("Removed %s!", e);
+        log.info("Removed {}", e);
         em.close();
     }
 
@@ -84,6 +88,7 @@ public abstract class EntityDaoJPA<E> implements EntityDao<E> {
     public E findById(int id) {
         em = emf.createEntityManager();
         E e = em.find(entityClass, id);
+        log.info("Found by id \"{}\" the entity {}",id,e);
         em.close();
         return e;
     }
@@ -93,6 +98,7 @@ public abstract class EntityDaoJPA<E> implements EntityDao<E> {
         em = emf.createEntityManager();
         List<E> es = (List<E>) em
                 .createQuery(this.findAllQueryString).getResultList();
+        log.info("Found all entities: {}",es);
         em.close();
         return es;
     }
