@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://playground.big.tuwien.ac.at:8080/highscore/" uri="wsdl/playground.big.tuwien.ac.at_8080/highscore/index"/>
+    <system systemId="http://playground.big.tuwien.ac.at:8080/highscore/PublishHighScoreService" uri="wsdl/playground.big.tuwien.ac.at_8080/highscore/publishhighscoreservice.xml"/>
+    <system systemId="http://playground.big.tuwien.ac.at:8080/highscore/PublishHighScoreService?wsdl" uri="wsdl/playground.big.tuwien.ac.at_8080/highscore/PublishHighScoreService.wsdl"/>
+    <system systemId="http://playground.big.tuwien.ac.at:8080/highscore/PublishHighScoreService?xsd=2" uri="wsdl/playground.big.tuwien.ac.at_8080/highscore/PublishHighScoreService.xsd_2.xsd"/>
+    <system systemId="http://playground.big.tuwien.ac.at:8080/highscore/PublishHighScoreService?xsd=1" uri="wsdl/playground.big.tuwien.ac.at_8080/highscore/PublishHighScoreService.xsd_1.xsd"/>
+</catalog>
