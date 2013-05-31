@@ -6,7 +6,6 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.WebServiceRef;
 import tuwien.big.formel0.soap.*;
 import tuwien.big.formel0.entities.Player;
@@ -29,11 +28,9 @@ public class HighScoreServiceImpl implements IHighScoreService {
     
     @Override
     public String publishHighScore(Game game, Player player) {
-        
         if(game==null || player==null){
             throw new IllegalArgumentException("Die Werte zum publishen waren null");
         }
-        
         HighScoreRequestType highScoreRequest = new ObjectFactory().createHighScoreRequestType();
         highScoreRequest.setUserKey("34EphAp2C4ebaswu");
 
