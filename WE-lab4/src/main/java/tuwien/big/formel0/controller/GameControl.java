@@ -5,6 +5,7 @@ import javax.faces.bean.SessionScoped;
 import formel0api.Game;
 import formel0api.Player;
 import java.util.concurrent.TimeUnit;
+import tuwien.big.formel0.picasa.RaceDriver;
 
 @ManagedBean(name = "gc")
 @SessionScoped
@@ -17,22 +18,24 @@ public class GameControl {
     int computerscore = 0;
     int round = 1;
     String playername;
+    RaceDriver raceDriver;
 
     public GameControl() {
-        this("Susi");
+        this("Susi", null);
     }
 
     /**
      * Initializes a new game.
      */
-    public GameControl(String playername) {
+    public GameControl(String playername, RaceDriver raceDriver) {
         this.playername = playername;
+        this.raceDriver = raceDriver;
         init();
     }
 
     public void init() {
-        player = new Player(playername);
-        computer = new Player("Deep Blue");
+        player = new Player(playername, raceDriver);
+        computer = new Player("Deep Blue", raceDriver);
         this.game = new Game(player, computer);
         round = 1;
     }

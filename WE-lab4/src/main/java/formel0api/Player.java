@@ -12,6 +12,7 @@ package formel0api;
 
 import java.util.ArrayList;
 import java.util.List;
+import tuwien.big.formel0.picasa.RaceDriver;
 
 /**
  * Class representing a player playing in a {@link Game}.
@@ -27,6 +28,10 @@ public class Player {
      */
     private String name;
     /**
+     * The current RaceDriver with name picture and link
+     */
+    private RaceDriver raceDriver;
+    /**
      * The current position of the user's car
      */
     private int position = 0;
@@ -37,9 +42,10 @@ public class Player {
      *
      * @param name to set
      */
-    public Player(String name) {
+    public Player(String name, RaceDriver raceDriver) {
         super();
         this.name = name;
+        this.raceDriver = raceDriver;
         setPosition(0);
     }
 
@@ -71,6 +77,10 @@ public class Player {
         history.add(new Integer(pos));
     }
 
+    public RaceDriver getRaceDriver() {
+        return raceDriver;
+    }
+    
     /**
      * Returns the position at time (now - t) (i.e., if t=0 returns the current
      * position, if t=1 returns last position, etc.)
