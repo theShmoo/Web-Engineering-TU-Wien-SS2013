@@ -34,7 +34,7 @@ import tuwien.big.formel0.picasa.RaceDriver;
  *
  * @author Johannski
  */
-@FacesConverter(forClass=tuwien.big.formel0.picasa.RaceDriver.class)
+@FacesConverter(forClass = tuwien.big.formel0.picasa.RaceDriver.class)
 public class RaceDriverConverter implements Converter {
 
     @Override
@@ -43,25 +43,19 @@ public class RaceDriverConverter implements Converter {
         //int input = Integer.getInteger(string);
         IRaceDriverService rds = IRaceDriverServiceImpl.getInstance();
         /*try {
-            ArrayList<RaceDriver> drivers =(ArrayList<RaceDriver>) rds.getRaceDrivers();
-            for(RaceDriver driver : drivers) {
-                if(driver.getId() == input) {
-                    return driver;
-                }
-            }
-        } catch(Exception e) {
-            System.out.println("Error in Covertion: " +e.getMessage());
-            return null;
-        }*/
+         ArrayList<RaceDriver> drivers =(ArrayList<RaceDriver>) rds.getRaceDrivers();
+         for(RaceDriver driver : drivers) {
+         if(driver.getId() == input) {
+         return driver;
+         }
+         }
+         } catch(Exception e) {
+         System.out.println("Error in Covertion: " +e.getMessage());
+         return null;
+         }*/
         //TODO Away with that
         ArrayList<RaceDriver> drivers = null;
-        try {
-            drivers = (ArrayList<RaceDriver>) rds.getRaceDrivers();
-        } catch (IOException ex) {
-            Logger.getLogger(RaceDriverConverter.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ServiceException ex) {
-            Logger.getLogger(RaceDriverConverter.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        drivers = (ArrayList<RaceDriver>) rds.getRaceDrivers();
         return new RaceDriver();
         //return null;
     }
@@ -69,13 +63,12 @@ public class RaceDriverConverter implements Converter {
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object o) throws ConverterException {
         System.out.println("Converter got called- Convert to Sting");
-        if(o!= null) {
-            if(o.getClass().equals(RaceDriver.class)) {
-                RaceDriver driver = (RaceDriver)o;
+        if (o != null) {
+            if (o.getClass().equals(RaceDriver.class)) {
+                RaceDriver driver = (RaceDriver) o;
                 return String.valueOf(driver.getId());
             }
         }
         return "0";
     }
-    
 }

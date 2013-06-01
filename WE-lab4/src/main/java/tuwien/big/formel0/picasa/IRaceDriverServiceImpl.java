@@ -20,37 +20,49 @@ import com.google.gdata.client.photos.PicasawebService;
 import com.google.gdata.data.media.mediarss.MediaKeywords;
 import com.google.gdata.data.photos.AlbumFeed;
 import com.google.gdata.data.photos.PhotoEntry;
-import com.google.gdata.data.photos.UserFeed;
 import com.google.gdata.util.ServiceException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
+import tuwien.big.formel0.entities.dao.PlayerDaoJPA;
+import tuwien.big.formel0.entities.dao.RaceDriverDaoJPA;
 
 /**
  *
  * @author Johannski
  */
-public class IRaceDriverServiceImpl implements IRaceDriverService{
+public class IRaceDriverServiceImpl implements IRaceDriverService {
 
-    private List<RaceDriver> drivers;
     private static IRaceDriverServiceImpl instance;
-    
+    private static RaceDriverDaoJPA raceDriverDao;
+    /**
+     * Define a logger
+     */
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(IRaceDriverServiceImpl.class);
+
     private IRaceDriverServiceImpl() {
-        
+        raceDriverDao = RaceDriverDaoJPA.getRaceDriverDaoJPAInstance();
+        getRaceDriversFromPicasa();
     }
-    
+
     public static IRaceDriverServiceImpl getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new IRaceDriverServiceImpl();
         }
         return instance;
     }
-    
+
     @Override
-    public List<RaceDriver> getRaceDrivers() throws IOException, ServiceException {
-        if(drivers == null) {
-            drivers = new ArrayList<RaceDriver>();
+    public List<RaceDriver> getRaceDrivers() {
+        return raceDriverDao.findAll();
+    }
+
+    private void getRaceDriversFromPicasa() {
+
+        try {
             System.out.println("Searching for all Drivers in Picasa Webalbum");
             PicasawebService service = new PicasawebService("Formel0-Racer");
             URL feedURL = new URL("https://picasaweb.google.com/data/feed/api/user/107302466601293793664");
@@ -61,23 +73,27 @@ public class IRaceDriverServiceImpl implements IRaceDriverService{
 
             //Retrieving Information
             AlbumFeed albumFeed = service.query(driverQuery, AlbumFeed.class);
-            for(PhotoEntry photo: albumFeed.getPhotoEntries()) {
+            for (PhotoEntry photo : albumFeed.getPhotoEntries()) {
                 System.out.println(photo.getDescription().getPlainText());
                 RaceDriver driver = new RaceDriver();
                 driver.setName(photo.getDescription().getPlainText());
                 driver.setUrl(photo.getMediaThumbnails().get(0).getUrl());
                 MediaKeywords mediaKeywords = photo.getMediaKeywords();
-                if(mediaKeywords!= null) {
-                    for(String tag:mediaKeywords.getKeywords()) {
-                        if(tag.startsWith("wiki:")) {
+                if (mediaKeywords != null) {
+                    for (String tag : mediaKeywords.getKeywords()) {
+                        if (tag.startsWith("wiki:")) {
                             driver.setWikiUrl(tag.substring(5));
                         }
                     }
                 }
-                drivers.add(driver);
+                raceDriverDao.create(driver);
             }
+        } catch (IOException ex) {
+            log.debug("Error in parsing information from Picasa "
+                    + "to Webapp: " + ex.getMessage());
+        } catch (ServiceException ex) {
+            log.debug("Error in parsing information from Picasa "
+                    + "to Webapp: " + ex.getMessage());
         }
-        return drivers;
     }
-    
 }

@@ -9,7 +9,7 @@ import tuwien.big.formel0.picasa.RaceDriver;
 
 /**
  * a builtin converter for enum from JSF
- * 
+ *
  * @author Lukas Kraenkl
  * @author David Pfahler
  * @author Johannes Deml
@@ -19,31 +19,24 @@ import tuwien.big.formel0.picasa.RaceDriver;
 public class Data {
 
     IRaceDriverService raceDriverService;
-    
+
     /**
      * Returns all possible sexes
+     *
      * @return sexes
      */
     public Sex[] getSexes() {
         return Sex.values();
     }
-    
+
     public RaceDriver[] getRaceDrivers() {
         raceDriverService = IRaceDriverServiceImpl.getInstance();
         ArrayList<RaceDriver> drivers = null;
-        try {
-            drivers = (ArrayList<RaceDriver>) raceDriverService.getRaceDrivers();
-        } catch (Exception e) {
-            System.out.println("Error in parsing informatzion from Picasa "
-                    + "to Webapp: " + e.getMessage());
-        }
-        
-        RaceDriver[] driverArray = drivers.toArray(new RaceDriver[drivers.size()]);
-        
-        return driverArray;
-        
-    }
-    
-    
+        drivers = (ArrayList<RaceDriver>) raceDriverService.getRaceDrivers();
 
+        RaceDriver[] driverArray = drivers.toArray(new RaceDriver[drivers.size()]);
+
+        return driverArray;
+
+    }
 }

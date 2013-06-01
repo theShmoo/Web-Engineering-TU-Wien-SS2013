@@ -13,5 +13,5 @@ import com.google.gdata.util.ServiceException;
  */
 public interface IRaceDriverService {
 
-    public List<RaceDriver> getRaceDrivers() throws IOException, ServiceException;
+    public List<RaceDriver> getRaceDrivers();
 }
