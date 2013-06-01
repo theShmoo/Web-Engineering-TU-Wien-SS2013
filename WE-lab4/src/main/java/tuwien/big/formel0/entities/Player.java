@@ -62,7 +62,7 @@ public class Player implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private Sex sex = null;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private RaceDriver avatar = null;
 
     /**

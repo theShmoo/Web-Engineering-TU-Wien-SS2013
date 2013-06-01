@@ -47,7 +47,7 @@ public class LoginControl {
         player = playerDao.findByNameAndPassword(name, password);
 
         if (player != null) {
-            gc = new GameControl(player.getName(), player.getAvatar());
+            gc = new GameControl(player.getName(), player.getAvatar().getWikiUrl(), player.getAvatar().getUrl());
 
             return "table";
         } else {

@@ -18,24 +18,26 @@ public class GameControl {
     int computerscore = 0;
     int round = 1;
     String playername;
-    RaceDriver raceDriver;
+    private String raceDriverWiki;
+    private String raceDriverURL;
 
     public GameControl() {
-        this("Susi", null);
+        this("Susi", "", "");
     }
 
     /**
      * Initializes a new game.
      */
-    public GameControl(String playername, RaceDriver raceDriver) {
+    public GameControl(String playername, String raceDriverWiki, String raceDriverURL) {
         this.playername = playername;
-        this.raceDriver = raceDriver;
+        this.raceDriverWiki = raceDriverWiki;
+        this.raceDriverURL = raceDriverURL;
         init();
     }
 
     public void init() {
-        player = new Player(playername, raceDriver);
-        computer = new Player("Deep Blue", raceDriver);
+        player = new Player(playername, raceDriverWiki, raceDriverURL);
+        computer = new Player("Deep Blue", raceDriverWiki, raceDriverURL);
         this.game = new Game(player, computer);
         round = 1;
     }

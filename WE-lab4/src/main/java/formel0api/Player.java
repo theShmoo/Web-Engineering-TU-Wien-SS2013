@@ -30,7 +30,8 @@ public class Player {
     /**
      * The current RaceDriver with name picture and link
      */
-    private RaceDriver raceDriver;
+    private String raceDriverWiki;
+    private String raceDriverURL;
     /**
      * The current position of the user's car
      */
@@ -42,10 +43,11 @@ public class Player {
      *
      * @param name to set
      */
-    public Player(String name, RaceDriver raceDriver) {
+    public Player(String name, String raceDriverWiki, String raceDriverURL) {
         super();
         this.name = name;
-        this.raceDriver = raceDriver;
+        this.raceDriverWiki = raceDriverWiki;
+        this.raceDriverURL = raceDriverURL;
         setPosition(0);
     }
 
@@ -77,10 +79,13 @@ public class Player {
         history.add(new Integer(pos));
     }
 
-    public RaceDriver getRaceDriver() {
-        return raceDriver;
+    public String getRaceDriverWiki() {
+        return raceDriverWiki;
     }
     
+    public String getRaceDriverURL() {
+        return raceDriverURL;
+    }
     /**
      * Returns the position at time (now - t) (i.e., if t=0 returns the current
      * position, if t=1 returns last position, etc.)
