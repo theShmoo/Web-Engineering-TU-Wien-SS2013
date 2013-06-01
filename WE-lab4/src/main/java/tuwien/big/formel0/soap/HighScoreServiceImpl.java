@@ -58,7 +58,7 @@ public class HighScoreServiceImpl implements IHighScoreService {
         TournamentType.Players.Player actualPlayer = new TournamentType.Players.Player();        
         
             // Username, Geschlecht und Geburtsdatum werden übergeben
-            actualPlayer.setGender(player.getSex().getLabel());
+            actualPlayer.setGender(player.getSex().toString());
             actualPlayer.setUsername(player.getName());
         
             SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
