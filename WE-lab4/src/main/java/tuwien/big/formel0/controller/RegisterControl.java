@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.validator.ValidatorException;
 import javax.validation.ConstraintViolationException;
+import tuwien.big.formel0.converter.RaceDriverConverter;
 import tuwien.big.formel0.entities.Player;
 import tuwien.big.formel0.entities.dao.PlayerDaoJPA;
 
@@ -30,12 +31,15 @@ public class RegisterControl {
     private PlayerDaoJPA playerDao;
     @ManagedProperty(value = "#{false}")
     private boolean registrationsuccessful;
+    
+    RaceDriverConverter rdConverter;
 
     /**
      * Creates a new instance of RegisterControl
      */
     public RegisterControl() {
         playerDao = PlayerDaoJPA.getPlayDaoJPAInstance();
+        rdConverter = new RaceDriverConverter();
     }
 
     public String register() {
@@ -119,5 +123,9 @@ public class RegisterControl {
      */
     public void setRegistrationsuccessful(boolean registrationsuccessful) {
         this.registrationsuccessful = registrationsuccessful;
+    }
+    
+    public RaceDriverConverter getRaaceDriverConverter() {
+        return rdConverter;
     }
 }
