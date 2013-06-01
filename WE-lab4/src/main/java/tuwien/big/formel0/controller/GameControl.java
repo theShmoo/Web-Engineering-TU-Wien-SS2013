@@ -27,8 +27,8 @@ public class GameControl {
     private int playerscore = 0;
     private int computerscore = 0;
     private int round = 1;
-    private boolean error = false;
-    private String errorMsg = "";
+    private boolean error;
+    private String errorMsg;
 
 
     public GameControl() {
@@ -53,6 +53,8 @@ public class GameControl {
         computer = new GamePlayer("Deep Blue");
         this.game = new Game(player, computer);
         round = 1;
+        error = false;
+        errorMsg = "";
     }
 
     /**

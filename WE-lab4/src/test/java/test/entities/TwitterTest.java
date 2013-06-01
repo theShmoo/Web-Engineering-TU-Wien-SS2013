@@ -26,7 +26,7 @@ public class TwitterTest {
         msg = new TwitterStatusMessage("Funkt das wirklich ?","#YOLO",new Date());
     }
     
-    @Test
+    //@Test
     public void postAMessage() throws Exception{
         client.publishUuid(msg);
     }
