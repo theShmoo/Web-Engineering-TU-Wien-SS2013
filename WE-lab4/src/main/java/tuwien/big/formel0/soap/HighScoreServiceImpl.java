@@ -56,21 +56,22 @@ public class HighScoreServiceImpl implements IHighScoreService {
         TournamentType.Players tplayers = universalFactory.createTournamentTypePlayers();
 
         // Tournament -> Players -> GamePlayer
-        TournamentType.Players.Player actualPlayer = new TournamentType.Players.Player();
-
-        // Username, Geschlecht und Geburtsdatum werden übergeben
-        actualPlayer.setGender(player.getSex().toString());
-        actualPlayer.setUsername(player.getName());
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        GregorianCalendar date = null;
-        try {
-            date = (GregorianCalendar) GregorianCalendar.getInstance();
-            date.setTime(sdf.parse(player.getBirthday()));
-        } catch (ParseException ex) {
-            // do nothing
-        }
-        actualPlayer.setDateOfBirth(new XMLGregorianCalendarImpl(date));
+        TournamentType.Players.Player actualPlayer = new TournamentType.Players.Player();        
+        
+            // Username, Geschlecht und Geburtsdatum werden übergeben
+            actualPlayer.setGender(player.getSex().toString());
+            actualPlayer.setUsername(player.getName());
+        
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            GregorianCalendar date = null;
+            try {
+                date = (GregorianCalendar) GregorianCalendar.getInstance();
+                date.setTime(sdf.parse(player.getBirthday()));
+            } catch (ParseException ex) {
+                // do nothing
+            }
+            actualPlayer.setDateOfBirth(new XMLGregorianCalendarImpl(date));
+            
 
         tplayers.getPlayer().add(actualPlayer);
         tt.setPlayers(tplayers);
