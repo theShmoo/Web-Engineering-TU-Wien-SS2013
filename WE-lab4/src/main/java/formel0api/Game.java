@@ -17,13 +17,13 @@ public class Game {
 
     private static final int LAST_FIELD = 6;
     /**
-     * Player playing the game
+     * GamePlayer playing the game
      */
-    private Player player;
+    private GamePlayer player;
     /**
      * Computer opponent
      */
-    private Player computer;
+    private GamePlayer computer;
     /**
      * Dice that is used in this game
      */
@@ -46,7 +46,7 @@ public class Game {
     /**
      * Constructs a new {@link Game}
      */
-    public Game(Player player, Player computer) {
+    public Game(GamePlayer player, GamePlayer computer) {
         this.player = player;
         this.computer = computer;
     }
@@ -77,10 +77,10 @@ public class Game {
      * Rolls the dice for the player and updates the position of the player's
      * car according to the score
      *
-     * @param player Player who rolls the dice
+     * @param player GamePlayer who rolls the dice
      * @return score
      */
-    public int rollthedice(Player player) {
+    public int rollthedice(GamePlayer player) {
         if (gameOver) {
             throw new IllegalArgumentException(
                     "Game is over. Rolling the dice is not allowed.");
@@ -119,7 +119,7 @@ public class Game {
      *
      * @return the currently leading player
      */
-    public Player getLeader() {
+    public GamePlayer getLeader() {
         if (player.getPosition() > computer.getPosition()) {
             return player;
         } else if (computer.getPosition() > player.getPosition()) {
@@ -134,7 +134,7 @@ public class Game {
      *
      * @return player
      */
-    public Player getPlayer() {
+    public GamePlayer getPlayer() {
         return player;
     }
 
@@ -143,7 +143,7 @@ public class Game {
      *
      * @return computer
      */
-    public Player getComputer() {
+    public GamePlayer getComputer() {
         return computer;
     }
 }

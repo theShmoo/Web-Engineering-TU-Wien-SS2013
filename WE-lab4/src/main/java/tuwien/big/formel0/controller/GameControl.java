@@ -3,16 +3,19 @@ package tuwien.big.formel0.controller;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import formel0api.Game;
-import formel0api.Player;
+import formel0api.GamePlayer;
 import java.util.concurrent.TimeUnit;
+import tuwien.big.formel0.entities.Player;
 import tuwien.big.formel0.picasa.RaceDriver;
+import tuwien.big.formel0.soap.HighScoreServiceImpl;
 
 @ManagedBean(name = "gc")
 @SessionScoped
 public class GameControl {
 
-    Player player;
-    Player computer;
+    GamePlayer player;
+    GamePlayer computer;
+    Player entityPlayer;
     Game game;
     int playerscore = 0;
     int computerscore = 0;
@@ -22,22 +25,25 @@ public class GameControl {
     private String raceDriverURL;
 
     public GameControl() {
-        this("Susi", "", "");
+        player = new GamePlayer("Susi");
+        init();
     }
 
     /**
      * Initializes a new game.
      */
-    public GameControl(String playername, String raceDriverWiki, String raceDriverURL) {
-        this.playername = playername;
-        this.raceDriverWiki = raceDriverWiki;
-        this.raceDriverURL = raceDriverURL;
+    public GameControl(Player player) {
+        this.entityPlayer = player;
         init();
     }
 
     public void init() {
-        player = new Player(playername, raceDriverWiki, raceDriverURL);
-        computer = new Player("Deep Blue", raceDriverWiki, raceDriverURL);
+        if (entityPlayer != null) {
+            player = new GamePlayer(entityPlayer.getName(), 
+                    entityPlayer.getAvatar().getWikiUrl(), 
+                    entityPlayer.getAvatar().getUrl());
+        }
+        computer = new GamePlayer("Deep Blue");
         this.game = new Game(player, computer);
         round = 1;
     }
@@ -79,7 +85,7 @@ public class GameControl {
      *
      * @return the currently leading player
      */
-    public Player getLeader() {
+    public GamePlayer getLeader() {
         return game.getLeader();
     }
 
@@ -97,8 +103,12 @@ public class GameControl {
             this.computerscore = 0;
         }
         ++round;
+        if (isGameOver()) {
+            HighScoreServiceImpl.getInstance().publishHighScore(game, entityPlayer);
+        }
+
     }
-    
+
     /**
      * Returns the score thrown by the player
      *
@@ -131,7 +141,7 @@ public class GameControl {
      *
      * @return player 1 of the game
      */
-    public Player getPlayer1() {
+    public GamePlayer getPlayer1() {
         return this.player;
     }
 
@@ -140,7 +150,7 @@ public class GameControl {
      *
      * @return player 2 of the game
      */
-    public Player getPlayer2() {
+    public GamePlayer getPlayer2() {
         return this.computer;
     }
 }

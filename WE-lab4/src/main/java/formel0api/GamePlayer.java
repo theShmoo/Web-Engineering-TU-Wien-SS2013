@@ -12,12 +12,11 @@ package formel0api;
 
 import java.util.ArrayList;
 import java.util.List;
-import tuwien.big.formel0.picasa.RaceDriver;
 
 /**
  * Class representing a player playing in a {@link Game}.
  */
-public class Player {
+public class GamePlayer {
 
     /**
      * History of the positions of the player
@@ -38,16 +37,22 @@ public class Player {
     private int position = 0;
 
     /**
-     * Initializes a {@link Player} with the specified
+     * Initializes a {@link GamePlayer} with the specified
      * <code>name</code>.
      *
      * @param name to set
      */
-    public Player(String name, String raceDriverWiki, String raceDriverURL) {
+    public GamePlayer(String name, String raceDriverWiki, String raceDriverURL) {
         super();
         this.name = name;
         this.raceDriverWiki = raceDriverWiki;
         this.raceDriverURL = raceDriverURL;
+        setPosition(0);
+    }
+
+    public GamePlayer(String computerPlayer) {
+        super();
+        this.name = computerPlayer;
         setPosition(0);
     }
 

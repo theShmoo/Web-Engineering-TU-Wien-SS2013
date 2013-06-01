@@ -18,12 +18,20 @@ public class HighScoreServiceImpl implements IHighScoreService {
 
     @WebServiceRef(wsdlLocation = "http://playground.big.tuwien.ac.at:8080/highscore/PublishHighScoreService?wsdl")
     private static PublishHighScoreService service;
+    private static HighScoreServiceImpl instance;
 
     /**
      * Creates a new HighScoreServiceImpl
      */
     public HighScoreServiceImpl() {
         service = new PublishHighScoreService();
+    }
+    
+    public static HighScoreServiceImpl getInstance(){
+        if(instance == null){
+            instance = new HighScoreServiceImpl();
+        }
+        return instance;
     }
     
     @Override
@@ -46,7 +54,7 @@ public class HighScoreServiceImpl implements IHighScoreService {
         // Tournament -> Players
         TournamentType.Players tplayers = universalFactory.createTournamentTypePlayers();
         
-        // Tournament -> Players -> Player
+        // Tournament -> Players -> GamePlayer
         TournamentType.Players.Player actualPlayer = new TournamentType.Players.Player();        
         
             // Username, Geschlecht und Geburtsdatum werden übergeben
