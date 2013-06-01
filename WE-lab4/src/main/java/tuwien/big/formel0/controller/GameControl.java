@@ -4,25 +4,32 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import formel0api.Game;
 import formel0api.GamePlayer;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tuwien.big.formel0.entities.Player;
 import tuwien.big.formel0.picasa.RaceDriver;
+import tuwien.big.formel0.soap.Failure;
 import tuwien.big.formel0.soap.HighScoreServiceImpl;
+import tuwien.big.formel0.twitter.TwitterClientImpl;
+import tuwien.big.formel0.twitter.TwitterStatusMessage;
+import twitter4j.TwitterException;
 
 @ManagedBean(name = "gc")
 @SessionScoped
 public class GameControl {
 
-    GamePlayer player;
-    GamePlayer computer;
-    Player entityPlayer;
-    Game game;
-    int playerscore = 0;
-    int computerscore = 0;
-    int round = 1;
-    String playername;
-    private String raceDriverWiki;
-    private String raceDriverURL;
+    private GamePlayer player;
+    private GamePlayer computer;
+    private Player entityPlayer;
+    private Game game;
+    private int playerscore = 0;
+    private int computerscore = 0;
+    private int round = 1;
+    private boolean error = false;
+    private String errorMsg = "";
+
 
     public GameControl() {
         player = new GamePlayer("Susi");
@@ -39,8 +46,8 @@ public class GameControl {
 
     public void init() {
         if (entityPlayer != null) {
-            player = new GamePlayer(entityPlayer.getName(), 
-                    entityPlayer.getAvatar().getWikiUrl(), 
+            player = new GamePlayer(entityPlayer.getName(),
+                    entityPlayer.getAvatar().getWikiUrl(),
                     entityPlayer.getAvatar().getUrl());
         }
         computer = new GamePlayer("Deep Blue");
@@ -104,16 +111,28 @@ public class GameControl {
         }
         ++round;
         if (isGameOver()) {
-            HighScoreServiceImpl.getInstance().publishHighScore(game, entityPlayer);
+            try {
+                String uuid = HighScoreServiceImpl.getInstance().publishHighScore(game, entityPlayer);
+                TwitterClientImpl client = new TwitterClientImpl();
+                TwitterStatusMessage msg = new TwitterStatusMessage(entityPlayer.getName(), uuid, new Date());
+                client.publishUuid(msg);
+            } catch (TwitterException ex) {
+                error = true;
+                errorMsg = "errorTwitter";
+            } catch (Failure ex) {
+                error = true;
+                errorMsg = "errorSoap";
+            }
         }
-
     }
 
-    /**
-     * Returns the score thrown by the player
-     *
-     * @return the score thrown by the player
-     */
+        /**
+         * Returns the score thrown by the player
+         *
+         * @return the score thrown by the player
+         */
+    
+
     public String getDiceResource() {
         return "img:wuerfel" + getPlayerScore() + ".png";
     }
@@ -152,5 +171,21 @@ public class GameControl {
      */
     public GamePlayer getPlayer2() {
         return this.computer;
+    }
+    
+    /**
+     * Returns <code>true</code> if an error occured
+     * @return <code>true</code> if an error occured
+     */
+    public boolean isError() {
+        return error;
+    }
+
+    /**
+     * Returns the error message
+     * @return the error message
+     */
+    public String getErrorMsg() {
+        return errorMsg;
     }
 }

@@ -13,7 +13,7 @@ import twitter4j.auth.RequestToken;
 public class TwitterClientImpl implements ITwitterClient{
 
     @Override
-    public void publishUuid(TwitterStatusMessage message) throws Exception {
+    public void publishUuid(TwitterStatusMessage message) throws TwitterException {
  
         Twitter tweet = new TwitterFactory().getInstance();
         try{
@@ -26,7 +26,7 @@ public class TwitterClientImpl implements ITwitterClient{
                 }
                 catch (TwitterException te){
                    if(te.getStatusCode() == 401){
-                       // logger ausgabe
+                       // TODO logger ausgabe
                    } 
                    throw te;
                 }

@@ -12,6 +12,7 @@ import tuwien.big.formel0.entities.Player;
 
 /**
  * This class publishes the highscore in the Internet
+ *
  * @author Lukas Kraenkl, David Pfahler, Johannes Deml
  */
 public class HighScoreServiceImpl implements IHighScoreService {
@@ -26,51 +27,51 @@ public class HighScoreServiceImpl implements IHighScoreService {
     public HighScoreServiceImpl() {
         service = new PublishHighScoreService();
     }
-    
-    public static HighScoreServiceImpl getInstance(){
-        if(instance == null){
+
+    public static HighScoreServiceImpl getInstance() {
+        if (instance == null) {
             instance = new HighScoreServiceImpl();
         }
         return instance;
     }
-    
+
     @Override
-    public String publishHighScore(Game game, Player player) {
-        if(game==null || player==null){
+    public String publishHighScore(Game game, Player player) throws Failure{
+        if (game == null || player == null) {
             throw new IllegalArgumentException("Die Werte zum publishen waren null");
         }
         HighScoreRequestType highScoreRequest = new ObjectFactory().createHighScoreRequestType();
         highScoreRequest.setUserKey("34EphAp2C4ebaswu");
 
         ObjectFactory universalFactory = new ObjectFactory();
-        
+
         TournamentType tt = universalFactory.createTournamentType();
-        
+
         // Fuer start-date, end-date und registration-date nehmen immer das aktuelle Datum
         tt.setStartDate(new XMLGregorianCalendarImpl(new GregorianCalendar()));
         tt.setEndDate(new XMLGregorianCalendarImpl(new GregorianCalendar()));
         tt.setRegistrationDeadline(new XMLGregorianCalendarImpl(new GregorianCalendar()));
-        
+
         // Tournament -> Players
         TournamentType.Players tplayers = universalFactory.createTournamentTypePlayers();
-        
+
         // Tournament -> Players -> GamePlayer
-        TournamentType.Players.Player actualPlayer = new TournamentType.Players.Player();        
-        
-            // Username, Geschlecht und Geburtsdatum werden übergeben
-            actualPlayer.setGender(player.getSex().getLabel());
-            actualPlayer.setUsername(player.getName());
-        
-            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-            GregorianCalendar date = null;
-            try {
-                date = (GregorianCalendar) GregorianCalendar.getInstance();
-                date.setTime(sdf.parse(player.getBirthday()));
-            } catch (ParseException ex) {
-                // do nothing
-            }
-            actualPlayer.setDateOfBirth(new XMLGregorianCalendarImpl(date));
-            
+        TournamentType.Players.Player actualPlayer = new TournamentType.Players.Player();
+
+        // Username, Geschlecht und Geburtsdatum werden übergeben
+        actualPlayer.setGender(player.getSex().toString());
+        actualPlayer.setUsername(player.getName());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        GregorianCalendar date = null;
+        try {
+            date = (GregorianCalendar) GregorianCalendar.getInstance();
+            date.setTime(sdf.parse(player.getBirthday()));
+        } catch (ParseException ex) {
+            // do nothing
+        }
+        actualPlayer.setDateOfBirth(new XMLGregorianCalendarImpl(date));
+
         tplayers.getPlayer().add(actualPlayer);
         tt.setPlayers(tplayers);
 
@@ -84,11 +85,11 @@ public class HighScoreServiceImpl implements IHighScoreService {
         GameType game1 = universalFactory.createGameType();
         game1.setDate(new XMLGregorianCalendarImpl(new GregorianCalendar()));
         game1.setStatus("finished");
-        
+
         // Duration ist die Anzahl in Sekunden, die während des Spiels verstrichen sind
         Long tmp = game.getSpentTime() / 1000;
         game1.setDuration(BigInteger.valueOf(tmp));
-        
+
         // Unter winner uebergeben Sie den Gewinner des Spiels (entweder 'Computer' oder Name des Spielers
         if (game.getLeader().getName().equals(player.getName())) {
             game1.setWinner(player.getName());
@@ -107,19 +108,11 @@ public class HighScoreServiceImpl implements IHighScoreService {
         rounds.getRound().add(round);
         tt.setRounds(rounds);
         tt.setDescription(universalFactory.createDescriptionType());
-        
+
         highScoreRequest.setTournament(tt);
 
         String uuid = null;
-        try {
-            uuid = service.getPublishHighScorePort().publishHighScore(highScoreRequest);
-            
-        } catch (Exception ex) {
-            // do nothing
-            throw new Error("Beim publishen ist etwas daneben gegangen");
-        }
+        uuid = service.getPublishHighScorePort().publishHighScore(highScoreRequest);
         return uuid;
-    
     }
-    
 }

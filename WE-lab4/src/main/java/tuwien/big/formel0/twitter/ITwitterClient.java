@@ -1,5 +1,7 @@
 package tuwien.big.formel0.twitter;
 
+import twitter4j.TwitterException;
+
 
 /**
  * Interface for Twitter clients
@@ -9,7 +11,7 @@ package tuwien.big.formel0.twitter;
 public interface ITwitterClient {
 
 	
-	public void publishUuid(TwitterStatusMessage message) throws Exception;
+	public void publishUuid(TwitterStatusMessage message) throws TwitterException;
 	
 	
 }

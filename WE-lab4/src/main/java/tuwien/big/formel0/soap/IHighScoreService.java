@@ -16,6 +16,6 @@ public interface IHighScoreService {
      * @return UUID (wichtig fuer Twitter - siehe Angabe Seite 3), null wenn Fehler aufgetreten
      * @throws IllegalArgumentException when game or player == null
      */
-     public String publishHighScore(Game game,Player player);    
+     public String publishHighScore(Game game,Player player) throws Failure;    
     
 }
