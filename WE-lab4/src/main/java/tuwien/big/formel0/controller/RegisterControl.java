@@ -125,7 +125,7 @@ public class RegisterControl {
         this.registrationsuccessful = registrationsuccessful;
     }
     
-    public RaceDriverConverter getRaaceDriverConverter() {
+    public RaceDriverConverter getRaceDriverConverter() {
         return rdConverter;
     }
 }

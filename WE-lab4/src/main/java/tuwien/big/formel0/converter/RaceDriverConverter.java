@@ -19,6 +19,8 @@ import com.google.gdata.util.ServiceException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -33,25 +35,35 @@ import tuwien.big.formel0.picasa.RaceDriver;
  * @author Johannski
  */
 @FacesConverter(forClass=tuwien.big.formel0.picasa.RaceDriver.class)
-public class RaceDriverConverter implements Converter, Serializable {
+public class RaceDriverConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) throws ConverterException {
-        System.out.println("Converter got called- Convert to Object");
+        System.out.println("Converter got called- Convert to Object: " + string);
+        //int input = Integer.getInteger(string);
         IRaceDriverService rds = IRaceDriverServiceImpl.getInstance();
-        try {
+        /*try {
             ArrayList<RaceDriver> drivers =(ArrayList<RaceDriver>) rds.getRaceDrivers();
-            RaceDriver[] driversArray = drivers.toArray(new RaceDriver[drivers.size()]);
-            for(RaceDriver driver : driversArray) {
-                if(driver.getName().equals(string)) {
+            for(RaceDriver driver : drivers) {
+                if(driver.getId() == input) {
                     return driver;
                 }
             }
         } catch(Exception e) {
             System.out.println("Error in Covertion: " +e.getMessage());
             return null;
+        }*/
+        //TODO Away with that
+        ArrayList<RaceDriver> drivers = null;
+        try {
+            drivers = (ArrayList<RaceDriver>) rds.getRaceDrivers();
+        } catch (IOException ex) {
+            Logger.getLogger(RaceDriverConverter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServiceException ex) {
+            Logger.getLogger(RaceDriverConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return new RaceDriver();
+        //return null;
     }
 
     @Override
@@ -60,11 +72,10 @@ public class RaceDriverConverter implements Converter, Serializable {
         if(o!= null) {
             if(o.getClass().equals(RaceDriver.class)) {
                 RaceDriver driver = (RaceDriver)o;
-                return driver.getName();
+                return String.valueOf(driver.getId());
             }
         }
-        System.out.println("Something went wrong. The object is:" + o.toString());
-        return "";
+        return "0";
     }
     
 }

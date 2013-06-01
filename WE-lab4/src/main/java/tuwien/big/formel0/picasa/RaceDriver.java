@@ -77,4 +77,16 @@ public class RaceDriver {
     public void setPlayers(Set<Player> players) {
         this.players = players;
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof RaceDriver && id == ((RaceDriver) other).getId();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + this.id;
+        return hash;
+    }
 }
