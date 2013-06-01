@@ -53,8 +53,9 @@
                             </tr>
                             <tr>
                                 <th id="playerImage">
-                                    <th class="label">#{lc.gc.player1.raceDriver.name}</th>
-                                    <th class="data">#{lc.gc.player1.raceDriver.id}</th>
+                                    <h:outputLink value="http://#{lc.gc.player1.raceDriverWiki}">
+                                        <h:graphicImage id="RaceDriverImage" alt="#{msg.driverImageDescription}" url="#{lc.gc.player1.raceDriverURL}" />
+                                    </h:outputLink>
                                 </th>
                             </tr>
                         </table>    	  

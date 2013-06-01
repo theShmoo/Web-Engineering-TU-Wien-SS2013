@@ -80,7 +80,7 @@ public class IRaceDriverServiceImpl implements IRaceDriverService {
                 System.out.println(photo.getDescription().getPlainText());
                 RaceDriver driver = new RaceDriver();
                 driver.setName(photo.getDescription().getPlainText());
-                driver.setUrl(photo.getMediaThumbnails().get(0).getUrl());
+                driver.setUrl(photo.getMediaThumbnails().get(1).getUrl());
                 MediaKeywords mediaKeywords = photo.getMediaKeywords();
                 if (mediaKeywords != null) {
                     for (String tag : mediaKeywords.getKeywords()) {
