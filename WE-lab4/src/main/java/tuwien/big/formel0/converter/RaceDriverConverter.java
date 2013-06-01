@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import org.slf4j.LoggerFactory;
 import tuwien.big.formel0.picasa.IRaceDriverService;
 import tuwien.big.formel0.picasa.IRaceDriverServiceImpl;
 import tuwien.big.formel0.picasa.RaceDriver;
@@ -37,32 +38,19 @@ import tuwien.big.formel0.picasa.RaceDriver;
 @FacesConverter(forClass = tuwien.big.formel0.picasa.RaceDriver.class)
 public class RaceDriverConverter implements Converter {
 
+     private static final org.slf4j.Logger log = LoggerFactory.getLogger(RaceDriverConverter.class);
+    
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) throws ConverterException {
-        System.out.println("Converter got called- Convert to Object: " + string);
-        //int input = Integer.getInteger(string);
+        log.debug("Converter got called- Convert to Object: " + string);
+        int input = Integer.parseInt(string);
         IRaceDriverService rds = IRaceDriverServiceImpl.getInstance();
-        /*try {
-         ArrayList<RaceDriver> drivers =(ArrayList<RaceDriver>) rds.getRaceDrivers();
-         for(RaceDriver driver : drivers) {
-         if(driver.getId() == input) {
-         return driver;
-         }
-         }
-         } catch(Exception e) {
-         System.out.println("Error in Covertion: " +e.getMessage());
-         return null;
-         }*/
-        //TODO Away with that
-        ArrayList<RaceDriver> drivers = null;
-        drivers = (ArrayList<RaceDriver>) rds.getRaceDrivers();
-        return new RaceDriver();
-        //return null;
+        return rds.getById(input);
     }
 
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object o) throws ConverterException {
-        System.out.println("Converter got called- Convert to Sting");
+        log.debug("Converter got called- Convert to String");
         if (o != null) {
             if (o.getClass().equals(RaceDriver.class)) {
                 RaceDriver driver = (RaceDriver) o;

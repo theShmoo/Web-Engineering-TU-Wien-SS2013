@@ -38,9 +38,7 @@ public class IRaceDriverServiceImpl implements IRaceDriverService {
 
     private static IRaceDriverServiceImpl instance;
     private static RaceDriverDaoJPA raceDriverDao;
-    /**
-     * Define a logger
-     */
+
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(IRaceDriverServiceImpl.class);
 
     private IRaceDriverServiceImpl() {
@@ -58,6 +56,11 @@ public class IRaceDriverServiceImpl implements IRaceDriverService {
     @Override
     public List<RaceDriver> getRaceDrivers() {
         return raceDriverDao.findAll();
+    }
+
+    @Override
+    public RaceDriver getById(int id) {
+         return raceDriverDao.findById(id);
     }
 
     private void getRaceDriversFromPicasa() {
