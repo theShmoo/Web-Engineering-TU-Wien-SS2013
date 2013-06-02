@@ -28,9 +28,7 @@ public class RaceDriver {
     @Size(max = 50)
     @NotNull
     private String name;
-    @Pattern(regexp = "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\?=.-]*)*\\/?$")
     private String url;
-    @Pattern(regexp = "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\?=.-]*)*\\/?$")
     private String wikiUrl;
     @OneToMany(mappedBy = "avatar")
     private Set<Player> players;

@@ -1,6 +1,7 @@
 package tuwien.big.formel0.entities;
 
 import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import tuwien.big.formel0.picasa.IRaceDriverService;
@@ -18,7 +19,12 @@ import tuwien.big.formel0.picasa.RaceDriver;
 @ApplicationScoped
 public class Data {
 
-    IRaceDriverService raceDriverService;
+    private static IRaceDriverService raceDriverService;
+
+    @PostConstruct
+    public void init() {
+        raceDriverService = IRaceDriverServiceImpl.getInstance();
+    }    
 
     /**
      * Returns all possible sexes
@@ -30,7 +36,6 @@ public class Data {
     }
 
     public RaceDriver[] getRaceDrivers() {
-        raceDriverService = IRaceDriverServiceImpl.getInstance();
         ArrayList<RaceDriver> drivers = null;
         drivers = (ArrayList<RaceDriver>) raceDriverService.getRaceDrivers();
 
