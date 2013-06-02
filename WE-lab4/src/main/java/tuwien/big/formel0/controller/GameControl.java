@@ -8,7 +8,9 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 import tuwien.big.formel0.entities.Player;
+import tuwien.big.formel0.picasa.IRaceDriverServiceImpl;
 import tuwien.big.formel0.picasa.RaceDriver;
 import tuwien.big.formel0.soap.Failure;
 import tuwien.big.formel0.soap.HighScoreServiceImpl;
@@ -20,6 +22,7 @@ import twitter4j.TwitterException;
 @SessionScoped
 public class GameControl {
 
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(GameControl.class);
     private GamePlayer player;
     private GamePlayer computer;
     private Player entityPlayer;
@@ -29,10 +32,12 @@ public class GameControl {
     private int round = 1;
     private boolean error;
     private String errorMsg;
+    private String uuid;
 
 
     public GameControl() {
         player = new GamePlayer("Susi");
+        uuid=" ";
         init();
     }
 
@@ -114,7 +119,8 @@ public class GameControl {
         ++round;
         if (isGameOver()) {
             try {
-                String uuid = HighScoreServiceImpl.getInstance().publishHighScore(game, entityPlayer);
+                uuid = HighScoreServiceImpl.getInstance().publishHighScore(game, entityPlayer);
+                log.info("UUID ist: " + uuid);
                 TwitterClientImpl client = new TwitterClientImpl();
                 TwitterStatusMessage msg = new TwitterStatusMessage(entityPlayer.getName(), uuid, new Date());
                 client.publishUuid(msg);
@@ -189,5 +195,9 @@ public class GameControl {
      */
     public String getErrorMsg() {
         return errorMsg;
+    }
+    
+    public String getUuid() {
+        return uuid;
     }
 }

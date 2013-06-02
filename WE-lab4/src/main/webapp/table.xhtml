@@ -227,11 +227,15 @@
                         }
 
                         function checkForErrors(timeoutAll) {
-                            if(#{lc.gc.error}) {
-                                console.log("Error message will be shown in " + timeoutAll);
-                                setTimeout(function() {window.alert("#{msg[lc.gc.errorMsg]}")}, timeoutAll);
+                            if(#{lc.gc.gameOver}) {
+                                if(#{lc.gc.error}) {
+                                    console.log("Error message will be shown in " + timeoutAll);
+                                    setTimeout(function() {window.alert("#{msg[lc.gc.errorMsg]}")}, timeoutAll);
+                                } else {
+                                    setTimeout(function() {window.alert("UUID " + "#{lc.gc.uuid}" + " wurde erfolgreich auf Twitter gepostet!")}, timeoutAll);
                                 }
                             }
+                         }
                         //]]>
                     </script>
                 </h:panelGroup>
