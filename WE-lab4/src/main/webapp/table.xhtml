@@ -124,14 +124,13 @@
 
                         function doAnimations() {
                             var timeoutPlayer2 = 0;
-                            if(#{lc.gc.error}) {
-                                window.alert(#{msg[lc.gc.errorMsg]});
-                            }
+                            var timeoutAll = 0;
                             if (#{lc.gc.round != 1})
                             {
                                 setPlayersToLastPosition();
                                 timeoutPlayer2 = animatePlayer1();
-                                animatePlayer2(timeoutPlayer2);
+                                timeoutAll = animatePlayer2(timeoutPlayer2);
+                                checkForErrors(timeoutAll);
                             }
                         }
 
@@ -165,6 +164,7 @@
                         }
 
                         function animatePlayer2(timeoutPlayer2) {
+                            var animationTime = 0;
                             if (#{lc.gc.computerScore == 0})
                             {
                                 $("#player2").appendTo(getFieldId(#{lc.gc.player2.getPositionMinusT(0)}));
@@ -173,10 +173,13 @@
                             {
                                 if (player2ReachedOil()) {
                                     setTimeout(doDoubleMove, timeoutPlayer2, "#player2", getFieldId(#{lc.gc.player2.getPositionMinusT(1)}), getFieldId(#{lc.gc.player2.getPositionMinusT(0)}));
+                                    animationTime = 1000+timeoutPlayer2;
                                 } else if (player2Moved()) {
                                     setTimeout(doSingleMove, timeoutPlayer2, "#player2", getFieldId(#{lc.gc.player2.getPositionMinusT(0)}));
+                                    animationTime = 400+timeoutPlayer2;
                                 }
                             }
+                            return animationTime;
                         }
 
                         function player1ReachedOil() {
@@ -223,6 +226,12 @@
                             });
                         }
 
+                        function checkForErrors(timeoutAll) {
+                            if(#{lc.gc.error}) {
+                                console.log("Error message will be shown in " + timeoutAll);
+                                setTimeout(function() {window.alert("#{msg[lc.gc.errorMsg]}")}, timeoutAll);
+                                }
+                            }
                         //]]>
                     </script>
                 </h:panelGroup>
